@@ -1,0 +1,19 @@
+Item Master Field:
+item name
+description
+code
+hsn code
+under item category group
+sub category
+make
+units
+alternative units
+gst rate
+type of supply: goods or services
+variant
+material
+gen_rate
+
+inclusive of duties & taxes
+std packing
+barcode
