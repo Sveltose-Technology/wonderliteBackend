@@ -51,7 +51,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log("DB CONNECTED SUCCEFULLY");
+    console.log("DB CONNECTED SUCCEFULLYabc");
   })
   .catch((error) => {
     console.log(error);
