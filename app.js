@@ -51,12 +51,12 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log("DB CONNECTED SUCCEFULLYabc");
+    console.log("DB CONNECTED SUCCEFULLY");
   })
   .catch((error) => {
     console.log(error);
   });
 
 app.listen(process.env.PORT || 4444, () => {
-  console.log("Example app listening on port 4444!...abcd");
+  console.log("Example app listening on port 4444!");
 });
