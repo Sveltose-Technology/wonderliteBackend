@@ -1,30 +1,45 @@
-const Brand = require("../models/brand");
+const express = require("express");
+const app = express();
+const Flashsale = require("../models/flashsale");
 
-exports.addbrand = async (req, res) => {
-  const { name, desc, sortorder, status } = req.body;
+exports.addflashsale = async (req, res) => {
+  const {
+    flashsale_title,
+    product,
+    product_price,
+    product_img,
+    description,
+    sortorder,
+    status,
+  } = req.body;
 
-  const newBrand = new Brand({
-    name: name,
-    desc: desc,
+  const newFlashsale = new Flashsale({
+    flashsale_title: flashsale_title,
+    product: product,
+    product_price: product_price,
+    product_img: product_img,
+    description: description,
     sortorder: sortorder,
     status: status,
   });
 
-  const findexist = await Brand.findOne({ name: name });
+  const findexist = await Flashsale.findOne({
+    flashsale_title: flashsale_title,
+  });
   if (findexist) {
     res.status(400).json({
       status: false,
-      msg: "Already Exists",
+      msg: "Already Exist",
       data: {},
     });
   } else {
-    newBrand
+    newFlashsale
       .save()
       .then(
         res.status(200).json({
           status: true,
           msg: "success",
-          data: newBrand,
+          data: newFlashsale,
         })
       )
       .catch((error) => {
@@ -37,14 +52,14 @@ exports.addbrand = async (req, res) => {
   }
 };
 
-exports.editbrand = async (req, res) => {
-  const findandUpdateEntry = await Brand.findOneAndUpdate(
+exports.editflashsale = async (req, res) => {
+  const findandUpdateEntry = await Flashsale.findOneAndUpdate(
     {
       _id: req.params.id,
     },
     { $set: req.body },
     { new: true }
-  );
+  ).populate("product");
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,
@@ -60,8 +75,10 @@ exports.editbrand = async (req, res) => {
   }
 };
 
-exports.viewonebrand = async (req, res) => {
-  const findone = await Brand.findOne({ _id: req.params.id });
+exports.oneflashsale = async (req, res) => {
+  const findone = await Flashsale.findOne({ _id: req.params.id }).populate(
+    "product"
+  );
   if (findone) {
     res.status(200).json({
       status: true,
@@ -77,8 +94,10 @@ exports.viewonebrand = async (req, res) => {
   }
 };
 
-exports.allbrand = async (req, res) => {
-  const findall = await Brand.find().sort({ sortorder: 1 });
+exports.allflashsale = async (req, res) => {
+  const findall = await Flashsale.find()
+    .sort({ sortorder: 1 })
+    .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
@@ -94,9 +113,11 @@ exports.allbrand = async (req, res) => {
   }
 };
 
-exports.deletebrand = async (req, res) => {
+exports.delflashsale = async (req, res) => {
   try {
-    const deleteentry = await Brand.deleteOne({ _id: req.params.id });
+    const deleteentry = await Flashsale.deleteOne({
+      _id: req.params.id,
+    }).populate("product");
     res.status(200).json({
       status: true,
       msg: "success",
