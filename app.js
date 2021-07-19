@@ -22,6 +22,11 @@ const altunit = require("./routes/altunit");
 const brand = require("./routes/brand");
 const product = require("./routes/product");
 const aboutus = require("./routes/aboutus");
+const feedback = require("./routes/feedback");
+const flashsale = require("./routes/flashsale");
+//const upload = require("./filehandler/multer");
+//const cloudinary = require("cloudinary").v2;
+//const fs = require("fs");
 
 //Use
 app.use("/api", productcategory);
@@ -36,8 +41,30 @@ app.use("/api", rate);
 app.use("/api", altunit);
 app.use("/api", brand);
 app.use("/api", product);
-app.use("/api", aboutus);
-
+app.use("/api", feedback);
+app.use("/api", flashsale);
+/*app.use("/upload-images", upload.single(image), async (req, res) => {
+  const uploader = async (path) => await cloudinary.uploads(path, "images");
+  if (req.method === "POST") {
+    const urls = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      fs.unlinkSync(path);
+    }
+    res.status(200).json({
+      msg: "image upload successfully",
+      data: urls,
+    });
+  } else {
+    res.status(400).json({
+      err: "image not uploaded",
+    });
+  }
+});
+*/
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -51,12 +78,12 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log("DB CONNECTED SUCCEFULLYabc");
+    console.log("DB CONNECTED SUCCEFULLY");
   })
   .catch((error) => {
     console.log(error);
   });
 
 app.listen(process.env.PORT || 4444, () => {
-  console.log("Example app listening on port 4444!...abcd");
+  console.log("Example app listening on port 4444!");
 });
