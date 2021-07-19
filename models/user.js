@@ -72,14 +72,13 @@ const userSchema = new Schema(
     role: {
       type: String,
       require: true,
-    },//Dealer: DL ,Distributer:Ds, Customer:CS, Technician:Tc,Retailer: RL
+    }, //Dealer: DL ,Distributer:Ds, Customer:CS, Technician:Tc,Retailer: RL
     userImage: {
       type: String,
       require: true,
-    }
-    
-    ,
-    cart: [{ type: Schema.Types.ObjectId, ref: 'product' }],
+    },
+
+    cart: [{ type: Schema.Types.ObjectId, ref: "product" }],
     sortorder: {
       type: Number,
     },
@@ -92,4 +91,3 @@ const userSchema = new Schema(
 );
 
 module.exports = mongoose.model("user", userSchema);
-////////not working
