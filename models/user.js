@@ -82,6 +82,7 @@ const userSchema = new Schema(
     sortorder: {
       type: Number,
     },
+
     status: {
       type: String,
       default: "Active",
