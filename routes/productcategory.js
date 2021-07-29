@@ -22,6 +22,9 @@ const storage = multer.diskStorage({
     }
     cb(null, path);
   },
+  // filename: function (req, file, cb) {
+  //   cb(null, new Date().toISOString() + "Productcat-" + file.originalname);
+  // },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -57,26 +60,23 @@ router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 // );
 
 router.post("/admin/upload", uploads.array("product_img"), async (req, res) => {
-  const uploader = async (path) => await cloudinary.upload(path, "product_img");
-
-  if (req.method === "POST") {
-    const urls = [];
-    const files = req.files;
-    for (const file of files) {
-      const { path } = file;
-      const newPath = await uploader(path);
-      urls.push(newPath);
-      fs.unlinkSync(path);
-    }
-
-    res.status(200).json({
-      message: "images uploaded successfully",
-      data: urls,
+  const sendimage = async (path) =>
+    await cloudinary.uploader.upload(path, function (error, result) {
+      return result.secure_url;
     });
-  } else {
-    res.status(405).json({
-      err: `${req.method} method not allowed`,
-    });
+  const urls = [];
+  const files = req.files;
+  for (const file of files) {
+    const { path } = file;
+    const newPath = await sendimage(path);
+    urls.push(newPath);
+    fs.unlinkSync(path);
+    // console.log(urls);
   }
+  res.status(200).json({
+    message: "images uploaded successfully",
+    data: urls,
+  });
 });
+
 module.exports = router;
