@@ -1,5 +1,7 @@
 const User = require("../models/user");
-
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
@@ -122,29 +124,81 @@ exports.adduser = async (req, res) => {
   }
 };
 
-// exports.mycart =async(req,res)=>{
-//   const findone = await product.findOne({_id:req.params.id})
+exports.add = function (req, res, next) {
+  const { email, product_id, qty } = req.body;
+  const qtyint = Number.parseInt(qty);
+  console.log("qty: ", qtyint);
+  User.findOneAndUpdate(
+    { email: email },
+    { $push: { cart: product_id } },
+    // { $pop: { cart: product_id } },
+    { safe: true }
+  )
+    //.populate("cart")
+    // User.findOne({ email: email })
+    .exec()
+    .then((user) => {
+      //console.log(cart);
+      //cartarray.push(product_id);
+      //console.log(newcart);
+      //cart.cart.push(product_id)
+      // User.findOneAndUpdate(
+      //   { email: email },
+      //   { $set: { cart: product_id } },
+      //   { new: true }
+      // );
+      res.status(200).json({
+        status: true,
+        user: user,
+      });
+    })
+    // const savedproduct =
+    // if (!cart && qty <= 0) {
+    //   throw new Error("Invalid request");
+    // } else if (cart) {
+    //   const indexFound = cart.items.findIndex((item) => {
+    //     return item.product_id === product_id;
+    //   });
+    //   if (indexFound !== -1 && qty <= 0) {
+    //     cart.items.splice(indexFound, 1);
+    //   } else if (indexFound !== -1) {
+    //     cart.items[indexFound].qty = cart.items[indexFound].qty + qty;
+    //   } else if (qty > 0) {
+    //     cart.items.push({
+    //       product_id: product_id,
+    //       qty: qty,
+    //     });
+    //   } else {
+    //     throw new Error("Invalid request");
+    //   }
+    //   return cart.save();
+    // } else {
+    //   const cartData = {
+    //     email: email,
+    //     items: [
+    //       {
+    //         product_id: product_id,
+    //         qty: qty,
+    //       },
+    //     ],
+    //   };
+    //   cart = new Cart(cartData);
+    //   return cart.save();
+    // }
+    //})
+    //.then((savedCart) => res.json(savedCart))
+    .catch((err) => {
+      res.send(err);
+      // let error;
+      // if (err.message === "Invalid request") {
+      //   error = new APIError(err.message, httpStatus.BAD_REQUEST, true);
+      // } else {
+      //   error = new APIError(err.message, httpStatus.NOT_FOUND);
+      // }
+      // return next(error);
+    });
+};
 
-//   function Product(options){
-//     this.id = options.id;
-//       this.name = options.name;
-//       this.cost = options.cost;
-//       this.quantity = options.quantity;
-//   }
-
-//   function Cart(){
-//     this.itmes=[]
-//   }
-//   //add product in basket
-
-//   Cart.prototype.addItem = function(options){
-//     options.quantity = 1,
-//     for (var i in this.items)
-//     if (this.items[i].id === options.id)
-
-//   }
-
-// }
 exports.login = async (req, res) => {
   const { userID, password } = req.body;
 
@@ -244,6 +298,54 @@ exports.deleteuser = async (req, res) => {
       status: false,
       msg: "error",
       error: error,
+    });
+  }
+};
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+exports.user_img = async (req, res) => {
+  const findone = await User.findOne({ _id: req.params.id });
+  if (findone) {
+    // console.log(req.params.id);
+    // console.log(req.file);
+    const response = await cloudinary.uploader.upload(req.file.path);
+    if (response) {
+      const findandUpdateEntry = await User.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { product_img: response.secure_url } },
+        { new: true }
+      );
+      if (findandUpdateEntry) {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: findandUpdateEntry,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          msg: "Image not set",
+        });
+      }
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "Error in file uploading",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "User Not Found",
     });
   }
 };

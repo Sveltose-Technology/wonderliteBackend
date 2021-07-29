@@ -50,6 +50,9 @@ const userSchema = new Schema(
     },
     gov_licence_no: {
       type: String,
+      user_img: {
+        type: String,
+      },
     },
     aadhar_no: {
       type: Number,

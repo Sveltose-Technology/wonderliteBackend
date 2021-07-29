@@ -30,6 +30,9 @@ const bundleoffer = require("./routes/bundleoffer");
 //const fs = require("fs");
 const companyfeedback = require("./routes/companyfeedback");
 const buyonegetone = require("./routes/buyonegetone");
+const bannerimage = require("./routes/banner_img");
+//const dispense = require("./routes/dispense");
+const stock_clearance = require("./routes/stock_clearance");
 
 //Use
 app.use("/api", productcategory);
@@ -49,6 +52,8 @@ app.use("/api", flashsale);
 app.use("/api", companyfeedback);
 app.use("/api", bundleoffer);
 app.use("/api", buyonegetone);
+app.use("/api", stock_clearance);
+app.use("/api", bannerimage);
 
 /*app.use("/upload-images", upload.single(image), async (req, res) => {
   const uploader = async (path) => await cloudinary.uploads(path, "images");
@@ -72,7 +77,7 @@ app.use("/api", buyonegetone);
   }
 });
 */
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Hello World!");
 });
 

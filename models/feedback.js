@@ -12,6 +12,11 @@ const feedbackSchema = new Schema(
       type: String,
       require: true,
     },
+    starrating: {
+      type: Number,
+      require: true,
+      default: 100,
+    },
     product: {
       type: Schema.Types.ObjectId,
       ref: "product",

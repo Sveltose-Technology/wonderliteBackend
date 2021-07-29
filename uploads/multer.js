@@ -1,4 +1,5 @@
 const multer = require("multer");
+const upload = multer({ storage });
 
 //specify the storage
 

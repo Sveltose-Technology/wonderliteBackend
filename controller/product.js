@@ -1,4 +1,8 @@
 const Product = require("../models/product");
+//const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+const dotenv = require("dotenv");
 
 exports.addproduct = async (req, res) => {
   const {
@@ -245,6 +249,80 @@ exports.deleteproduct = async (req, res) => {
       status: true,
       msg: "success",
       data: deleteentry,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
+    });
+  }
+};
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+exports.product_img = async (req, res) => {
+  const findone = await Product.findOne({ _id: req.params.id });
+  if (findone) {
+    // console.log(req.params.id);
+    // console.log(req.file);
+    const response = await cloudinary.uploader.upload(req.file.path);
+    if (response) {
+      const findandUpdateEntry = await Product.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { product_img: response.secure_url } },
+        { new: true }
+      );
+      if (findandUpdateEntry) {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: findandUpdateEntry,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          msg: "Image not set",
+        });
+      }
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "Error in file uploading",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "Product Not Found",
+    });
+  }
+};
+
+exports.dispense = async (req, res) => {
+  const { qty } = req.body;
+  try {
+    //console.log(req.body);
+    const getqty = await Product.findOne;
+    //({ _id: req.params.id }, { $set: req.body }, { new: true });
+
+    console.log(getqty.stock_qty);
+    const displayqty = Number(getqty.stock_qty) - Number(qty);
+    console.log(displayqty);
+    [{ $set: req.body }, { $set: req.body }, { new: true }];
+
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: getqty, //displayqty,
     });
   } catch (error) {
     res.status(400).json({
