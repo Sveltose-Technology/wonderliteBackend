@@ -58,5 +58,17 @@ router.get("/admin/productbysubcategory/:id", productbysubcategory);
 router.delete("/admin/deleteproduct/:id", deleteproduct);
 router.post("/admin/dispense/:id", dispense);
 router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
+// router.post("/destroy", (req, res) => {
+//   try {
+//     const { public_id } = req.body;
+//     if (!public_id) return res.status(400).json({ msg: "No image selected" });
+//     cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
+//       if (err) throw err;
+//       res.json({ msg: "Deleted Image" });
+//     });
+//   } catch (err) {
+//     return res.status(500).json({ msg: err.message });
+//   }
+// });
 
 module.exports = router;

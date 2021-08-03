@@ -270,8 +270,8 @@ cloudinary.config({
 exports.product_img = async (req, res) => {
   const findone = await Product.findOne({ _id: req.params.id });
   if (findone) {
-    // console.log(req.params.id);
-    // console.log(req.file);
+    console.log(req.params.id);
+    console.log(req.file);
     const response = await cloudinary.uploader.upload(req.file.path);
     if (response) {
       const findandUpdateEntry = await Product.findOneAndUpdate(
@@ -281,6 +281,7 @@ exports.product_img = async (req, res) => {
         { $set: { product_img: response.secure_url } },
         { new: true }
       );
+
       if (findandUpdateEntry) {
         res.status(200).json({
           status: true,
@@ -306,6 +307,14 @@ exports.product_img = async (req, res) => {
     });
   }
 };
+
+// const removeTmp =(path) =>{
+//   fs.unlink(path,err=>{
+//     if(err) throw err
+//   })
+// }
+
+// Delete Image
 
 exports.dispense = async (req, res) => {
   const { qty } = req.body;

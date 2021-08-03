@@ -27,6 +27,10 @@ const userSchema = new Schema(
     email: {
       type: String,
     },
+    // resetLink: {
+    //   data: String,
+    //   default: "",
+    // },
     website: {
       type: String,
     },

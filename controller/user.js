@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const product = require("../models/product");
+//const sendgrid = require("sendgrid-v3-node");
 // const myPlaintextPassword = 's0/\/\P4$$w0rD';
 // const someOtherPlaintextPassword = 'not_bacon';
 
@@ -226,6 +227,42 @@ exports.login = async (req, res) => {
       }
     }
   });
+};
+
+// exports.forgetPassword = async (req,res) =>{
+
+//   const {email} = req.body;
+// User.findOne({email},(err,user)=>{
+//    if(err || !user){
+//      return res.status(400).json({error:"User wih this email does not exist"})
+//    }
+//    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
+//     expiresIn: "365d",
+//   });
+//   const data = {
+//     from:'98710priya@gmail.com',
+//     to:email,
+//     subject:'Account Activation Link',
+//     html:`
+//     <h2>Please Click on given link to reset your password</h2>
+//     <p>${process.env.CLIENT_URL}/resetpassword/activate/${token}</p>
+//     `
+//   }
+//   return user.updateOne({resetLink:token},function(err,sucess){
+//     if(err){
+//       return res.status(400).json({error:"reset Password link"})
+//     }else
+//   })
+
+// })
+
+// }
+
+exports.forgotPassword = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new AppError("there is no user with email address", 404));
+  }
 };
 
 exports.edituser = async (req, res) => {

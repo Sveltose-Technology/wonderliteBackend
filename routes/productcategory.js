@@ -64,7 +64,7 @@ router.post("/admin/upload", uploads.array("product_img"), async (req, res) => {
     await cloudinary.uploader.upload(path, function (error, result) {
       return result.secure_url;
     });
-  const urls = [];
+  //const urls = [];
   const files = req.files;
   for (const file of files) {
     const { path } = file;
