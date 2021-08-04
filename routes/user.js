@@ -17,6 +17,8 @@ const {
   logout,
   add,
   user_img,
+  sendotp,
+  verifyotp,
 } = require("../controller/user");
 
 // if (!fs.existsSync("uploads")) {
@@ -91,6 +93,10 @@ router.post("/user/emailSend", emailSend);
 router.post("/user/changePassword", changePassword);
 
 router.post("/user/addimg/:id", uploads.single("user_img"), user_img);
+
+router.post("/user/sendotp", sendotp);
+router.post("/user/sendotp", verifyotp);
+
 // router.post("/forgot", async (req, res, next) => {
 //   const token = (await promisify(crypto.randomBytes)(20)).toString("hex");
 //   const user = users.find((u) => u.email === req.body.email);
