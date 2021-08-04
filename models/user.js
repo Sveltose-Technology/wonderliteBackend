@@ -15,6 +15,12 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
+    expireIn: {
+      type: Number,
+    },
+    code: {
+      type: String,
+    },
     pincode: {
       type: Number,
     },
@@ -50,6 +56,9 @@ const userSchema = new Schema(
     },
     gov_licence_no: {
       type: String,
+      user_img: {
+        type: String,
+      },
     },
     aadhar_no: {
       type: Number,
@@ -82,6 +91,7 @@ const userSchema = new Schema(
     sortorder: {
       type: Number,
     },
+
     status: {
       type: String,
       default: "Active",

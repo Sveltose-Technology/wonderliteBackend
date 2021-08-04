@@ -4,18 +4,18 @@ const multer = require("multer");
 const fs = require("fs");
 
 const {
-  addbrand,
-  editbrand,
-  viewonebrand,
-  allbrand,
-  deletebrand,
-  brand_img,
-} = require("../controller/brand");
-
+  addbundleoffer,
+  editbundleoffer,
+  onebundleoffer,
+  allbundleoffer,
+  delbundleoffer,
+  product_img,
+} = require("../controller/bundleoffer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log(file);
     let path = `./tempimages`;
+
     if (!fs.existsSync("tempimages")) {
       fs.mkdirSync("tempimages");
     }
@@ -40,12 +40,12 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
-//Paths
-router.post("/admin/addbrand", addbrand);
-router.post("/admin/editbrand/:id", editbrand);
-router.get("/admin/viewonebrand/:id", viewonebrand);
-router.get("/admin/allbrand", allbrand);
-router.delete("/admin/deletebrand/:id", deletebrand);
-router.post("/admin/brandimage/:id", uploads.single("brand_img"), brand_img);
+//Path
+router.post("/admin/addbundleoffer", addbundleoffer);
+router.post("/admin/editbundleoffer/:id", editbundleoffer);
+router.get("/admin/onebundleoffer/:id", onebundleoffer);
+router.get("/admin/allbundleoffer", allbundleoffer);
+router.delete("/admin/delbundleoffer/:id", delbundleoffer);
+router.post("/admin/offer_img/:id", uploads.single("product_img"), product_img);
 
 module.exports = router;

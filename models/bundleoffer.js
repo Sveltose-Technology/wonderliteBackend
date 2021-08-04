@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const feedbackSchema = new Schema(
+const bundleofferSchema = new mongoose.Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      require: true,
-    },
-    feedback: {
+    bundleoffer_title: {
       type: String,
       require: true,
-    },
-    starrating: {
-      type: Number,
-      require: true,
-      default: 100,
     },
     product: {
       type: Schema.Types.ObjectId,
       ref: "product",
       require: true,
+    },
+    product_price: {
+      type: Number,
+    },
+
+    product_qty: {
+      type: Number,
+    },
+    product_img: {
+      type: String,
+    },
+    description: {
+      type: String,
     },
     sortorder: {
       type: Number,
@@ -33,4 +36,4 @@ const feedbackSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("feedback", feedbackSchema);
+module.exports = mongoose.model("bundleoffer", bundleofferSchema);

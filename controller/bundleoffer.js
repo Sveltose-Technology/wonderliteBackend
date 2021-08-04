@@ -1,34 +1,48 @@
-const Brand = require("../models/brand");
+const Bundleoffer = require("../models/bundleoffer");
 const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
 const dotenv = require("dotenv");
 
-exports.addbrand = async (req, res) => {
-  const { name, brand_img, desc, sortorder, status } = req.body;
+exports.addbundleoffer = async (req, res) => {
+  const {
+    bundleoffer_title,
+    product,
+    product_price,
+    product_img,
+    product_qty,
+    description,
+    sortorder,
+    status,
+  } = req.body;
 
-  const newBrand = new Brand({
-    name: name,
-    brand_img: brand_img,
-    desc: desc,
+  const newBundleoffer = new Bundleoffer({
+    bundleoffer_title: bundleoffer_title,
+    product: product,
+    product_price: product_price,
+    product_img: product_img,
+    product_qty: product_qty,
+    description: description,
     sortorder: sortorder,
     status: status,
   });
 
-  const findexist = await Brand.findOne({ name: name });
+  const findexist = await Bundleoffer.findOne({
+    bundleoffer_title: bundleoffer_title,
+  });
+
   if (findexist) {
     res.status(400).json({
       status: false,
-      msg: "Already Exists",
+      msg: "Already Exist",
       data: {},
     });
   } else {
-    newBrand
+    newBundleoffer
       .save()
       .then(
         res.status(200).json({
           status: true,
           msg: "success",
-          data: newBrand,
+          data: newBundleoffer,
         })
       )
       .catch((error) => {
@@ -41,14 +55,15 @@ exports.addbrand = async (req, res) => {
   }
 };
 
-exports.editbrand = async (req, res) => {
-  const findandUpdateEntry = await Brand.findOneAndUpdate(
+exports.editbundleoffer = async (req, res) => {
+  const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
     {
       _id: req.params.id,
     },
     { $set: req.body },
     { new: true }
   );
+  //.populate("product");
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,
@@ -64,8 +79,10 @@ exports.editbrand = async (req, res) => {
   }
 };
 
-exports.viewonebrand = async (req, res) => {
-  const findone = await Brand.findOne({ _id: req.params.id });
+exports.onebundleoffer = async (req, res) => {
+  const findone = await Bundleoffer.findOne({ _id: req.params.id }).populate(
+    "product"
+  );
   if (findone) {
     res.status(200).json({
       status: true,
@@ -81,8 +98,9 @@ exports.viewonebrand = async (req, res) => {
   }
 };
 
-exports.allbrand = async (req, res) => {
-  const findall = await Brand.find().sort({ sortorder: 1 });
+exports.allbundleoffer = async (req, res) => {
+  const findall = await Bundleoffer.find().sort({ sortorder: 1 });
+  // .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
@@ -98,9 +116,12 @@ exports.allbrand = async (req, res) => {
   }
 };
 
-exports.deletebrand = async (req, res) => {
+exports.delbundleoffer = async (req, res) => {
   try {
-    const deleteentry = await Brand.deleteOne({ _id: req.params.id });
+    const deleteentry = await Bundleoffer.deleteOne({
+      _id: req.params.id,
+    });
+    //.populate("product");
     res.status(200).json({
       status: true,
       msg: "success",
@@ -123,18 +144,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-exports.brand_img = async (req, res) => {
-  const findone = await Brand.findOne({ _id: req.params.id });
+exports.product_img = async (req, res) => {
+  const findone = await Bundleoffer.findOne({ _id: req.params.id });
   if (findone) {
     console.log(req.params.id);
     console.log(req.file);
     const response = await cloudinary.uploader.upload(req.file.path);
     if (response) {
-      const findandUpdateEntry = await Brand.findOneAndUpdate(
+      const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
         {
           _id: req.params.id,
         },
-        { $set: { brand_img: response.secure_url } },
+        { $set: { product_img: response.secure_url } },
         { new: true }
       );
 
@@ -159,7 +180,7 @@ exports.brand_img = async (req, res) => {
   } else {
     res.status(400).json({
       status: false,
-      msg: "Brand image Not Found",
+      msg: "image Not Found",
     });
   }
 };
