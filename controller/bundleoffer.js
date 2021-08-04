@@ -1,4 +1,6 @@
 const Bundleoffer = require("../models/bundleoffer");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
 
 exports.addbundleoffer = async (req, res) => {
   const {
@@ -130,6 +132,55 @@ exports.delbundleoffer = async (req, res) => {
       status: false,
       msg: "error",
       error: error,
+    });
+  }
+};
+
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+exports.product_img = async (req, res) => {
+  const findone = await Bundleoffer.findOne({ _id: req.params.id });
+  if (findone) {
+    console.log(req.params.id);
+    console.log(req.file);
+    const response = await cloudinary.uploader.upload(req.file.path);
+    if (response) {
+      const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        { $set: { product_img: response.secure_url } },
+        { new: true }
+      );
+
+      if (findandUpdateEntry) {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: findandUpdateEntry,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          msg: "Image not set",
+        });
+      }
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "Error in file uploading",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "image Not Found",
     });
   }
 };

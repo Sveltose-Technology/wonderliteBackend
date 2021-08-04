@@ -15,6 +15,12 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
+    expireIn: {
+      type: Number,
+    },
+    code: {
+      type: String,
+    },
     pincode: {
       type: Number,
     },
@@ -27,10 +33,6 @@ const userSchema = new Schema(
     email: {
       type: String,
     },
-    // resetLink: {
-    //   data: String,
-    //   default: "",
-    // },
     website: {
       type: String,
     },

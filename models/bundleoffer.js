@@ -20,7 +20,7 @@ const bundleofferSchema = new mongoose.Schema(
       type: Number,
     },
     product_img: {
-      type: Array,
+      type: String,
     },
     description: {
       type: String,

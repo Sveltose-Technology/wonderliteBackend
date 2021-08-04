@@ -1,13 +1,19 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const { addaboutus, editaboutus, viewoneaboutus, allaboutus, deleteaboutus } = require("../controller/aboutus")
+const {
+  addaboutus,
+  editaboutus,
+  viewoneaboutus,
+  allaboutus,
+  deleteaboutus,
+} = require("../controller/aboutus");
 
 //Paths
-router.post("/admin/addaboutus", addaboutus)
-router.post("/admin/editaboutus/:id", editaboutus)
-router.get("/admin/viewoneaboutus/:id", viewoneaboutus)
-router.get("/admin/allaboutus", allaboutus)
-router.delete("/admin/deleteaboutus/:id", deleteaboutus)
+router.post("/admin/addaboutus", addaboutus);
+router.post("/admin/editaboutus/:id", editaboutus);
+router.get("/admin/viewoneaboutus/:id", viewoneaboutus);
+router.get("/admin/allaboutus", allaboutus);
+router.get("/admin/deleteaboutus/:id", deleteaboutus);
 
-module.exports = router
+module.exports = router;

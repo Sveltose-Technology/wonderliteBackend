@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const crypto = require("crypto");
+
 //const { auth } = require("./middlewares/auth");
 const {
   adduser,
@@ -10,7 +12,8 @@ const {
   alluser,
   deleteuser,
   login,
-  //forget_email_otp,
+  emailSend,
+  changePassword,
   logout,
   add,
   user_img,
@@ -68,6 +71,9 @@ let auth = (req, res, next) => {
   });
 };
 
+// pass.serializeUser((user, cb) => cb(null, user));
+// pass.deserializeUser((u, cb) => cb(null, u));
+
 //router.post("/user/resetpass", forget_email_otp);
 router.get("/user/logout", auth, function (req, res) {
   req.user.deleteToken(req.token, (err, user) => {
@@ -81,6 +87,30 @@ router.get("/user/viewoneuser/:id", viewoneuser);
 router.get("/user/alluser", alluser);
 router.delete("/user/deleteuser/:id", deleteuser);
 router.post("/user/add", add);
+router.post("/user/emailSend", emailSend);
+router.post("/user/changePassword", changePassword);
+
 router.post("/user/addimg/:id", uploads.single("user_img"), user_img);
+// router.post("/forgot", async (req, res, next) => {
+//   const token = (await promisify(crypto.randomBytes)(20)).toString("hex");
+//   const user = users.find((u) => u.email === req.body.email);
+//   if (!user) {
+//     req.flash("error", "No email with that email address exist");
+//     return res.redirect("/forgot");
+//   }
+//   user.resetPasswordToken = token;
+//   user.resetPasswordExpires = Date.now() + 3600000;
+//   const resetEmail = {
+//     to: user.email,
+//     from: "test123@gmail.com",
+//     subject: "Node js password Reset",
+//     text: `
+//    You are receiving this because you (or someone else) have requested the reset of the password for your account.
+//       Please click on the following link, or paste this into your browser to complete the process:
+//       http://${req.headers.host}/reset/${token}
+//       If you did not request this, please ignore this email and your password will remain unchanged.
+//     `,
+//   };
+// });
 
 module.exports = router;

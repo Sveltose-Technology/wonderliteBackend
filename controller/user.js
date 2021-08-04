@@ -134,9 +134,8 @@ exports.add = function (req, res, next) {
     { $push: { cart: product_id } },
     // { $pop: { cart: product_id } },
     { safe: true }
-  )
-    //.populate("cart")
-    // User.findOne({ email: email })
+  ).populate("cart");
+  User.findOne({ email: email })
     .exec()
     .then((user) => {
       //console.log(cart);
@@ -229,40 +228,80 @@ exports.login = async (req, res) => {
   });
 };
 
-// exports.forgetPassword = async (req,res) =>{
+const nodemailer = require("nodemailer");
+var smtptransporter = nodemailer.createTransport({
+  service: "gmail",
 
-//   const {email} = req.body;
-// User.findOne({email},(err,user)=>{
-//    if(err || !user){
-//      return res.status(400).json({error:"User wih this email does not exist"})
-//    }
-//    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET, {
-//     expiresIn: "365d",
-//   });
-//   const data = {
-//     from:'98710priya@gmail.com',
-//     to:email,
-//     subject:'Account Activation Link',
-//     html:`
-//     <h2>Please Click on given link to reset your password</h2>
-//     <p>${process.env.CLIENT_URL}/resetpassword/activate/${token}</p>
-//     `
-//   }
-//   return user.updateOne({resetLink:token},function(err,sucess){
-//     if(err){
-//       return res.status(400).json({error:"reset Password link"})
-//     }else
-//   })
+  auth: {
+    user: "test12@gmail.com",
+    pass: "pass@123",
+  },
+});
+var mailOptions = {
+  from: "test12@gmail.com",
+  to: "guptapratima98710@gmail.com",
+  subject: "Sending mail using node js",
+  text: "hii",
+};
 
-// })
-
-// }
-
-exports.forgotPassword = async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return next(new AppError("there is no user with email address", 404));
+smtptransporter.sendMail(mailOptions, function (error, info) {
+  if (error) {
+    //console.log(error);
+  } else {
+    console.log("Email.sent" + info.response);
   }
+  smtptransporter.close();
+});
+
+exports.emailSend = async (req, res) => {
+  console.log(req.body.email);
+  let data = await User.findOne({ email: req.body.email });
+  console.log(data);
+  const responseType = {};
+  if (data) {
+    let otpcode = Math.floor(Math.random() * 10000 + 1);
+    console.log(data + "if");
+    let otpData = new User({
+      email: req.body.email,
+      code: otpcode,
+      expireIn: new Date().getTime() + 300 * 1000,
+    });
+    let otpResponse = await otpData.save();
+    responseType.statusText = "success";
+    responseType.message = "please check your email Id";
+    responseType.data = otpData;
+  } else {
+    console.log(data + "else");
+    responseType.statusText = "error";
+    responseType.message = "email Id not exist";
+  }
+  res.status(200).json(responseType);
+};
+
+exports.changePassword = async (req, res) => {
+  let data = await User.find({ email: req.body.email, code: req.body.otpcode });
+  const response = {};
+  if (data) {
+    let currentTime = new Date().getTime();
+    let diff = data.expireIn - currentTime;
+    if (diff < 0) {
+      response.message = "Token Expire";
+      response.statusText = "error";
+    } else {
+      let user = await User.findOneAndUpdate({
+        email: req.body.email,
+        password: req.body.password,
+      });
+      // user.password = req.body.password;
+      new user.save();
+      response.message = "Password Changed successfully";
+      response.statusText = "success";
+    }
+  } else {
+    response.message = "Invalid Otp";
+    response.statusText = "error";
+  }
+  res.status(200).json(responseType);
 };
 
 exports.edituser = async (req, res) => {
