@@ -95,7 +95,7 @@ router.post("/user/changePassword", changePassword);
 router.post("/user/addimg/:id", uploads.single("user_img"), user_img);
 
 router.post("/user/sendotp", sendotp);
-router.post("/user/sendotp", verifyotp);
+router.post("/user/verifyotp", verifyotp);
 
 // router.post("/forgot", async (req, res, next) => {
 //   const token = (await promisify(crypto.randomBytes)(20)).toString("hex");
