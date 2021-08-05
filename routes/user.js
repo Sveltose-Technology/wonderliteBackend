@@ -13,8 +13,9 @@ const {
   deleteuser,
   login,
   emailSend,
-  changePassword,
+  forgotPassword,
   logout,
+  resetPassword,
   add,
   user_img,
 } = require("../controller/user");
@@ -85,10 +86,11 @@ router.get("/user/logout", auth, function (req, res) {
 router.post("/user/edituser/:id", edituser);
 router.get("/user/viewoneuser/:id", viewoneuser);
 router.get("/user/alluser", alluser);
-router.delete("/user/deleteuser/:id", deleteuser);
+router.get("/user/deleteuser/:id", deleteuser);
 router.post("/user/add", add);
 router.post("/user/emailSend", emailSend);
-router.post("/user/changePassword", changePassword);
+router.post("/user/forgotPassword", forgotPassword);
+router.post("/user/resetPassword", resetPassword);
 
 router.post("/user/addimg/:id", uploads.single("user_img"), user_img);
 // router.post("/forgot", async (req, res, next) => {

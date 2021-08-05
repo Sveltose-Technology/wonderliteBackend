@@ -45,7 +45,7 @@ router.post("/admin/addbundleoffer", addbundleoffer);
 router.post("/admin/editbundleoffer/:id", editbundleoffer);
 router.get("/admin/onebundleoffer/:id", onebundleoffer);
 router.get("/admin/allbundleoffer", allbundleoffer);
-router.delete("/admin/delbundleoffer/:id", delbundleoffer);
+router.get("/admin/delbundleoffer/:id", delbundleoffer);
 router.post("/admin/offer_img/:id", uploads.single("product_img"), product_img);
 
 module.exports = router;

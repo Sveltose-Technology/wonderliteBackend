@@ -16,6 +16,6 @@ router.post("/admin/rating", rating);
 router.get("/admin/onefeedback/:id", onefeedback);
 router.get("/admin/allfeedback", allfeedback);
 router.post("/admin/editfeedback/:id", editfeedback);
-router.delete("/admin/deletefeedback/:id", deletefeedback);
+router.get("/admin/deletefeedback/:id", deletefeedback);
 
 module.exports = router;

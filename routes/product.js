@@ -55,7 +55,7 @@ router.get("/admin/productbybrand/:id", productbybrand);
 router.get("/admin/productbycategory/:id", productbycategory);
 router.get("/admin/productbysubcategory/:id", productbysubcategory);
 
-router.delete("/admin/deleteproduct/:id", deleteproduct);
+router.get("/admin/deleteproduct/:id", deleteproduct);
 router.post("/admin/dispense/:id", dispense);
 router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 // router.post("/destroy", (req, res) => {

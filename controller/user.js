@@ -6,10 +6,16 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const product = require("../models/product");
+const _ = require("lodash");
 //const sendgrid = require("sendgrid-v3-node");
 // const myPlaintextPassword = 's0/\/\P4$$w0rD';
 // const someOtherPlaintextPassword = 'not_bacon';
-
+const mailgun = require("mailgun-js")({
+  apiKey: process.env.MAILGUN_APIKEY,
+  domain: process.env.DOMAIN,
+});
+const DOMAIN = "sandbox1a4d2b3215714da9a918c2a61243184e.mailgun.org";
+//const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
 const validatePassword = (password, dbpassword) => {
   bcrypt.compareSync(password, dbpassword);
   return true;
@@ -278,30 +284,132 @@ exports.emailSend = async (req, res) => {
   res.status(200).json(responseType);
 };
 
-exports.changePassword = async (req, res) => {
-  let data = await User.find({ email: req.body.email, code: req.body.otpcode });
-  const response = {};
-  if (data) {
-    let currentTime = new Date().getTime();
-    let diff = data.expireIn - currentTime;
-    if (diff < 0) {
-      response.message = "Token Expire";
-      response.statusText = "error";
-    } else {
-      let user = await User.findOneAndUpdate({
-        email: req.body.email,
-        password: req.body.password,
-      });
-      // user.password = req.body.password;
-      new user.save();
-      response.message = "Password Changed successfully";
-      response.statusText = "success";
+// exports.forgotPassword = async (req, res) => {
+//   let data = await User.find({ email: req.body.email, code: req.body.otpcode });
+//   const response = {};
+//   if (data) {
+//     let currentTime = new Date().getTime();
+//     let diff = data.expireIn - currentTime;
+//     if (diff < 0) {
+//       response.message = "Token Expire";
+//       response.statusText = "error";
+//     } else {
+//       //console.log(data);
+//       let findandUpdateEntry = await User.findOneAndUpdate(
+//         {
+//           email: req.body.email,
+//         },
+//         { code: req.body.otpcode },
+//         //{ password: req.body.password },
+//         {
+//           $set: req.body,
+//         },
+//         { new: true }
+//       );
+//       if (findandUpdateEntry) {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: findandUpdateEntry,
+//         });
+//       } else {
+//         res.status(400).json({
+//           status: false,
+//           msg: "error",
+//           error: "error",
+//         });
+//       }
+//     }
+//   }
+// };
+
+exports.forgotPassword = (req, res) => {
+  const { email } = req.body;
+  User.findOne({ email }, (err, user) => {
+    if (err || !user) {
+      return res
+        .status(400)
+        .json({ error: "User with this email does not exists" });
     }
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+      expiresIn: "365d",
+    });
+    const data = {
+      from: "somemailid",
+      to: email,
+      subject: "Account Activation Link",
+      html: `
+      <h2>Please Click on given link to reset your password</h2>
+      <h2>${process.env.CLIENT_URL}/reset-password/${token}</h2>`,
+    };
+    return user.updateOne({ resetLink: token }, function (err, success) {
+      if (err) {
+        return res.status(400).json({ error: "reset link error" });
+      } else {
+        mailgun.messages().send(data, function (error, body) {
+          console.log(body);
+          if (error) {
+            return res.json({
+              error: err.message,
+            });
+          }
+          return res.json({ message: "email has sent" });
+        });
+      }
+    });
+  });
+};
+
+// user.password = req.body.password;
+//       new user.save();
+//       response.message = "Password Changed successfully";
+//       response.statusText = "success";
+//     }
+//   } else {
+//     response.message = "Invalid Otp";
+//     response.statusText = "error";
+//   }
+//   res.status(200).json(responseType);
+// };
+
+exports.resetPassword = (req, res) => {
+  const { resetLink, newPass } = req.body;
+  if (resetLink) {
+    jwt.verify(
+      resetLink,
+      process.env.TOKEN_SECRET,
+      function (error, decodedData) {
+        if (error) {
+          return res.status(401).json({
+            error: "Incorrect token or it is expired",
+          });
+        }
+        User.findOne({ resetLink }, (err, user) => {
+          if (err || !user) {
+            return res
+              .status(400)
+              .json({ error: "User with this token does not existe" });
+          }
+          const obj = {
+            password: newPass,
+          };
+
+          user = _.extend(user, obj);
+          user.save((err, result) => {
+            if (err) {
+              return res.status(400).json({ error: "reset password error" });
+            } else {
+              return res
+                .status(200)
+                .json({ message: "your password has been changed" });
+            }
+          });
+        });
+      }
+    );
   } else {
-    response.message = "Invalid Otp";
-    response.statusText = "error";
+    return res.status(401).json({ error: "Authentication error" });
   }
-  res.status(200).json(responseType);
 };
 
 exports.edituser = async (req, res) => {

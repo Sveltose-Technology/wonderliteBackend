@@ -1,80 +1,85 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-
-const productSchema = new Schema({
-
+const productSchema = new Schema(
+  {
     item_name: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     short_name: {
-        type: String,
+      type: String,
     },
     desc: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     code: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     hsn_code: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
-    productcategory: { type: Schema.Types.ObjectId, ref: 'productcategory' },
-    productsubcategory: { type: Schema.Types.ObjectId, ref: 'subproductcategory' },
+    productcategory: { type: Schema.Types.ObjectId, ref: "productcategory" },
+    productsubcategory: {
+      type: Schema.Types.ObjectId,
+      ref: "subproductcategory",
+    },
     make: {
-        type: String,
+      type: String,
     },
-    unit: { type: Schema.Types.ObjectId, ref: 'unit' },
-    alt_unit: { type: Schema.Types.ObjectId, ref: 'altunit' },
-    gst_rate: { type: Schema.Types.ObjectId, ref: 'gst_rate' },
+    unit: { type: Schema.Types.ObjectId, ref: "unit" },
+    alt_unit: { type: Schema.Types.ObjectId, ref: "altunit" },
+    gst_rate: { type: Schema.Types.ObjectId, ref: "gst_rate" },
     type_of_supply: {
-        type: String,
-    },//goods && service
+      type: String,
+    }, //goods && service
     varient: {
-        type: String,
-    },//user input
+      type: String,
+    }, //user input
     material: {
-        type: String,
-    },//user input
+      type: String,
+    }, //user input
     stock_qty: {
-        type: Number,
+      type: Number,
     },
     stock_clearance_limit: {
-        type: Number,
+      type: Number,
     },
-    rate: [{ type: Schema.Types.ObjectId, ref: 'rate' }],
+    rate: [{ type: Schema.Types.ObjectId, ref: "rate" }],
     size: {
-        type: String,
+      type: String,
     },
     colour: {
-        type: String,
+      type: String,
     },
     product_img: {
-        type: String,
+      type: String,
     },
     barcode: {
-        type: Number,
+      type: Number,
     },
-    brand: { type: Schema.Types.ObjectId, ref: 'brand' },
+    brand: { type: Schema.Types.ObjectId, ref: "brand" },
     std_package: {
-        type: Number,
+      type: Number,
     },
     inc_duty_tax: {
-        type: Number,
+      type: Number,
+    },
+    order: {
+      type: Number,
     },
     sortorder: {
-        type: Number,
+      type: Number,
     },
     status: {
-        type: String,
-        default: "Active"
-    }
-},
-    { timestamps: true }
-)
+      type: String,
+      default: "Active",
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("product", productSchema)
+module.exports = mongoose.model("product", productSchema);

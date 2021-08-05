@@ -14,6 +14,6 @@ router.post("/admin/addflashsale", addflashsale);
 router.post("/admin/editflashsale/:id", editflashsale);
 router.get("/admin/oneflashsale/:id", oneflashsale);
 router.get("/admin/allflashsale", allflashsale);
-router.delete("/admin/delflashsale/:id", delflashsale);
+router.get("/admin/delflashsale/:id", delflashsale);
 
 module.exports = router;

@@ -46,7 +46,7 @@ router.post("/admin/addproductcategory", addproductcategory);
 router.post("/admin/editproductcategory/:id", editproductcategory);
 router.get("/admin/viewoneproductcategory/:id", viewoneproductcategory);
 router.get("/admin/allproductcategory", allproductcategory);
-router.delete("/admin/deleteproductcategory/:id", deleteproductcategory);
+router.get("/admin/deleteproductcategory/:id", deleteproductcategory);
 router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 // router.post(
 //   "/admin/uploads",

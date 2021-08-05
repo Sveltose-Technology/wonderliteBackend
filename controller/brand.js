@@ -2,42 +2,67 @@ const Brand = require("../models/brand");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.addbrand = async (req, res) => {
   const { name, brand_img, desc, sortorder, status } = req.body;
 
   const newBrand = new Brand({
     name: name,
-    brand_img: brand_img,
     desc: desc,
+    brand_img: brand_img,
     sortorder: sortorder,
     status: status,
   });
 
-  const findexist = await Brand.findOne({ name: name });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
-    });
-  } else {
-    newBrand
-      .save()
-      .then(
+  if (req.file) {
+    const resp = await cloudinary.uploader.upload(req.file.path);
+    if (resp) {
+      newBrand.brand_img = resp.secure_url;
+      newBrand.save().then(
         res.status(200).json({
           status: true,
           msg: "success",
           data: newBrand,
         })
-      )
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
+      );
+    } else {
+      res.status(200).json({
+        status: false,
+        msg: "img not uploaded",
       });
+    }
+  } else {
+    const findexist = await Brand.findOne({ name: name });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      newBrand
+        .save()
+        .then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newBrand,
+          })
+        )
+        .catch((error) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
+    }
   }
 };
 
@@ -114,14 +139,6 @@ exports.deletebrand = async (req, res) => {
     });
   }
 };
-
-dotenv.config();
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 exports.brand_img = async (req, res) => {
   const findone = await Brand.findOne({ _id: req.params.id });

@@ -20,6 +20,7 @@ const userSchema = new Schema(
     },
     code: {
       type: String,
+      default: 1234,
     },
     pincode: {
       type: Number,
@@ -85,6 +86,10 @@ const userSchema = new Schema(
     userImage: {
       type: String,
       require: true,
+    },
+    resetLink: {
+      data: String,
+      default: "",
     },
 
     cart: [{ type: Schema.Types.ObjectId, ref: "product" }],

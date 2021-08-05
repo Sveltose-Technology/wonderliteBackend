@@ -341,3 +341,7 @@ exports.dispense = async (req, res) => {
     });
   }
 };
+
+// exports.productorder =async(req,res)=>{
+//   const order = req.body
+// }

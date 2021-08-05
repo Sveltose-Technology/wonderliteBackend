@@ -14,7 +14,7 @@ const {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(file);
+    //console.log(file);
     let path = `./tempimages`;
     if (!fs.existsSync("tempimages")) {
       fs.mkdirSync("tempimages");
@@ -41,11 +41,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 //Paths
-router.post("/admin/addbrand", addbrand);
+router.post("/admin/addbrand", uploads.single("brand_img"), addbrand);
 router.post("/admin/editbrand/:id", editbrand);
 router.get("/admin/viewonebrand/:id", viewonebrand);
 router.get("/admin/allbrand", allbrand);
-router.delete("/admin/deletebrand/:id", deletebrand);
+router.get("/admin/deletebrand/:id", deletebrand);
 router.post("/admin/brandimage/:id", uploads.single("brand_img"), brand_img);
 
 module.exports = router;
