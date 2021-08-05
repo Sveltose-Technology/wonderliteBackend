@@ -21,21 +21,30 @@ exports.addbrand = async (req, res) => {
   });
 
   if (req.file) {
-    const resp = await cloudinary.uploader.upload(req.file.path);
-    if (resp) {
-      newBrand.brand_img = resp.secure_url;
-      newBrand.save().then(
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: newBrand,
-        })
-      );
-    } else {
-      res.status(200).json({
+    const findexist = await Brand.findOne({ name: name });
+    if (findexist) {
+      res.status(400).json({
         status: false,
-        msg: "img not uploaded",
+        msg: "Already Exists",
+        data: {},
       });
+    } else {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      if (resp) {
+        newBrand.brand_img = resp.secure_url;
+        newBrand.save().then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newBrand,
+          })
+        );
+      } else {
+        res.status(200).json({
+          status: false,
+          msg: "img not uploaded",
+        });
+      }
     }
   } else {
     const findexist = await Brand.findOne({ name: name });
