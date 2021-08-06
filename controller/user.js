@@ -57,6 +57,9 @@ exports.adduser = async (req, res) => {
     date_of_birth,
     marriage_anniversary,
     gstin_no,
+    country,
+    state,
+    city,
     udhyog_adhar_no,
     licence_no,
     technician_assot_no,
@@ -88,6 +91,9 @@ exports.adduser = async (req, res) => {
     date_of_birth: date_of_birth,
     marriage_anniversary: marriage_anniversary,
     gstin_no: gstin_no,
+    country: country,
+    state: state,
+    city: city,
     udhyog_adhar_no: udhyog_adhar_no,
     licence_no: licence_no,
     technician_assot_no: technician_assot_no,
@@ -582,3 +588,13 @@ exports.verifyotp = async (req, res) => {
     });
   }
 };
+
+// exports.add_country = (req, res) => {
+//   const { country } = req.body;
+//   const data = new country({
+//     country: country,
+//   });
+//   data.save().then((response) => {
+//     res.json({ code: 200, msg: "country save" });
+//   });
+// };

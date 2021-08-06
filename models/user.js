@@ -46,6 +46,18 @@ const userSchema = new Schema(
     gstin_no: {
       type: String,
     },
+    country: {
+      type: String,
+      require: true,
+    },
+    state: {
+      type: String,
+      require: true,
+    },
+    city: {
+      type: String,
+      require: true,
+    },
     udhyog_adhar_no: {
       type: String,
     },

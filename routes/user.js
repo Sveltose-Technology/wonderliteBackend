@@ -89,7 +89,7 @@ router.post("/user/edituser/:id", edituser);
 router.get("/user/viewoneuser/:id", viewoneuser);
 router.get("/user/alluser", alluser);
 router.get("/user/deleteuser/:id", deleteuser);
-router.post("/user/add", add);
+//router.post("/user/add", add);
 router.post("/user/emailSend", emailSend);
 router.post("/user/forgotPassword", forgotPassword);
 router.post("/user/resetPassword", resetPassword);

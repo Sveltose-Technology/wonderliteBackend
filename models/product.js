@@ -68,9 +68,6 @@ const productSchema = new Schema(
     inc_duty_tax: {
       type: Number,
     },
-    order: {
-      type: Number,
-    },
     sortorder: {
       type: Number,
     },
