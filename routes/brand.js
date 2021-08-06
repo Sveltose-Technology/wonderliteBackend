@@ -21,9 +21,9 @@ const storage = multer.diskStorage({
     }
     cb(null, path);
   },
-  // filename: function (req, file, cb) {
-  //   cb(null, new Date().toISOString() + "-" + file.originalname);
-  // },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const fileFilter = (req, file, cb) => {

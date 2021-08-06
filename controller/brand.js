@@ -32,6 +32,7 @@ exports.addbrand = async (req, res) => {
       const resp = await cloudinary.uploader.upload(req.file.path);
       if (resp) {
         newBrand.brand_img = resp.secure_url;
+        fs.unlinkSync(req.file.path);
         newBrand.save().then(
           res.status(200).json({
             status: true,
