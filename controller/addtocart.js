@@ -1,7 +1,7 @@
 const Addtocart = require("../models/addtocart");
 
 exports.addcart = async (req, res) => {
-  const { email, product_id, qty } = req.body;
+  const { email, product_id, qty, rate } = req.body;
 
   const newAddtocart = new Addtocart({
     email: email,
@@ -9,7 +9,7 @@ exports.addcart = async (req, res) => {
     qty: qty,
   });
 
-  const findexist = await Addtocart.findOne({ product_id: product_id });
+  const findexist = await Addtocart.findOne({ product_id: product_id }); //order_id
   if (findexist) {
     res.status(400).json({
       status: false,
@@ -20,8 +20,9 @@ exports.addcart = async (req, res) => {
     const qtyint = Number.parseInt(qty);
     console.log("qty: ", qtyint);
     Addtocart.findOneAndUpdate(
+      //add to cart
       { email: email },
-      { $push: { cart: product_id } },
+      { $push: { cart: product_id } }, //save
       // { $pop: { cart: product_id } },
       { safe: true }
     ).populate("cart");
