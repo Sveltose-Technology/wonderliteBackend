@@ -25,7 +25,7 @@ const aboutus = require("./routes/aboutus");
 const feedback = require("./routes/feedback");
 const flashsale = require("./routes/flashsale");
 const bundleoffer = require("./routes/bundleoffer");
-const addtocart = require("./routes/addtocart");
+const cart = require("./routes/cart");
 //const upload = require("./filehandler/multer");
 //const cloudinary = require("cloudinary").v2;
 //const fs = require("fs");
@@ -35,6 +35,7 @@ const bannerimage = require("./routes/banner_img");
 //const dispense = require("./routes/dispense");
 const stock_clearance = require("./routes/stock_clearance");
 //const productsummery = require("./routes/productsummery");
+const dealofthe_day = require("./routes/dealofthe_day");
 
 //Use
 app.use("/api", productcategory);
@@ -57,7 +58,8 @@ app.use("/api", bundleoffer);
 app.use("/api", buyonegetone);
 app.use("/api", stock_clearance);
 app.use("/api", bannerimage);
-app.use("/api", addtocart);
+app.use("/api", cart);
+app.use("/api", dealofthe_day);
 //app.use("/api", productsummery);
 
 /*app.use("/upload-images", upload.single(image), async (req, res) => {

@@ -242,7 +242,7 @@ exports.productbysubcategory = async (req, res) => {
   }
 };
 
-exports.deleteproduct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
   try {
     const deleteentry = await Product.deleteOne({ _id: req.params.id });
     res.status(200).json({

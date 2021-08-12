@@ -1,18 +1,18 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-
-const rateSchema = new Schema({
+const rateSchema = new Schema(
+  {
     rate: {
-        type: Number,
-        require: true
+      type: Number,
+      require: true,
     },
-    unit: { type: Schema.Types.ObjectId, ref: 'unit' },
+    unit: { type: Schema.Types.ObjectId, ref: "unit" },
     qtypackage: {
-        type: Number,
+      type: Number,
     },
     fordealer: {
-        type: String,
+      type: String,
     },
     //rate_builder_contractor
     // rate_customer
@@ -24,17 +24,17 @@ const rateSchema = new Schema({
     // rate_stocklist
     // rate_supplier
     starting_from: {
-        type: Number,
+      type: Number,
     },
     closing_on: {
-        type: Number,
+      type: Number,
     },
     status: {
-        type: String,
-        default: "Active"
-    }
-},
-    { timestamps: true }
-)
+      type: String,
+      default: "Active",
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("rate", rateSchema)
+module.exports = mongoose.model("rate", rateSchema);

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const flashsaleSchema = new mongoose.Schema(
+const dealofthedaySchema = new mongoose.Schema(
   {
-    flashsale_title: {
+    dealoftheday_title: {
       type: String,
-      //require: true,
+      require: true,
     },
     // product: {
     //   type: Schema.Types.ObjectId,
@@ -15,7 +15,11 @@ const flashsaleSchema = new mongoose.Schema(
     product_price: {
       type: Number,
     },
-    flashsale_img: {
+
+    product_qty: {
+      type: Number,
+    },
+    product_img: {
       type: String,
     },
     description: {
@@ -32,4 +36,4 @@ const flashsaleSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("flashsale", flashsaleSchema);
+module.exports = mongoose.model("dealofthe_day", dealofthedaySchema);

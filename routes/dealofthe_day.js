@@ -4,14 +4,10 @@ const multer = require("multer");
 const fs = require("fs");
 
 const {
-  addbrand,
-  editbrand,
-  viewonebrand,
-  allbrand,
-  deletebrand,
-  brand_img,
-} = require("../controller/brand");
-
+  add_dealoftheday,
+  alldealoftheday,
+  del_dealoftheday,
+} = require("../controller/dealofthe_day");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
@@ -41,11 +37,14 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 //Paths
-router.post("/admin/addbrand", uploads.single("brand_img"), addbrand);
-router.post("/admin/editbrand/:id", editbrand);
-router.get("/admin/viewonebrand/:id", viewonebrand);
-router.get("/admin/allbrand", allbrand);
-router.get("/admin/deletebrand/:id", deletebrand);
-router.post("/admin/brandimage/:id", uploads.single("brand_img"), brand_img);
+router.post(
+  "/admin/add_dealoftheday",
+  uploads.single("product_img"),
+  add_dealoftheday
+);
+router.get("/admin/all_dealoftheday", alldealoftheday);
+//   router.get("/admin/viewonebrand/:id", viewonebrand);
+//   router.get("/admin/allbrand", allbrand);
+router.get("/admin/del_dealoftheday/:id", del_dealoftheday);
 
 module.exports = router;

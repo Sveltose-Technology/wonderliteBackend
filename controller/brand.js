@@ -77,6 +77,8 @@ exports.addbrand = async (req, res) => {
 };
 
 exports.editbrand = async (req, res) => {
+  //const editbrand = req.body;
+  //console.log(editbrand);
   const findandUpdateEntry = await Brand.findOneAndUpdate(
     {
       _id: req.params.id,
