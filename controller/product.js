@@ -3,6 +3,12 @@ const Product = require("../models/product");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.addproduct = async (req, res) => {
   const {
@@ -61,30 +67,86 @@ exports.addproduct = async (req, res) => {
     status: status,
   });
 
-  const findexist = await Product.findOne({ code: code });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
-    });
-  } else {
-    newProduct
-      .save()
-      .then(
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: newProduct,
-        })
-      )
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
+  //   const findexist = await Product.findOne({ code: code });
+  //   if (findexist) {
+  //     res.status(400).json({
+  //       status: false,
+  //       msg: "Already Exists",
+  //       data: {},
+  //     });
+  //   } else {
+  //     newProduct
+  //       .save()
+  //       .then(
+  //         res.status(200).json({
+  //           status: true,
+  //           msg: "success",
+  //           data: newProduct,
+  //         })
+  //       )
+  //       .catch((error) => {
+  //         res.status(400).json({
+  //           status: false,
+  //           msg: "error",
+  //           error: error,
+  //         });
+  //       });
+  //   }
+  // };
+
+  if (req.file) {
+    const findexist = await Product.findOne({ item_name: item_name });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
       });
+    } else {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      if (resp) {
+        newProduct.product_img = resp.secure_url;
+        fs.unlinkSync(req.file.path);
+        newProduct.save().then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newProduct,
+          })
+        );
+      } else {
+        res.status(200).json({
+          status: false,
+          msg: "img not uploaded",
+        });
+      }
+    }
+  } else {
+    const findexist = await Product.findOne({ item_name: item_name });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      newProduct
+        .save()
+        .then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newProduct,
+          })
+        )
+        .catch((error) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
+    }
   }
 };
 

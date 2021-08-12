@@ -15,22 +15,18 @@ const {
   dispense,
 } = require("../controller/product");
 
-// if (!fs.existsSync("uploads")) {
-//   fs.mkdirSync("uploads");
-// }
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
-    let path = `./tempimages`;
-    if (!fs.existsSync("tempimages")) {
-      fs.mkdirSync("tempimages");
+    let path = `./uploadesimages`;
+    if (!fs.existsSync("uploadesimages")) {
+      fs.mkdirSync("uploadesimages");
     }
     cb(null, path);
   },
-  // filename: function (req, file, cb) {
-  //   cb(null, new Date().toISOString() + "-" + file.originalname);
-  // },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -44,10 +40,9 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-
 let uploads = multer({ storage: storage });
 //Paths
-router.post("/admin/addproduct", addproduct);
+router.post("/admin/addproduct", uploads.single(product_img), addproduct);
 router.post("/admin/editproduct/:id", editproduct);
 router.get("/admin/viewoneproduct/:id", viewoneproduct);
 router.get("/admin/allproduct", allproduct);

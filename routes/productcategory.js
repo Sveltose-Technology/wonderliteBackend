@@ -16,15 +16,15 @@ const {
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
-    let path = `./tempimages`;
-    if (!fs.existsSync("tempimages")) {
-      fs.mkdirSync("tempimages");
+    let path = `./uploadesimages`;
+    if (!fs.existsSync("uploadesimages")) {
+      fs.mkdirSync("uploadesimages");
     }
     cb(null, path);
   },
-  // filename: function (req, file, cb) {
-  //   cb(null, new Date().toISOString() + "Productcat-" + file.originalname);
-  // },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -42,7 +42,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 //Paths
-router.post("/admin/addproductcategory", addproductcategory);
+router.post(
+  "/admin/addproductcategory",
+  uploads.single("product_img"),
+  addproductcategory
+);
 router.post("/admin/editproductcategory/:id", editproductcategory);
 router.get("/admin/viewoneproductcategory/:id", viewoneproductcategory);
 router.get("/admin/allproductcategory", allproductcategory);
