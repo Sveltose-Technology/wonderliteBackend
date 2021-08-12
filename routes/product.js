@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
 const fs = require("fs");
+const multer = require("multer");
 const {
   addproduct,
   editproduct,
@@ -40,9 +40,10 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
+
 let uploads = multer({ storage: storage });
 //Paths
-router.post("/admin/addproduct", uploads.single(product_img), addproduct);
+router.post("/admin/addproduct", uploads.single("product_img"), addproduct);
 router.post("/admin/editproduct/:id", editproduct);
 router.get("/admin/viewoneproduct/:id", viewoneproduct);
 router.get("/admin/allproduct", allproduct);

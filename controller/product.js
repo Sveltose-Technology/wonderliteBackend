@@ -1,5 +1,4 @@
 const Product = require("../models/product");
-//const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -66,33 +65,6 @@ exports.addproduct = async (req, res) => {
     sortorder: sortorder,
     status: status,
   });
-
-  //   const findexist = await Product.findOne({ code: code });
-  //   if (findexist) {
-  //     res.status(400).json({
-  //       status: false,
-  //       msg: "Already Exists",
-  //       data: {},
-  //     });
-  //   } else {
-  //     newProduct
-  //       .save()
-  //       .then(
-  //         res.status(200).json({
-  //           status: true,
-  //           msg: "success",
-  //           data: newProduct,
-  //         })
-  //       )
-  //       .catch((error) => {
-  //         res.status(400).json({
-  //           status: false,
-  //           msg: "error",
-  //           error: error,
-  //         });
-  //       });
-  //   }
-  // };
 
   if (req.file) {
     const findexist = await Product.findOne({ item_name: item_name });
