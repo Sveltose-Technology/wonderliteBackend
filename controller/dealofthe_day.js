@@ -123,3 +123,26 @@ exports.del_dealoftheday = async (req, res) => {
     });
   }
 };
+
+exports.edit_dealoftheday = async (req, res) => {
+  const findandUpdateEntry = await Dealoftheday.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: req.body },
+    { new: true }
+  );
+  if (findandUpdateEntry) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findandUpdateEntry,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};

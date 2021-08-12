@@ -7,6 +7,7 @@ const {
   add_dealoftheday,
   alldealoftheday,
   del_dealoftheday,
+  edit_dealoftheday,
 } = require("../controller/dealofthe_day");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -43,7 +44,7 @@ router.post(
   add_dealoftheday
 );
 router.get("/admin/all_dealoftheday", alldealoftheday);
-//   router.get("/admin/viewonebrand/:id", viewonebrand);
+router.post("/admin/edit_dealoftheday/:id", edit_dealoftheday);
 //   router.get("/admin/allbrand", allbrand);
 router.get("/admin/del_dealoftheday/:id", del_dealoftheday);
 
