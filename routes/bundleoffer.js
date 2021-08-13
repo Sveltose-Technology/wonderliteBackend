@@ -13,17 +13,16 @@ const {
 } = require("../controller/bundleoffer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(file);
-    let path = `./tempimages`;
-
-    if (!fs.existsSync("tempimages")) {
-      fs.mkdirSync("tempimages");
+    //console.log(file);
+    let path = `./uploadesimages`;
+    if (!fs.existsSync("uploadesimages")) {
+      fs.mkdirSync("uploadesimages");
     }
     cb(null, path);
   },
-  // filename: function (req, file, cb) {
-  //   cb(null, new Date().toISOString() + "-" + file.originalname);
-  // },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -41,7 +40,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 //Path
-router.post("/admin/addbundleoffer", addbundleoffer);
+router.post(
+  "/admin/addbundleoffer",
+  uploads.single("product_img"),
+  addbundleoffer
+);
 router.post("/admin/editbundleoffer/:id", editbundleoffer);
 router.get("/admin/onebundleoffer/:id", onebundleoffer);
 router.get("/admin/allbundleoffer", allbundleoffer);
