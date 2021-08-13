@@ -16,8 +16,8 @@ const {
 
 //path
 //router.post("/admin/add_ItemCart", addItemToCart);
-//router.post("/admin/add_ToCart", addToCart);
-//router.post("/admin/order_product", addToOrder);
+router.post("/admin/add_ToCart", addToCart);
+router.post("/admin/order_product", addToOrder);
 router.get("/admin/get_allcart", getallcart);
 router.post("/admin/edit_order/:id", editorder);
 router.delete("/admin/remove_cart/:id", removecart);

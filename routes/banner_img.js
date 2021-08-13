@@ -1,13 +1,18 @@
 const express = require("express");
 const router = express.Router();
-
 const multer = require("multer");
 const fs = require("fs");
 
-const { banner, list_img } = require("../controller/banner_img");
+const {
+  addbanner,
+  allbanner,
+  editbannerimg,
+  getbannerbytype,
+} = require("../controller/banner_img");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    //console.log(file);
     let path = `./uploadesimages`;
     if (!fs.existsSync("uploadesimages")) {
       fs.mkdirSync("uploadesimages");
@@ -33,7 +38,14 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
-router.get("/admin/list_banner_image", list_img);
-router.post("/admin/upload_banner_image", uploads.array("banner_img"), banner);
+router.post(
+  "/admin/up_bannerload_image",
+  uploads.single("banner_img"),
+  addbanner
+);
+
+router.get("/admin/list_banner_image", allbanner);
+router.get("/admin/banners/:id", getbannerbytype);
+router.post("/admin/editbannerimg/id", editbannerimg);
 
 module.exports = router;

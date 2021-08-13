@@ -7,8 +7,11 @@ const bannerSchema = new Schema(
       type: String,
     },
     banner_img: {
-      type: Array,
+      type: String,
     },
+    bannertype: {
+      type: String,
+    }, //HB,
     status: {
       type: String,
       default: "Active",
