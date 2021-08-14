@@ -34,6 +34,36 @@ const userSchema = new Schema(
     email: {
       type: String,
     },
+    address_main: {
+      type: String,
+    },
+    address_landmark: {
+      type: String,
+    },
+    address_pincode: {
+      type: String,
+    },
+    address_locality: {
+      type: String,
+    },
+    address_city: {
+      type: String,
+    },
+    address_state: {
+      type: String,
+    },
+    address_county: {
+      type: String,
+    },
+    address_mobile: {
+      type: String,
+    },
+    address_altmobile: {
+      type: String,
+    },
+    address_dellocatetype: {
+      type: String,
+    }, //Home //Office
     website: {
       type: String,
     },

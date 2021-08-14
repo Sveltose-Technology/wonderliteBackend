@@ -11,7 +11,7 @@ const bannerSchema = new Schema(
     },
     bannertype: {
       type: String,
-    }, //HB,
+    }, //HB,PV
     status: {
       type: String,
       default: "Active",

@@ -14,7 +14,6 @@ cloudinary.config({
 exports.addbanner = async (req, res) => {
   const { banner_title, bannertype, banner_img, status } = req.body;
 
-  console.log(banner_img);
   const newAddbanner = new Addbanner({
     banner_title: banner_title,
     banner_img: banner_img,
@@ -137,6 +136,23 @@ exports.allbanner = async (req, res) => {
       status: false,
       msg: "error",
       error: "error",
+    });
+  }
+};
+
+exports.delbanner = async (req, res) => {
+  try {
+    const deleteentry = await Addbanner.deleteOne({ _id: req.params.id });
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: deleteentry,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
     });
   }
 };

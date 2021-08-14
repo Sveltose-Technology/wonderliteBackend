@@ -8,6 +8,7 @@ const {
   allbanner,
   editbannerimg,
   getbannerbytype,
+  delbanner,
 } = require("../controller/banner_img");
 
 const storage = multer.diskStorage({
@@ -46,6 +47,7 @@ router.post(
 
 router.get("/admin/list_banner_image", allbanner);
 router.get("/admin/banners/:id", getbannerbytype);
-router.post("/admin/editbannerimg/id", editbannerimg);
+router.post("/admin/editbannerimg/:id", editbannerimg);
+router.get("/admin/delbanner/:id", delbanner);
 
 module.exports = router;
