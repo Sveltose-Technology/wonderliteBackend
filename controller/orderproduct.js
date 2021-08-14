@@ -10,6 +10,7 @@ exports.productorder = async (req, res) => {
     reachedlocation,
     shippingdate,
     deliverdondate,
+    status,
   } = req.body;
 
   const neworderproduct = new Orderproduct({
@@ -21,6 +22,7 @@ exports.productorder = async (req, res) => {
     reachedlocation: reachedlocation,
     shippingdate: shippingdate,
     deliverdondate: deliverdondate,
+    status: status,
   });
   //   const findexist = await Orderproduct.findOne({
   //     $and: [{ userId: userId }, { product: product }],
@@ -49,3 +51,7 @@ exports.productorder = async (req, res) => {
   });
   //}
 };
+
+// exports.cancelorder = async(req,res)=>{(
+//     const
+// )}

@@ -39,9 +39,7 @@ exports.addtocartproduct = async (req, res) => {
 };
 
 exports.productsummary = async (req, res) => {
-  const allproductsincart = await Cart.find({
-    orderby: orderby,
-  });
+  const allproductsincart = await Cart.find({ orderby: orderby });
 
   if (allproductsincart) {
     console.log(allproductsincart);
@@ -55,7 +53,7 @@ exports.productsummary = async (req, res) => {
         total += allproductsincart[product_price];
       }
     }
-    console.log(total);
+    //console.log(total);
   }
 };
 
@@ -117,25 +115,4 @@ exports.removecart = async (req, res) => {
       error: error,
     });
   }
-};
-
-exports.updateorder = async (req, res) => {
-  const order_id = req.params.id;
-  const order_update = req.body;
-  for (let order of orders) {
-    if (order.id == order_id) {
-      if (order_update.product_name != null || undefined)
-        order.product_name = order_update.product_name;
-
-      if (order_update.product_qty != null || undefined)
-        order.product_qty = order_update.product_qty;
-
-      if (order_update.customer_name != null || undefined)
-        order.customer_name = order_update.customer_name;
-      return res
-        .status(200)
-        .json({ message: "Updated Successfully", data: order });
-    }
-  }
-  res.status(404).json({ message: "Invalid Order Id" });
 };
