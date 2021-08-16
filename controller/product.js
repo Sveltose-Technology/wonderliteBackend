@@ -375,3 +375,14 @@ exports.dispense = async (req, res) => {
     });
   }
 };
+
+exports.search_product = (req, res) => {
+  const inputsearch = req.body.inputsearch;
+  //console.log(inputsearch);
+  //console.log(typeof inputsearch);
+  Product.find({ item_name: { $regex: inputsearch, $options: "5" } }).then(
+    (data) => {
+      res.send(data);
+    }
+  );
+};

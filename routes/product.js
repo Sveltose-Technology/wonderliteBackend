@@ -13,6 +13,7 @@ const {
   deleteProduct,
   product_img,
   dispense,
+  search_product,
 } = require("../controller/product");
 
 const storage = multer.diskStorage({
@@ -53,6 +54,8 @@ router.get("/admin/productbysubcategory/:id", productbysubcategory);
 
 router.get("/admin/delproduct/:id", deleteProduct);
 router.post("/admin/dispense/:id", dispense);
+router.get("/admin/search_product", search_product);
+
 router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 // router.post("/destroy", (req, res) => {
 //   try {

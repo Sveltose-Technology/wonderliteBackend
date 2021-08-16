@@ -55,3 +55,20 @@ exports.productorder = async (req, res) => {
 // exports.cancelorder = async(req,res)=>{(
 //     const
 // )}
+
+exports.allorder = async (req, res) => {
+  const findall = await Orderproduct.find().sort({ sortorder: 1 });
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};

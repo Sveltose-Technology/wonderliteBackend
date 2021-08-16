@@ -10,6 +10,7 @@ const {
   allbrand,
   deletebrand,
   brand_img,
+  search_brand,
 } = require("../controller/brand");
 
 const storage = multer.diskStorage({
@@ -46,6 +47,7 @@ router.post("/admin/editbrand/:id", editbrand);
 router.get("/admin/viewonebrand/:id", viewonebrand);
 router.get("/admin/allbrand", allbrand);
 router.get("/admin/deletebrand/:id", deletebrand);
+router.get("/admin/search_brand", search_brand);
 router.post("/admin/brandimage/:id", uploads.single("brand_img"), brand_img);
 
 module.exports = router;

@@ -33,6 +33,7 @@ const stock_clearance = require("./routes/stock_clearance");
 //const productsummery = require("./routes/productsummery");
 const dealofthe_day = require("./routes/dealofthe_day");
 const orderproduct = require("./routes/orderproduct");
+const contact_us = require("./routes/contact_us");
 
 //Use
 app.use("/api", productcategory);
@@ -58,6 +59,8 @@ app.use("/api", bannerimage);
 app.use("/api", cart);
 app.use("/api", dealofthe_day);
 app.use("/api", orderproduct);
+app.use("/api", contact_us);
+
 //app.use("/api", productsummery);
 
 /*app.use("/upload-images", upload.single(image), async (req, res) => {
