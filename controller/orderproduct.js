@@ -43,7 +43,7 @@ exports.productorder = async (req, res) => {
       });
     } else {
       res.status(200).json({
-        status: false,
+        status: true,
         msg: "Product added to order",
         data: neworderproduct,
       });
