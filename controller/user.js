@@ -140,7 +140,7 @@ exports.adduser = async (req, res) => {
 exports.add = function (req, res, next) {
   const { email, product_id, qty } = req.body;
   const qtyint = Number.parseInt(qty);
-  console.log("qty: ", qtyint);
+  //console.log("qty: ", qtyint);
   User.findOneAndUpdate(
     { email: email },
     { $push: { cart: product_id } },

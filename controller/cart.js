@@ -38,24 +38,23 @@ exports.addtocartproduct = async (req, res) => {
   }
 };
 
-exports.productsummary = async (req, res) => {
-  const allproductsincart = await Cart.find({ orderby: orderby });
+// exports.productsummary = async (req, res) => {
+//   const allproductsincart = await Cart.find({ orderby: orderby });
 
-  if (allproductsincart) {
-    console.log(allproductsincart);
+//   if (allproductsincart) {
+//     //console.log(allproductsincart);
 
-    const total = 0;
-    for (const product_price in allproductsincart) {
-      if (
-        allproductsincart.hasOwnProperty.call(allproductsincart, product_price)
-      ) {
-        const element = allproductsincart[product_price];
-        total += allproductsincart[product_price];
-      }
-    }
-    //console.log(total);
-  }
-};
+//     const total = 0;
+//     for (const product_price in allproductsincart) {
+//       if (
+//         allproductsincart.hasOwnProperty.call(allproductsincart, product_price)
+//       ) {
+//         const element = allproductsincart[product_price];
+//         total += allproductsincart[product_price];
+//       }
+//     }
+//   }
+// };
 
 exports.getallcart = async (req, res) => {
   const findall = await Cart.find().sort({ sortorder: 1 });
