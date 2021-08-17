@@ -34,6 +34,7 @@ const stock_clearance = require("./routes/stock_clearance");
 const dealofthe_day = require("./routes/dealofthe_day");
 const orderproduct = require("./routes/orderproduct");
 const contact_us = require("./routes/contact_us");
+const buy_xget_y = require("./routes/buy_xget_y");
 
 //Use
 app.use("/api", productcategory);
@@ -60,6 +61,7 @@ app.use("/api", cart);
 app.use("/api", dealofthe_day);
 app.use("/api", orderproduct);
 app.use("/api", contact_us);
+app.use("/api", buy_xget_y);
 
 //app.use("/api", productsummery);
 

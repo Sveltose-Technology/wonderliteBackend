@@ -18,17 +18,8 @@ const blogSchema = new mongoose.Schema(
     category: {
       type: String,
     },
-
-    comment: {
-      type: String,
-    },
     active: {
       type: Boolean,
-      default: true,
-    },
-    modifiedOn: {
-      type: Date,
-      default: Date.now,
     },
   },
   { timestamps: true }
