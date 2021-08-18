@@ -3,7 +3,6 @@ const Contactus = require("../models/contact_us");
 exports.addcontactus = async (req, res) => {
   const {
     you_are,
-    contactus_title,
     typeof_req,
     name,
     email,
