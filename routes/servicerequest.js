@@ -4,12 +4,13 @@ const router = express.Router();
 const {
   addservicerequest,
   allservicerequest,
+  delservicerequest,
 } = require("../controller/servicerequest");
 
 //Paths
 router.post("/admin/addservicerequest", addservicerequest);
 
 router.get("/admin/allservicerequest", allservicerequest);
-//router.delete("/admin/deletestaff/:id", deletestaff)
+router.get("/admin/delservicerequest/:id", delservicerequest);
 
 module.exports = router;
