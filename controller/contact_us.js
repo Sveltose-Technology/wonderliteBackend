@@ -17,7 +17,6 @@ exports.addcontactus = async (req, res) => {
 
   const newContactus = new Contactus({
     you_are: you_are,
-    contactus_title: contactus_title,
     typeof_req: typeof_req,
     name: name,
     email: email,
@@ -29,12 +28,7 @@ exports.addcontactus = async (req, res) => {
     comments: comments,
   });
 
-  const findexist = await Contactus.findOne(
-    {
-      contactus_title: contactus_title,
-    },
-    { name: name }
-  );
+  const findexist = await Contactus.findOne({ name: name });
   if (findexist) {
     res.status(400).json({
       status: false,
