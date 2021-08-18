@@ -260,19 +260,19 @@ smtptransporter.sendMail(mailOptions, function (error, info) {
   if (error) {
     //console.log(error);
   } else {
-    console.log("Email.sent" + info.response);
+    // console.log("Email.sent" + info.response);
   }
   smtptransporter.close();
 });
 
 exports.emailSend = async (req, res) => {
-  console.log(req.body.email);
+  //console.log(req.body.email);
   let data = await User.findOne({ email: req.body.email });
-  console.log(data);
+  //console.log(data);
   const responseType = {};
   if (data) {
     let otpcode = Math.floor(Math.random() * 10000 + 1);
-    console.log(data + "if");
+    //console.log(data + "if");
     let otpData = new User({
       email: req.body.email,
       code: otpcode,
@@ -283,7 +283,7 @@ exports.emailSend = async (req, res) => {
     responseType.message = "please check your email Id";
     responseType.data = otpData;
   } else {
-    console.log(data + "else");
+    //console.log(data + "else");
     responseType.statusText = "error";
     responseType.message = "email Id not exist";
   }
@@ -543,7 +543,7 @@ exports.user_img = async (req, res) => {
 const defaultotp = 1234;
 exports.sendotp = async (req, res) => {
   const { mobile_no } = req.body;
-  console.log(mobile_no.length);
+  //console.log(mobile_no.length);
   if (mobile_no) {
     res.status(200).json({
       status: true,

@@ -18,6 +18,12 @@ const blogSchema = new mongoose.Schema(
     category: {
       type: String,
     },
+    comments: {
+      type: String,
+    },
+    reply: {
+      type: String,
+    },
     active: {
       type: Boolean,
     },

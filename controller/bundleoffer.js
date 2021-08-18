@@ -184,8 +184,8 @@ cloudinary.config({
 exports.product_img = async (req, res) => {
   const findone = await Bundleoffer.findOne({ _id: req.params.id });
   if (findone) {
-    console.log(req.params.id);
-    console.log(req.file);
+    //console.log(req.params.id);
+    //console.log(req.file);
     const response = await cloudinary.uploader.upload(req.file.path);
     if (response) {
       const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(

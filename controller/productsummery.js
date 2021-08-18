@@ -20,7 +20,7 @@ exports.add_img = (req, res) => {
       { public_id: ` original/${uniqueFilename}`, tags: original },
       function (err, image) {
         if (err) console.log(err);
-        console.log("file uploaded to cloudinary");
+        //console.log("file uploaded to cloudinary");
         const fs = require("fs");
         fs.unlinkSync(path);
         const data = new Summery({

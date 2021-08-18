@@ -191,8 +191,8 @@ exports.product_img = async (req, res) => {
   //const arr = [];
 
   if (findone) {
-    console.log(req.params.id);
-    console.log(req.file);
+    //console.log(req.params.id);
+    //console.log(req.file);
     const response = await cloudinary.uploader.upload(req.file.path);
     if (response) {
       const findandUpdateEntry = await Productcategory.findOneAndUpdate(
