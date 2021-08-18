@@ -6,9 +6,7 @@ const contact_usSchema = new schema(
     you_are: {
       type: String,
     },
-    contactus_title: {
-      type: String,
-    },
+
     typeof_req: {
       type: String,
     },
