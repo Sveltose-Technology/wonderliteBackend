@@ -4,12 +4,13 @@ const multer = require("multer");
 const fs = require("fs");
 
 const {
-  addblognews,
-  allblognews,
-  editbannerimg,
-  getbannerbytype,
-  delbanner,
-} = require("../controller/blog_news");
+  add_offeranddeals,
+  //editflashsale,
+  //oneflashsale,
+  allofferanddeals,
+  //delflashsale,
+  //flashsale_img,
+} = require("../controller/offeranddeals");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -38,12 +39,15 @@ const fileFilter = (req, file, cb) => {
 };
 
 let uploads = multer({ storage: storage });
-
-router.post("/admin/addblognews", uploads.single("news_img"), addblognews);
-
-router.get("/admin/allblognews", allblognews);
-// router.get("/admin/banners/:id", getbannerbytype);
-// router.post("/admin/editbannerimg/:id", editbannerimg);
-// router.get("/admin/delbanner/:id", delbanner);
+//Path
+router.post(
+  "/admin/add_offeranddeals",
+  uploads.single("offer_img"),
+  add_offeranddeals
+);
+//router.post("/admin/editflashsale/:id", editflashsale);
+// router.get("/admin/oneflashsale/:id", oneflashsale);
+router.get("/admin/allofferanddeals", allofferanddeals);
+//router.get("/admin/delflashsale/:id", delflashsale);
 
 module.exports = router;

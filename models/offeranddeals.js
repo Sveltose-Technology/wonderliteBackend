@@ -7,19 +7,15 @@ const offeranddealsSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    product: {
-      type: Schema.Types.ObjectId,
-      ref: "product",
-      require: true,
-    },
+    // product: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "product",
+    //   require: true,
+    // },
     product_price: {
       type: Number,
     },
-
-    product_qty: {
-      type: Number,
-    },
-    product_img: {
+    offer_img: {
       type: String,
     },
     description: {

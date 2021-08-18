@@ -36,6 +36,8 @@ const orderproduct = require("./routes/orderproduct");
 const contact_us = require("./routes/contact_us");
 const buy_xget_y = require("./routes/buy_xget_y");
 const servicerequest = require("./routes/servicerequest");
+const offeranddeals = require("./routes/offeranddeals");
+const blog_news = require("./routes/blog_news");
 
 //Use
 app.use("/api", productcategory);
@@ -64,6 +66,8 @@ app.use("/api", orderproduct);
 app.use("/api", contact_us);
 app.use("/api", buy_xget_y);
 app.use("/api", servicerequest);
+app.use("/api", offeranddeals);
+app.use("/api", blog_news);
 
 //app.use("/api", productsummery);
 

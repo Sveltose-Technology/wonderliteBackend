@@ -3,7 +3,13 @@ const schema = mongoose.Schema;
 
 const blognewsSchema = new schema(
   {
-    blognews_title: {
+    news_title: {
+      type: String,
+    },
+    news_subtitle: {
+      type: String,
+    },
+    news_img: {
       type: String,
     },
     Description: {
