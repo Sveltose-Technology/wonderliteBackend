@@ -1,11 +1,50 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
+const multer = require("multer");
+const fs = require("fs");
 
-// const { addcareerform, allcareerform } = require("../controller/careerform");
+const {
+  addcareerform,
+  allcareerform,
+  delcareerform,
+} = require("../controller/careerform");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    //console.log(file);
+    let path = `./uploadesimages`;
+    if (!fs.existsSync("uploadesimages")) {
+      fs.mkdirSync("uploadesimages");
+    }
+    cb(null, path);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype.includes("jpeg") ||
+    file.mimetype.includes("png") ||
+    file.mimetype.includes("jpg")
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+let uploads = multer({ storage: storage });
 
 //Paths
-// router.post("/admin/addcareerform", addcareerform);
+router.post(
+  "/admin/addcareerform",
+  uploads.single("career_img"),
+  addcareerform
+);
 
-// router.get("/admin/allcareerform", allcareerform);
+router.get("/admin/allcareerform", allcareerform);
+router.get("/admin/delcareerform/:id", delcareerform);
 
-// module.exports = router;
+module.exports = router;

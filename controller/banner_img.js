@@ -1,6 +1,5 @@
 const Addbanner = require("../models/banner_img");
 const fs = require("fs");
-//const { url } = require("inspector");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 dotenv.config();

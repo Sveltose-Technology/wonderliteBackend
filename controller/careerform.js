@@ -1,5 +1,14 @@
-const careerform = require("../models/careerform");
-const Carrerform = require("../models/careerform");
+const Careerform = require("../models/careerform");
+const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 exports.addcareerform = async (req, res) => {
   const {
@@ -27,10 +36,7 @@ exports.addcareerform = async (req, res) => {
   });
 
   if (req.file) {
-    const findexist = await Careerform.findOne(
-      { first_name: first_name },
-      { last_name: last_name }
-    );
+    const findexist = await Careerform.findOne({ phone_no: phone_no });
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -40,7 +46,7 @@ exports.addcareerform = async (req, res) => {
     } else {
       const resp = await cloudinary.uploader.upload(req.file.path);
       if (resp) {
-        newCareerform._img = resp.secure_url;
+        newCareerform.career_img = resp.secure_url;
         fs.unlinkSync(req.file.path);
         newCareerform.save().then(
           res.status(200).json({
@@ -57,7 +63,7 @@ exports.addcareerform = async (req, res) => {
       }
     }
   } else {
-    const findexist = await Careerform.findOne({ first_name: first_name });
+    const findexist = await Careerform.findOne({ phone_no: phone_no });
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -97,6 +103,23 @@ exports.allcareerform = async (req, res) => {
       status: false,
       msg: "error",
       error: "error",
+    });
+  }
+};
+
+exports.delcareerform = async (req, res) => {
+  try {
+    const deleteentry = await Careerform.deleteOne({ _id: req.params.id });
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: deleteentry,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
     });
   }
 };
