@@ -8,7 +8,7 @@ const {
   allblognews,
   editbannerimg,
   getbannerbytype,
-  delbanner,
+  delblognews,
 } = require("../controller/blog_news");
 
 const storage = multer.diskStorage({
@@ -44,6 +44,6 @@ router.post("/admin/addblognews", uploads.single("news_img"), addblognews);
 router.get("/admin/allblognews", allblognews);
 // router.get("/admin/banners/:id", getbannerbytype);
 // router.post("/admin/editbannerimg/:id", editbannerimg);
-// router.get("/admin/delbanner/:id", delbanner);
+router.get("/admin/delblognews/:id", delblognews);
 
 module.exports = router;

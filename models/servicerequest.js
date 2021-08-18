@@ -3,9 +3,6 @@ const schema = mongoose.Schema;
 
 const service_requestSchema = new schema(
   {
-    service_title: {
-      type: String,
-    },
     service_type: {
       type: String,
     },

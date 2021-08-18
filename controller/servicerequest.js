@@ -2,7 +2,6 @@ const Servicerequest = require("../models/servicerequest");
 
 exports.addservicerequest = async (req, res) => {
   const {
-    service_title,
     service_type,
     customer_type,
     customer_name,
@@ -19,7 +18,6 @@ exports.addservicerequest = async (req, res) => {
   } = req.body;
 
   const newServicerequest = new Servicerequest({
-    service_title: service_title,
     service_type: service_type,
     customer_type: customer_type,
     customer_name: customer_name,
@@ -35,12 +33,9 @@ exports.addservicerequest = async (req, res) => {
     comments: comments,
   });
 
-  const findexist = await Servicerequest.findOne(
-    {
-      service_title: service_title,
-    },
-    { customer_name: customer_name }
-  );
+  const findexist = await Servicerequest.findOne({
+    mobile_no: mobile_no,
+  });
   if (findexist) {
     res.status(400).json({
       status: false,
