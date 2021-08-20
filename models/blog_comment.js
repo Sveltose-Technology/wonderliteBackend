@@ -10,12 +10,9 @@ const commentblogSchema = new schema(
       type: String,
     },
     website: {
-      type: String,
+      type: String, // Optional
     },
     comment: {
-      type: String,
-    },
-    time: {
       type: String,
     },
   },

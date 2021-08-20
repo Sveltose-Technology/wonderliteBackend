@@ -1,32 +1,36 @@
 const mongoose = require("mongoose");
+const blog_category = require("./blog_category");
 
 const blogSchema = new mongoose.Schema(
   {
     blog_title: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
     },
 
-    blog_img: {
-      type: String,
+    // blog_img: {
+    //   type: String,
+    // },
+    // Multiple Images
+    // sort_des: {
+    //   type: String,
+    // },
+    // full_des: {
+    //   type: String,
+    // },
+    blog_category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: blog_category,
     },
-    sort_des: {
-      type: String,
-    },
-    full_des: {
-      type: String,
-    },
-    category: {
-      type: String,
+    comment_count: {
+      type: Number,
+      default: 0,
     },
     comments: {
       type: String,
     },
-    reply: {
-      type: String,
-    },
-    active: {
-      type: Boolean,
-    },
+    // reply: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );

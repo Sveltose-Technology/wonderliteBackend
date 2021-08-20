@@ -1,30 +1,30 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-
-const subproductcategorySchema = new Schema({
+const subproductcategorySchema = new Schema(
+  {
     name: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     desc: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     productcategory: {
-        type: Schema.Types.ObjectId,
-        ref: 'productcategory',
-        require: true
+      type: Schema.Types.ObjectId,
+      ref: "productcategory",
+      require: true,
     },
     sortorder: {
-        type: Number,
+      type: Number,
     },
     status: {
-        type: String,
-        default: "Active"
-    }
-},
-    { timestamps: true }
-)
+      type: String,
+      default: "Active",
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("subproductcategory", subproductcategorySchema)
+module.exports = mongoose.model("subproductcategory", subproductcategorySchema);

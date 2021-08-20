@@ -39,6 +39,9 @@ const servicerequest = require("./routes/servicerequest");
 const offeranddeals = require("./routes/offeranddeals");
 const blog_news = require("./routes/blog_news");
 const careerform = require("./routes/careerform");
+const blog_category = require("./routes/blog_category");
+const blog = require("./routes/blog");
+const blog_comment = require("./routes/blog_comment");
 
 //Use
 app.use("/api", productcategory);
@@ -70,6 +73,9 @@ app.use("/api", servicerequest);
 app.use("/api", offeranddeals);
 app.use("/api", blog_news);
 app.use("/api", careerform);
+app.use("/api", blog_category);
+app.use("/api", blog);
+app.use("/api", blog_comment);
 
 //app.use("/api", productsummery);
 

@@ -1,23 +1,15 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const blog_categorySchema = new schema(
+const blogcategorySchema = new schema(
   {
-    antibiotic: {
-      type: String,
-      require: true,
-    },
-    diseases: {
-      type: schema.Types.ObjectId,
-    },
-    healthcare: {
+    short_desc: {
       type: String,
     },
-    heart_rate: {},
-    hospital: {
+    full_desc: {
       type: String,
     },
-    infectious: {
+    cat_img: {
       type: String,
     },
   },

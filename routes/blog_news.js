@@ -6,8 +6,8 @@ const fs = require("fs");
 const {
   addblognews,
   allblognews,
-  editbannerimg,
-  getbannerbytype,
+  viewoneblognews,
+  //  getbannerbytype,
   delblognews,
 } = require("../controller/blog_news");
 
@@ -42,7 +42,7 @@ let uploads = multer({ storage: storage });
 router.post("/admin/addblognews", uploads.single("news_img"), addblognews);
 
 router.get("/admin/allblognews", allblognews);
-// router.get("/admin/banners/:id", getbannerbytype);
+router.get("/admin/viewonenews/:id", viewoneblognews);
 // router.post("/admin/editbannerimg/:id", editbannerimg);
 router.get("/admin/delblognews/:id", delblognews);
 
