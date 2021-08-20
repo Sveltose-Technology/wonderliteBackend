@@ -12,11 +12,10 @@ cloudinary.config({
 });
 
 exports.addblognews = async (req, res) => {
-  const { news_title, news_subtitle, news_img, Description } = req.body;
+  const { news_title, news_img, Description } = req.body;
 
   const newBlognews = new Blognews({
     news_title: news_title,
-    news_subtitle: news_subtitle,
     news_img: news_img,
     Description: Description,
   });

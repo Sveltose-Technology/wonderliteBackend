@@ -6,9 +6,9 @@ const blognewsSchema = new schema(
     news_title: {
       type: String,
     },
-    news_subtitle: {
-      type: String,
-    },
+    // news_subtitle: {
+    //   type: String,
+    // },
     news_img: {
       type: String,
     },
