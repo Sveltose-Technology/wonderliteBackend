@@ -12,10 +12,14 @@ const blognewsSchema = new schema(
     news_img: {
       type: String,
     },
-    Description: {
+    description: {
+      type: String,
+    },
+    date: {
       type: String,
     },
   },
+
   { timestamps: true }
 );
 

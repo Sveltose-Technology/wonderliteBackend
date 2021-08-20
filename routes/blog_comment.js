@@ -8,7 +8,7 @@ const {
 } = require("../controller/blog_comment");
 
 //Paths
-router.post("/admin/add_comment", add_comment);
+//router.post("/admin/add_comment", add_comment);
 // router.post("/admin/editaltunit/:id", editaltunit);
 // router.get("/admin/viewonealtunit/:id", viewonealtunit);
 router.get("/admin/all_comment", all_comment);
