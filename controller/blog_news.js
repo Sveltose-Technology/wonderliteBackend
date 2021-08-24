@@ -12,13 +12,75 @@ cloudinary.config({
 });
 
 exports.addblognews = async (req, res) => {
-  const { news_title, news_img, description, date } = req.body;
+  //function timeZone() {
+  //   let options = {
+  //       timeZone: "Asia/Kolkata",
+  //       hour: "numeric",
+  //       year: "numeric",
+  //       month: "numeric",
+  //       day: "numeric",
+  //       minute: "numeric",
+  //       second: "numeric",
+  //     },
+  //     formatter = new Intl.DateTimeFormat([], options);
+  //   var a = formatter.format(new Date());
+  //   var str = a;
+  //   var h = str.split(",");
+  //   return { date: h[0], time: h[1] };
+  // }
+  // var Result = timeZone();
+  // console.log(Result);
+  // console.log(req.body);
+  // console.log(req.params);
+  // var commentObj = new Blognews(req.body);
+  // commentObj.date = Result.date;
+  // commentObj.time = Result.time;
+  //console.log(commentObj);
+  // commentObj.save((err, resp) => {
+  //   if (err) {
+  //     res.json({ code: 400, msg: "comment is not add" });
+  //   } else {
+  //     Blognews.updateOne(
+  //       { _id: req.params.blogId },
+  //       { $push: { comment: resp._id }, $inc: { comment_count: 1 } },
+  //       (err, resp) => {
+  //         if (err) {
+  //           res.json({ code: 400, msg: "comment not add in blog" });
+  //           console.log(err);
+  //         } else {
+  //           res.json({ code: 200, msg: "comment add successfully" });
+  //         }
+  //       }
+  //     );
+  //   }
+  // });
+
+  // let dtFormat = new Intl.DateTimeFormat("Kolkata", {
+  //   year: "numeric",
+  //   month: "numeric",
+  //   day: "numeric",
+  //   minute: "numeric",
+  //   second: "numeric",
+  //   hour12: false,
+  // });
+  // let date = new Date();
+  // setTimeout(() => {
+  //   let date2 = new Date();
+  //   let diff = new Date(date2.getTime() - date.getTime());
+  //   console.log(dtFormat.format(diff));
+  // });
+
+  let today = new Date();
+  let otherDate = new Date("August 24 2021");
+  console.log(otherDate);
+
+  const { news_title, news_img, description } = req.body;
 
   const newBlognews = new Blognews({
     news_title: news_title,
     news_img: news_img,
     description: description,
-    date: date,
+    // date: date,
   });
 
   if (req.file) {

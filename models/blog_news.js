@@ -18,6 +18,9 @@ const blognewsSchema = new schema(
     date: {
       type: String,
     },
+    time: {
+      type: String,
+    },
   },
 
   { timestamps: true }

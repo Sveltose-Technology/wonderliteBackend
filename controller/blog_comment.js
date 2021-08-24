@@ -1,49 +1,38 @@
-const blog = require("../models/blog");
+//const blog = require("../models/blog");
 const commentBlog = require("../models/blog_comment");
 //const blog = require("../models/blog");
 
-// exports.add_comment = async (req, res) => {
-//   const { blogId, name, email, website, comment, comment_count } = req.body;
+exports.add_comment = async (req, res) => {
+  const { blogId, name, email, website, comment } = req.body;
 
-//   const newcommentBlog = new commentBlog({
-//     blogId: blogId,
-//     name: name,
-//     email: email,
-//     website: website,
-//     comment: comment,
-//     comment_count: comment_count,
-//   });
+  const newcommentBlog = new commentBlog({
+    blogId: blogId,
+    name: name,
+    email: email,
+    website: website,
+    comment: comment,
+  });
 
-//   newcommentBlog.save(function (err, data) {
-//     if (err) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Error Occured",
-//         error: err,
-//       });
-//     }
-//else {
-// res.status(200).json({
-//   status: true,
-//   msg: "comment added ",
-//   data: newcommentBlog,
-// });
-//     blog.updateOne(
-//       { _id: req.params.blogId },
-//       { $push: { comment: comment_id }, $inc: { comment_count: 1 } }
+  newcommentBlog.save((err, resp) => {
+    if (err) {
+      res.json({ code: 400, msg: "comment is not add" });
+    } else {
+      newcommentBlog.updateOne(
+        { _id: req.params.blogId },
+        { $push: { comment: resp._id }, $inc: { comment_count: 1 } },
+        (err, resp) => {
+          if (err) {
+            res.json({ code: 400, msg: "comment not add in blog" });
+            console.log(err);
+          } else {
+            res.json({ code: 200, msg: "comment add successfully" });
+          }
+        }
+      );
+    }
+  });
+};
 
-//       (err, resp) => {
-//         if (err) {
-//           res.json({ code: 400, msg: "comment not add in blog" });
-//           console.log(err);
-//         } else {
-//           res.json({ code: 200, msg: "comment add successfully" });
-//         }
-//     );
-
-// }
-// });
-//};
 //   const findexist = await Commentblog.findOne({ email: email });
 //   if (findexist) {
 //     res.status(400).json({
@@ -71,26 +60,26 @@ const commentBlog = require("../models/blog_comment");
 //   }
 // };
 
-// const removeOne = async (req, res) => {
-//   try {
-//     const deleted = await Comment.findByIdAndDelete(req.params.id);
-//     if (!deleted) {
-//       return res.status(404).json({
-//         message: "Item not found",
-//         success: false,
-//       });
-//     }
-//     return res.status(204).json({
-//       message: "Item successfully deleted",
-//       success: true,
-//     });
-//   } catch (err) {
-//     return res.status(500).json({
-//       message: err.message,
-//       success: false,
-//     });
-//   }
-// };
+const removeOne = async (req, res) => {
+  try {
+    const deleted = await Comment.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({
+        message: "Item not found",
+        success: false,
+      });
+    }
+    return res.status(204).json({
+      message: "Item successfully deleted",
+      success: true,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
+};
 
 exports.all_comment = async (req, res) => {
   const findall = await commentBlog.find().sort({ sortorder: 1 });

@@ -42,6 +42,8 @@ const careerform = require("./routes/careerform");
 const blog_category = require("./routes/blog_category");
 const blog = require("./routes/blog");
 const blog_comment = require("./routes/blog_comment");
+const privacypolicy = require("./routes/privacypolicy");
+const termsandcondition = require("./routes/termsandcondition");
 
 //Use
 app.use("/api", productcategory);
@@ -76,6 +78,8 @@ app.use("/api", careerform);
 app.use("/api", blog_category);
 app.use("/api", blog);
 app.use("/api", blog_comment);
+app.use("/api", privacypolicy);
+app.use("/api", termsandcondition);
 
 //app.use("/api", productsummery);
 
