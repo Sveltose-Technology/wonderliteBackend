@@ -10,10 +10,10 @@ const blogSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: blog_category,
     },
-    comment_count: {
-      type: Number,
-      default: 0,
-    },
+    // comment_count: {
+    //   type: Number,
+    //   default: 0,
+    // },
     comments: {
       type: String,
     },
