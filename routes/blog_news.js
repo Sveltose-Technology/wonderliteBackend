@@ -7,7 +7,7 @@ const {
   addblognews,
   allblognews,
   viewoneblognews,
-  //  getbannerbytype,
+
   delblognews,
 } = require("../controller/blog_news");
 
@@ -43,7 +43,6 @@ router.post("/admin/addblognews", uploads.single("news_img"), addblognews);
 
 router.get("/admin/allblognews", allblognews);
 router.get("/admin/viewonenews/:id", viewoneblognews);
-// router.post("/admin/editbannerimg/:id", editbannerimg);
 router.get("/admin/delblognews/:id", delblognews);
 
 module.exports = router;

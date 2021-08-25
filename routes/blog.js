@@ -7,6 +7,5 @@ const { addblog, allblog, delblog } = require("../controller/blog");
 router.post("/admin/addblog", addblog);
 router.get("/admin/allblog", allblog);
 router.get("/admin/delblog/:id", delblog);
-//router.delete("/admin/delblog/:id", delblog);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const Blognews = require("../models/blog_news");
 const fs = require("fs");
-//const { url } = require("inspector");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 dotenv.config();
@@ -18,7 +17,6 @@ exports.addblognews = async (req, res) => {
     news_title: news_title,
     news_img: news_img,
     description: description,
-    // date: date,
   });
 
   if (req.file) {

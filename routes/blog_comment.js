@@ -9,8 +9,6 @@ const {
 
 //Paths
 router.post("/admin/add_comment", add_comment);
-// router.post("/admin/editaltunit/:id", editaltunit);
-// router.get("/admin/viewonealtunit/:id", viewonealtunit);
 router.get("/admin/all_comment", all_comment);
 router.get("/admin/delete_comment/:id", delete_comment);
 
