@@ -12,10 +12,10 @@ const commentblogSchema = new schema(
     website: {
       type: String, // Optional
     },
-    comment_count: {
-      type: Number,
-      default: 0,
-    },
+    // comment_count: {
+    //   type: Number,
+    //   default: 0,
+    // },
     comment: {
       type: String,
     },

@@ -6,25 +6,14 @@ const blogSchema = new mongoose.Schema(
     blog_title: {
       type: String,
     },
-
-    // blog_img: {
-    //   type: String,
-    // },
-    // Multiple Images
-    // sort_des: {
-    //   type: String,
-    // },
-    // full_des: {
-    //   type: String,
-    // },
     blog_category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: blog_category,
     },
-    // comment_count: {
-    //   type: Number,
-    //   default: 0,
-    // },
+    comment_count: {
+      type: Number,
+      default: 0,
+    },
     comments: {
       type: String,
     },

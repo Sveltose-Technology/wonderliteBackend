@@ -44,6 +44,7 @@ const blog = require("./routes/blog");
 const blog_comment = require("./routes/blog_comment");
 const privacypolicy = require("./routes/privacypolicy");
 const termsandcondition = require("./routes/termsandcondition");
+const videoslideshow = require("./routes/videoslideshow");
 
 //Use
 app.use("/api", productcategory);
@@ -80,6 +81,7 @@ app.use("/api", blog);
 app.use("/api", blog_comment);
 app.use("/api", privacypolicy);
 app.use("/api", termsandcondition);
+app.use("/api", videoslideshow);
 
 //app.use("/api", productsummery);
 
