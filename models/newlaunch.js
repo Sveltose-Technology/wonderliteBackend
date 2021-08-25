@@ -15,7 +15,7 @@ const newlaunchSchema = new mongoose.Schema(
     product_price: {
       type: Number,
     },
-    Image: {
+    product_img: {
       type: String,
     },
     description: {
