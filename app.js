@@ -46,6 +46,8 @@ const privacypolicy = require("./routes/privacypolicy");
 const termsandcondition = require("./routes/termsandcondition");
 const videoslideshow = require("./routes/videoslideshow");
 const newlaunch = require("./routes/newlaunch");
+const promotedbrands = require("./routes/promotedbrands");
+
 //Use
 app.use("/api", productcategory);
 app.use("/api", productsubcategory);
@@ -83,6 +85,7 @@ app.use("/api", privacypolicy);
 app.use("/api", termsandcondition);
 app.use("/api", videoslideshow);
 app.use("/api", newlaunch);
+app.use("/api", promotedbrands);
 
 //app.use("/api", productsummery);
 

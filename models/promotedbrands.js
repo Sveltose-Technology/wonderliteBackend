@@ -3,14 +3,17 @@ const Schema = mongoose.Schema;
 
 const promotedbrandSchema = new mongoose.Schema(
   {
-    promotedbrand_title: {
+    promotion_title: {
       type: String,
       require: true,
     },
-    product: {
+    brand: {
       type: Schema.Types.ObjectId,
-      ref: "product",
+      ref: "brand",
       require: true,
+    },
+    promotion_img: {
+      trype: String,
     },
   },
   { timestamps: true }
