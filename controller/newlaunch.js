@@ -1,4 +1,4 @@
-const Newlaunch = require("../models/new");
+const Newlaunch = require("../models/newlaunch");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -87,8 +87,8 @@ exports.add_newlaunch = async (req, res) => {
     }
   }
 };
-exports.allofferanddeals = async (req, res) => {
-  const findall = await Offeranddeals.find().sort({ sortorder: 1 });
+exports.getnewlaunch = async (req, res) => {
+  const findall = await Newlaunch.find().sort({ sortorder: 1 });
   if (findall) {
     res.status(200).json({
       status: true,
@@ -104,9 +104,9 @@ exports.allofferanddeals = async (req, res) => {
   }
 };
 
-exports.delofferdeals = async (req, res) => {
+exports.delnewlaunch = async (req, res) => {
   try {
-    const deleteentry = await Offeranddeals.deleteOne({ _id: req.params.id });
+    const deleteentry = await Newlaunch.deleteOne({ _id: req.params.id });
     res.status(200).json({
       status: true,
       msg: "success",

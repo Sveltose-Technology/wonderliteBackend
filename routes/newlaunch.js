@@ -3,7 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 
-const { add_newlaunch } = require("../controller/newlaunch");
+const {
+  add_newlaunch,
+  getnewlaunch,
+  delnewlaunch,
+} = require("../controller/newlaunch");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -33,12 +37,14 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 //Path
-// router.post(
-//   "/admin/add_newlaunch",
-//   uploads.single("product_img"),
-//   add_newlaunch
-// );
-//router.post("/admin/editflashsale/:id", editflashsale);
+router.post(
+  "/admin/add_newlaunch",
+  uploads.single("product_img"),
+  add_newlaunch
+);
+router.get("/admin/getnewlaunch", getnewlaunch);
+router.get("/admin/delnewlaunch/:id", delnewlaunch);
+
 // router.get("/admin/oneflashsale/:id", oneflashsale);
 
 module.exports = router;
