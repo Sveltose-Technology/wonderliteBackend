@@ -34,7 +34,7 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 //Path
 router.post("/admin/addblog", uploads.single("blog_img"), addblog);
-router.post("/admin/allblog", allblog);
+router.get("/admin/allblog", allblog);
 router.get("/admin/delblog/:id", delblog);
 
 module.exports = router;
