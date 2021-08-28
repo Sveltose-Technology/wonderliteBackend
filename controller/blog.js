@@ -79,6 +79,7 @@ exports.addblog = async (req, res) => {
     }
   }
 };
+
 exports.allblog = async (req, res) => {
   const findall = await Blog.find().sort({ sortorder: 1 });
   if (findall) {

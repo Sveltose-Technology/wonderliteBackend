@@ -3,11 +3,15 @@ const Schema = mongoose.Schema;
 
 const product_returnSchema = new mongoose.Schema(
   {
-    return_reason: {
+    return_title: {
       type: String,
       require: true,
     },
-    exchange_reason: {
+    userId: {
+      type: Schema.Types.ObjectId,
+      require: true,
+    },
+    exchange: {
       type: String,
       require: true,
     },
@@ -19,6 +23,7 @@ const product_returnSchema = new mongoose.Schema(
     order_id: {
       type: String,
       ref: "order",
+      require: true,
     },
   },
   { timestamps: true }

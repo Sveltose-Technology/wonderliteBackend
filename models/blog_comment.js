@@ -19,6 +19,9 @@ const commentblogSchema = new schema(
     comment: {
       type: String,
     },
+    commentby_cat: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

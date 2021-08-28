@@ -24,16 +24,7 @@ exports.productorder = async (req, res) => {
     deliverdondate: deliverdondate,
     status: status,
   });
-  //   const findexist = await Orderproduct.findOne({
-  //     $and: [{ userId: userId }, { product: product }],
-  //   });
-  //   if (findexist) {
-  //     res.status(400).json({
-  //       status: false,
-  //       msg: "Already Exists",
-  //       data: {},
-  //     });
-  //   } else {
+
   neworderproduct.save(function (err, data) {
     if (err) {
       res.status(400).json({
@@ -49,7 +40,6 @@ exports.productorder = async (req, res) => {
       });
     }
   });
-  //}
 };
 
 // exports.cancelorder = async(req,res)=>{(

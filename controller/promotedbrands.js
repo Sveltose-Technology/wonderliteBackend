@@ -102,28 +102,9 @@ exports.editpromotion = async (req, res) => {
   }
 };
 
-exports.onepromotedbrand = async (req, res) => {
-  const findone = await Promotedbrand.findOne({ _id: req.params.id }).populate(
-    "product"
-  );
-  if (findone) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findone,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
-  }
-};
-
 exports.allpromotedbrand = async (req, res) => {
   const findall = await Promotedbrand.find().sort({ sortorder: 1 });
-  // .populate("product");
+
   if (findall) {
     res.status(200).json({
       status: true,
@@ -144,7 +125,7 @@ exports.delpromotedbrand = async (req, res) => {
     const deleteentry = await Promotedbrand.deleteOne({
       _id: req.params.id,
     });
-    //.populate("product");
+
     res.status(200).json({
       status: true,
       msg: "success",
@@ -155,6 +136,23 @@ exports.delpromotedbrand = async (req, res) => {
       status: false,
       msg: "error",
       error: error,
+    });
+  }
+};
+
+exports.viewonepromotedbrand = async (req, res) => {
+  const findone = await Altunit.findOne({ _id: req.params.id });
+  if (findone) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findone,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
     });
   }
 };

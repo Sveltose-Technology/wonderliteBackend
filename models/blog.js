@@ -18,6 +18,10 @@ const blogSchema = new mongoose.Schema(
     category: {
       type: String,
     },
+
+    categorybytype: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

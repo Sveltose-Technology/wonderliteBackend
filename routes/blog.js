@@ -7,6 +7,7 @@ const {
   addblog,
   allblog,
   delblog,
+  // allcommentby_cat,
   viewoneblog,
 } = require("../controller/blog");
 
