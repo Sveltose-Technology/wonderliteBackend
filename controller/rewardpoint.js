@@ -2,11 +2,15 @@ const Rewardpoint = require("../controller/rewardpoint");
 
 exports.add_rewardpoint = async (req, res) => {
   const { reward_point, user_id, points, order_id } = req.body;
+  //reawrd title
+  //reward percent
+  //applicable till
+  //expiry date
+  //type (customer,tchnician,user type)
 
   const newRewardpoint = new Rewardpoint({
     reward_point: reward_point,
     user_id: user_id,
-    points: points,
     order_id: order_id,
   });
 

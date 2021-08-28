@@ -9,6 +9,9 @@ const commentblogSchema = new schema(
     email: {
       type: String,
     },
+    blogId: {
+      type: String,
+    },
     website: {
       type: String, // Optional
     },
@@ -19,9 +22,9 @@ const commentblogSchema = new schema(
     comment: {
       type: String,
     },
-    commentby_cat: {
-      type: String,
-    },
+    // commentby_cat: {
+    //   type: String,
+    // },
   },
   { timestamps: true }
 );

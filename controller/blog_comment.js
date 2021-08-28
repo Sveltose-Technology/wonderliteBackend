@@ -1,15 +1,15 @@
 const CommentBlog = require("../models/blog_comment");
 
 exports.add_comment = async (req, res) => {
-  const { blogId, name, email, website, comment, commentby_cat } = req.body;
+  const { name, email, website, comment } = req.body;
 
   const newCommentBlog = new CommentBlog({
-    blogId: blogId,
+    blogId: req.params.id,
     name: name,
     email: email,
     website: website,
     comment: comment,
-    commentby_cat: commentby_cat,
+    //commentby_cat: commentby_cat,
   });
 
   const findexist = await CommentBlog.findOne({ email: email });
@@ -56,9 +56,9 @@ exports.all_comment = async (req, res) => {
   }
 };
 
-exports.allcommentby_cat = async (req, res) => {
+exports.allcommentby_blog = async (req, res) => {
   const findall = await CommentBlog.find({
-    commentby_cat: req.params.id,
+    blogId: req.params.id,
   }).sort({ sortorder: 1 });
 
   if (findall) {
