@@ -109,6 +109,9 @@ const userSchema = new Schema(
     pancard_no: {
       type: String,
     },
+    eb_license: {
+      type: String,
+    },
     bank_name: {
       type: String,
     },

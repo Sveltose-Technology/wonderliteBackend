@@ -43,7 +43,23 @@ exports.productorder = async (req, res) => {
   });
 };
 
-//exports.delivered = async (req, res, next) => {};
+// exports.delevered_order = async (req, res, next) => {
+//   const delivered = await Orderproduct.find({
+//     $and: [{ user: req.params.id }, { status: "Cancel Order" }],
+//   })
+//     .then((result) => {
+//       res.status(200).json({
+//         status: true,
+//         data: result,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(200).json({
+//         status: false,
+//         error: err,
+//       });
+//     });
+// };
 exports.pending_order = async (req, res) => {
   const data = await Orderproduct.find({
     $and: [{ user: req.params.id }, { status: "Pending" }],
@@ -60,37 +76,57 @@ exports.pending_order = async (req, res) => {
         error: err,
       });
     });
-
-  // const data = await Orderproduct.find({
-  //   $and: [{ user: req.params.id }, { status: "Pending" }],
-  // })
-
-  // if (status == "Pending" || status == "pending") {
-  //   Orderproduct.findOne(
-  //     { _id: req.params.id },
-  //     { $set: req.body },
-  //     (err, resp) => {
-  //       if (err) {
-  //         res.json(err);
-  //       } else {
-  //         res.json({ code: 200, msg: "status change successfully" });
-  //       }
-  //     }
-  //   );
-  // } else if (status == "Cancelled" || status == "Cancelled") {
-  //   Orderproduct.findOne(
-  //     { _id: req.body.id },
-  //     { $set: req.body },
-  //     (err, resp) => {
-  //       if (err) {
-  //         res.json(err);
-  //       } else {
-  //         res.json(resp);
-  //       }
-  //     }
-  //   );
-  // }
 };
+
+exports.allpendingorderbyid = async (req, res) => {
+  const findall = await Orderproduct.find({
+    user: req.params.id,
+  }).sort({ sortorder: 1 });
+
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
+
+// const data = await Orderproduct.find({
+//   $and: [{ user: req.params.id }, { status: "Pending" }],
+// })
+
+// if (status == "Pending" || status == "pending") {
+//   Orderproduct.findOne(
+//     { _id: req.params.id },
+//     { $set: req.body },
+//     (err, resp) => {
+//       if (err) {
+//         res.json(err);
+//       } else {
+//         res.json({ code: 200, msg: "status change successfully" });
+//       }
+//     }
+//   );
+// } else if (status == "Cancelled" || status == "Cancelled") {
+//   Orderproduct.findOne(
+//     { _id: req.body.id },
+//     { $set: req.body },
+//     (err, resp) => {
+//       if (err) {
+//         res.json(err);
+//       } else {
+//         res.json(resp);
+//       }
+//     }
+//   );
+// }
 // else if (req.body.status == 2 || req.body.status == "2") {
 //     console.log("pending");
 //   }

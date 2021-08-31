@@ -589,15 +589,12 @@ exports.verifyotp = async (req, res) => {
   }
 };
 
-// exports.add_country = (req, res) => {
-//   const { country } = req.body;
-//   const data = new country({
-//     country: country,
-//   });
-//   data.save().then((response) => {
-//     res.json({ code: 200, msg: "country save" });
-//   });
-// };
+// exports.signup = async (req,res) =>{
+//   const{aadhar_no,pancard_no,eb_license} = req.body
+//   if(aadhar_no && pancard_no && eb_license){
+
+//   }
+// }
 
 // {aadhar  && PAN && EBlicense == null}=Consumer
 // {EBlicense}=Technician
