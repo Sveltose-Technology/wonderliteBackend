@@ -598,3 +598,10 @@ exports.verifyotp = async (req, res) => {
 //     res.json({ code: 200, msg: "country save" });
 //   });
 // };
+
+// {aadhar  && PAN && EBlicense == null}=Consumer
+// {EBlicense}=Technician
+// {GSTIN && Farm Name && Adhar && PAN}=Contractor/Builder
+// {GSTIN && Trade Licence}=Retailer
+// {GSTIN && Trade Licence}=Retailer
+// {UdhyogAadhar}=Manufacturer

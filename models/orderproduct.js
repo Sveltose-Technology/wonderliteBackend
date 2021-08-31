@@ -32,7 +32,10 @@ const orderproductSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Active",
+    },
+    activeStatus: {
+      type: String,
+      default: "0",
     },
   },
   { timestamps: true }
