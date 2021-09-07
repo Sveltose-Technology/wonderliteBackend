@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 
-const { addcategory } = require("../controller/blog_category");
+const { addcategory, viewall_cat } = require("../controller/blog_category");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,5 +34,6 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 router.post("/admin/addblog_cat", uploads.single("cat_img"), addcategory);
+router.get("/admin/viewall_cat", viewall_cat);
 
 module.exports = router;

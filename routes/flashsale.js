@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
     cb(null, path);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, "uploadesimages");
   },
 });
 
@@ -42,9 +42,10 @@ let uploads = multer({ storage: storage });
 //Path
 router.post(
   "/admin/add_flashsale",
-  uploads.single("flashsale_img"),
+  uploads.array("flashsale_img"),
   add_flashsale
 );
+
 router.post("/admin/editflashsale/:id", editflashsale);
 // router.get("/admin/oneflashsale/:id", oneflashsale);
 router.get("/admin/allflashsale", allflashsale);

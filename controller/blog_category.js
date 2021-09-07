@@ -115,22 +115,22 @@ exports.addcategory = async (req, res) => {
 //   }
 // };
 
-// exports.allbrand_cat = async (req, res) => {
-//   const findall = await Blogcategory.find().sort({ sortorder: 1 });
-//   if (findall) {
-//     res.status(200).json({
-//       status: true,
-//       msg: "success",
-//       data: findall,
-//     });
-//   } else {
-//     res.status(400).json({
-//       status: false,
-//       msg: "error",
-//       error: "error",
-//     });
-//   }
-// };
+exports.viewall_cat = async (req, res) => {
+  const findall = await Blogcategory.find().sort({ sortorder: 1 });
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
 
 // exports.delblog_cat = async (req, res) => {
 //   try {

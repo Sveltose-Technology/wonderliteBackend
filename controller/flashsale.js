@@ -241,7 +241,7 @@ exports.add_flashsale = async (req, res) => {
     status: status,
   });
 
-  if (req.file) {
+  if (req.files) {
     const findexist = await Flashsale.findOne({
       flashsale_title: flashsale_title,
     });
@@ -252,17 +252,23 @@ exports.add_flashsale = async (req, res) => {
         data: {},
       });
     } else {
-      const resp = await cloudinary.uploader.upload(req.file.path);
-      if (resp) {
-        newFlashsale.flashsale_img = resp.secure_url;
-        fs.unlinkSync(req.file.path);
-        newFlashsale.save().then(
+      // console.log(req.files);
+      alluploads = [];
+      for (let i = 0; i < req.files.length; i++) {
+        const resp = await cloudinary.uploader.upload(req.files[i].path);
+        alluploads.push(resp.secure_url);
+      }
+      console.log(alluploads);
+
+      if (alluploads.length !== 0) {
+        newFlashsale.flashsale_img = alluploads;
+        newFlashsale.save().then((result) => {
           res.status(200).json({
             status: true,
             msg: "success",
             data: newFlashsale,
-          })
-        );
+          });
+        });
       } else {
         res.status(200).json({
           status: false,
@@ -271,6 +277,7 @@ exports.add_flashsale = async (req, res) => {
       }
     }
   } else {
+    console.log("changed node");
     const findexist = await Flashsale.findOne({
       flashsale_title: flashsale_title,
     });
@@ -281,7 +288,7 @@ exports.add_flashsale = async (req, res) => {
         data: {},
       });
     } else {
-      newDealoftheday
+      newFlashsale
         .save()
         .then(
           res.status(200).json({

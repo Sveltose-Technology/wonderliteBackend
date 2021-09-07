@@ -16,7 +16,7 @@ const flashsaleSchema = new mongoose.Schema(
       type: Number,
     },
     flashsale_img: {
-      type: String,
+      type: Array,
     },
     description: {
       type: String,

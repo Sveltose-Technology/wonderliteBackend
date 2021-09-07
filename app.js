@@ -44,10 +44,11 @@ const blog = require("./routes/blog");
 const blog_comment = require("./routes/blog_comment");
 const privacypolicy = require("./routes/privacypolicy");
 const termsandcondition = require("./routes/termsandcondition");
-const videoslideshow = require("./routes/videoslideshow");
+const videoController = require("./routes/videoController");
 const newlaunch = require("./routes/newlaunch");
 const promotedbrands = require("./routes/promotedbrands");
-const returnandexchange = require("./routes/returnandexchange");
+const order_return = require("./routes/order_return");
+const exclusivevalue_deal = require("./routes/exclusivevalue_deal");
 
 //Use
 app.use("/api", productcategory);
@@ -84,10 +85,11 @@ app.use("/api", blog);
 app.use("/api", blog_comment);
 app.use("/api", privacypolicy);
 app.use("/api", termsandcondition);
-app.use("/api", videoslideshow);
+app.use("/api", videoController);
 app.use("/api", newlaunch);
 app.use("/api", promotedbrands);
-app.use("/api", returnandexchange);
+app.use("/api", order_return);
+app.use("/api", exclusivevalue_deal);
 
 //app.use("/api", productsummery);
 

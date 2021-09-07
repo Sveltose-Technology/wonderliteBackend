@@ -106,6 +106,9 @@ const userSchema = new Schema(
     aadhar_no: {
       type: Number,
     },
+    farm_name: {
+      type: Number,
+    },
     pancard_no: {
       type: String,
     },
