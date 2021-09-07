@@ -138,7 +138,10 @@ exports.cancelorder = async (req, res) => {
 };
 
 exports.allorder = async (req, res) => {
-  const findall = await Orderproduct.find().sort({ sortorder: 1 });
+  const findall = await Orderproduct.find()
+    .sort({ sortorder: 1 })
+    .populate("user")
+    .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
