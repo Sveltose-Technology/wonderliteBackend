@@ -17,3 +17,22 @@ gen_rate
 inclusive of duties & taxes
 std packing
 barcode
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD4krkdwHdVDh3mSd9yjgVGhxMvAJ21nck",
+  authDomain: "wonderliteapi.firebaseapp.com",
+  projectId: "wonderliteapi",
+  storageBucket: "wonderliteapi.appspot.com",
+  messagingSenderId: "1061683415796",
+  appId: "1:1061683415796:web:64c90cefb25a4ab8516ca1",
+  measurementId: "G-6Y8HQD0FL1"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+ key_id : rzp_test_rbfsw8L8wl5PNR,
+    key_secret :  WIRod9ipHLDFvSNsHesdQJQR

@@ -113,7 +113,7 @@ app.use("/api", exclusivevalue_deal);
       err: "image not uploaded",
     });
   }
-});
+});fgh
 */
 app.get("/api", (req, res) => {
   res.send("Hello World!");
