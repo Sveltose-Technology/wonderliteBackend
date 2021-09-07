@@ -15,6 +15,6 @@ router.post("/admin/addrequired", addrequired);
 router.post("/admin/editrequired/:id", editrequired);
 router.get("/admin/viweonerequired/:id", viweonerequired);
 router.get("/admin/viewallrequired", viewallrequired);
-router.delete("/admin/delrequired/:id", delrequired);
+router.get("/admin/delrequired/:id", delrequired);
 
 module.exports = router;
