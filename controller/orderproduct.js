@@ -46,6 +46,8 @@ exports.productorder = async (req, res) => {
 //delivered_order == Deliver
 exports.delivered_order = async (req, res, next) => {
   const datas = await Orderproduct.find({ status: "Deliver" })
+    .populate("user")
+    .populate("product")
     //$and: [{ orderId: req.params.id }, { status: "Deliver" }],
 
     .then((result) => {
@@ -101,10 +103,11 @@ exports.cancel_order = async (req, res, next) => {
 // };
 
 exports.pending_order = async (req, res) => {
-  const data = await Orderproduct.find({
+  const data = await Orderproduct.find({ status: "Pending" })
+    .populate("user")
+    .populate("product")
     //$and: [{ user: req.params.id }, { status: "Pending" }],
-    status: "Pending",
-  })
+
     .then((result) => {
       res.status(200).json({
         status: true,
