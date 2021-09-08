@@ -62,6 +62,24 @@ exports.delivered_order = async (req, res, next) => {
     });
 };
 
+exports.cancel_order = async (req, res, next) => {
+  const datas = await Orderproduct.find({ status: "Cancel" })
+    //$and: [{ orderId: req.params.id }, { status: "Deliver" }],
+
+    .then((result) => {
+      res.status(200).json({
+        status: true,
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: false,
+        error: err,
+      });
+    });
+};
+
 // exports.alldelevered_order = async (req, res) => {
 //   const findall = await Orderproduct.find({
 //     user: req.params.id,
@@ -138,7 +156,7 @@ exports.pending_order = async (req, res) => {
 //   }
 // };
 
-exports.cancelorder = async (req, res) => {
+exports.delete_order = async (req, res) => {
   try {
     const deleteentry = await Orderproduct.deleteOne({ _id: req.params.id });
     res.status(200).json({

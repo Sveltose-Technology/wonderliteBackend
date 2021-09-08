@@ -4,21 +4,19 @@ const router = express.Router();
 const {
   productorder,
   allorder,
-  cancelorder,
+  cancel_order,
   pending_order,
   delivered_order,
-  //allpendingorder,
+  delete_order,
 } = require("../controller/orderproduct");
 
 //path
 
 router.post("/admin/addorder", productorder);
 router.get("/admin/allorder", allorder);
-router.get("/admin/cancel_order/:id", cancelorder);
+router.get("/admin/cancel_order", cancel_order);
+router.get("/admin/delete_order/:id", delete_order);
+
 router.get("/admin/allpending_order", pending_order);
 router.get("/admin/delivered_order", delivered_order);
-
-//router.get("/admin/alldelivered_order/:id", delivered_order);
-//router.get("/admin/allpendingorder", allpendingorder);
-
 module.exports = router;
