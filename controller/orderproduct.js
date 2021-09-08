@@ -45,9 +45,9 @@ exports.productorder = async (req, res) => {
 
 //delivered_order == Deliver
 exports.delivered_order = async (req, res, next) => {
-  const datas = await Orderproduct.find({
-    $and: [{ orderId: req.params.id }, { status: "Deliver" }],
-  })
+  const datas = await Orderproduct.find({ status: "Deliver" })
+    //$and: [{ orderId: req.params.id }, { status: "Deliver" }],
+
     .then((result) => {
       res.status(200).json({
         status: true,
@@ -84,7 +84,8 @@ exports.delivered_order = async (req, res, next) => {
 
 exports.pending_order = async (req, res) => {
   const data = await Orderproduct.find({
-    $and: [{ user: req.params.id }, { status: "Pending" }],
+    //$and: [{ user: req.params.id }, { status: "Pending" }],
+    status: "Pending",
   })
     .then((result) => {
       res.status(200).json({
@@ -99,6 +100,23 @@ exports.pending_order = async (req, res) => {
       });
     });
 };
+
+// exports.allpendingorder = async (req, res) => {
+//   const findall = await Orderproduct.find().sort({ sortorder: 1 });
+//   if (findall) {
+//     res.status(200).json({
+//       status: true,
+//       msg: "success",
+//       data: findall,
+//     });
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
+//   }
+// };
 
 // exports.allpendingorderbyid = async (req, res) => {
 //   const findall = await Orderproduct.find({

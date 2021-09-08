@@ -14,7 +14,7 @@ const feedbackSchema = new Schema(
     },
     starrating: {
       type: Number,
-      require: true,
+      //require: true,
       default: 100,
     },
     product: {

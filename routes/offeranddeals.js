@@ -6,9 +6,9 @@ const fs = require("fs");
 const {
   add_offeranddeals,
   //editflashsale,
-  //oneflashsale,
+  viewone_dealoffer,
   allofferanddeals,
-  //delflashsale,
+  delofferdeals,
   //flashsale_img,
 } = require("../controller/offeranddeals");
 
@@ -46,8 +46,8 @@ router.post(
   add_offeranddeals
 );
 //router.post("/admin/editflashsale/:id", editflashsale);
-// router.get("/admin/oneflashsale/:id", oneflashsale);
+router.get("/admin/viewone_dealoffer/:id", viewone_dealoffer);
 router.get("/admin/allofferanddeals", allofferanddeals);
-//router.get("/admin/delflashsale/:id", delflashsale);
+router.get("/admin/delofferdeals/:id", delofferdeals);
 
 module.exports = router;
