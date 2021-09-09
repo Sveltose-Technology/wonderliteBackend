@@ -50,6 +50,7 @@ const promotedbrands = require("./routes/promotedbrands");
 const order_return = require("./routes/order_return");
 const exclusivevalue_deal = require("./routes/exclusivevalue_deal");
 const counter = require("./routes/counter");
+const rewardpoint = require("./routes/rewardpoint");
 
 //Use
 app.use("/api", productcategory);
@@ -92,6 +93,7 @@ app.use("/api", promotedbrands);
 app.use("/api", order_return);
 app.use("/api", exclusivevalue_deal);
 app.use("/api", counter);
+app.use("/api", rewardpoint);
 
 //app.use("/api", productsummery);
 

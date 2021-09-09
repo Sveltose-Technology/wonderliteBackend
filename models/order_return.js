@@ -7,8 +7,9 @@ const order_returnSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
+      ref: "user",
       require: true,
     },
     reason: {
@@ -19,7 +20,7 @@ const order_returnSchema = new mongoose.Schema(
       type: String,
     },
 
-    product_id: {
+    product: {
       type: Schema.Types.ObjectId,
       ref: "product",
       require: true,

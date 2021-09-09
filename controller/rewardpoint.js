@@ -1,5 +1,4 @@
 const Rewardpoint = require("../controller/rewardpoint");
-
 exports.add_rewardpoint = async (req, res) => {
   const {
     reward_title,
@@ -28,19 +27,51 @@ exports.add_rewardpoint = async (req, res) => {
     order_id: order_id,
   });
 
-  newRewardpoint.save(function (err, data) {
-    if (err) {
+  if (type == technician) {
+    const findexist = await Rewardpoint.findOne(
+      { reward_title: reward_title },
+      { technicianID: technicianID }
+    );
+    if (findexist) {
       res.status(400).json({
         status: false,
-        msg: "Error Occured",
-        err: err,
+        msg: "Already Exist",
+        data: {},
       });
     } else {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: newRewardpoint,
-      });
+      Rewardpoint.save()
+        .then(
+          res.status(200).json({
+            status: true,
+            msg: true,
+            msg: "success",
+            data: newRewardpoint,
+          })
+        )
+        .catch((err) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
     }
-  });
+  }
 };
+
+//   newRewardpoint.save(function (err, data) {
+//     if (err) {
+//       res.status(400).json({
+//         status: false,
+//         msg: "Error Occured",
+//         err: err,
+//       });
+//     } else {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: newRewardpoint,
+//       });
+//     }
+//   });
+// };

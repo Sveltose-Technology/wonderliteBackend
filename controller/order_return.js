@@ -1,13 +1,13 @@
 const Orderreturn = require("../models/order_return");
 const { v4: uuidv4 } = require("uuid");
 exports.addorder_return = async (req, res) => {
-  const { userId, order_id, product_id, reason, status } = req.body;
+  const { user, order_id, product, reason, status } = req.body;
 
   const newOrderreturn = new Orderreturn({
     returnId: uuidv4(),
-    userId: userId,
+    user: user,
     order_id: order_id,
-    product_id: product_id,
+    product: product,
     reason: reason,
     status: status,
   });
@@ -47,21 +47,41 @@ exports.addorder_return = async (req, res) => {
 //     });
 // };
 
-exports.allreturn_order = async (req, res) => {
-  const findall = await Orderreturn.find().sort({ sortorder: 1 });
-  if (findall) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findall,
+// exports.allreturn_order = async (req, res) => {
+//   const findall = await Orderreturn.find().sort({ sortorder: 1 });
+//   if (findall) {
+//     res.status(200).json({
+//       status: true,
+//       msg: "success",
+//       data: findall,
+//     });
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
+//   }
+// };
+
+exports.allreturn_order = async (req, res, next) => {
+  const datas = await Orderreturn.find({ status: "Return" })
+    .populate("product")
+    .populate("user")
+    //$and: [{ orderId: req.params.id }, { status: "Deliver" }],
+
+    .then((result) => {
+      res.status(200).json({
+        status: true,
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: false,
+        error: err,
+      });
     });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
-  }
 };
 
 exports.deletereturn_order = async (req, res) => {

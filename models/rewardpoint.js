@@ -10,8 +10,12 @@ const rewardpointSchema = new mongoose.Schema(
     },
     order_id: {
       type: String,
+      ref: "order",
     },
-    product_id: {},
+    product_id: {
+      type: String,
+      ref: "product",
+    },
   },
   { timestamps: true }
 );
