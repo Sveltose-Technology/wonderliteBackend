@@ -66,6 +66,8 @@ exports.delivered_order = async (req, res, next) => {
 
 exports.cancel_order = async (req, res, next) => {
   const datas = await Orderproduct.find({ status: "Cancel" })
+    .populate("user")
+    .populate("product")
     //$and: [{ orderId: req.params.id }, { status: "Deliver" }],
 
     .then((result) => {
