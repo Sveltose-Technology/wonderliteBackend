@@ -153,9 +153,9 @@ exports.allbuy_xget_y = async (req, res) => {
   }
 };
 
-exports.deletebrand = async (req, res) => {
+exports.del_xget_y = async (req, res) => {
   try {
-    const deleteentry = await Brand.deleteOne({ _id: req.params.id });
+    const deleteentry = await Buy_xget_y.deleteOne({ _id: req.params.id });
     res.status(200).json({
       status: true,
       msg: "success",
