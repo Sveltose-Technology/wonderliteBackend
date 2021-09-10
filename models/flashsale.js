@@ -7,11 +7,11 @@ const flashsaleSchema = new mongoose.Schema(
       type: String,
       //require: true,
     },
-    // product: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "product",
-    //   require: true,
-    // },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "product",
+      require: true,
+    },
     product_price: {
       type: Number,
     },
