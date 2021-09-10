@@ -54,6 +54,7 @@ cloudinary.config({
 exports.add_flashsale = async (req, res) => {
   const {
     flashsale_title,
+    product,
     product_price,
     flashsale_img,
     description,
@@ -63,6 +64,7 @@ exports.add_flashsale = async (req, res) => {
 
   const newFlashsale = new Flashsale({
     flashsale_title: flashsale_title,
+    product: product,
     product_price: product_price,
     flashsale_img: flashsale_img,
     description: description,

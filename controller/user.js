@@ -544,135 +544,166 @@ exports.verifyotp = async (req, res) => {
   }
 };
 
-exports.adduser = async (req, res) => {
-  const {
-    userID,
-    username,
-    password,
-    pincode,
-    phone_no,
-    mobile_no,
-    email,
-    sortorder,
-    status,
-    website,
-    date_of_birth,
-    marriage_anniversary,
-    gstin_no,
-    country,
-    state,
-    city,
-    udhyog_adhar_no,
-    licence_no,
-    technician_assot_no,
-    gov_licence_no,
-    aadhar_no,
-    farm_name,
-    pancard_no,
-    bank_name,
-    bank_user_name,
-    bank_account_no,
-    ifsc_code,
-    role,
-    userImage,
-  } = req.body;
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hashpassword = bcrypt.hashSync(password, salt);
-  const token = generateAccessToken({ username: username });
-  const newUser = new User({
-    userID: userID,
-    username: username,
-    password: hashpassword,
-    pincode: pincode,
-    phone_no: phone_no,
-    mobile_no: mobile_no,
-    email: email,
-    website: website,
-    date_of_birth: date_of_birth,
-    marriage_anniversary: marriage_anniversary,
-    gstin_no: gstin_no,
-    country: country,
-    state: state,
-    city: city,
-    udhyog_adhar_no: udhyog_adhar_no,
-    licence_no: licence_no,
-    technician_assot_no: technician_assot_no,
-    gov_licence_no: gov_licence_no,
-    aadhar_no: aadhar_no,
-    farm_name: farm_name,
-    pancard_no: pancard_no,
-    eb_license: eb_license,
-    bank_name: bank_name,
-    bank_user_name: bank_user_name,
-    bank_account_no: bank_account_no,
-    ifsc_code: ifsc_code,
-    role: role,
-    userImage: userImage,
-    sortorder: sortorder,
-    status: status,
-  });
+// exports.adduser = async (req, res) => {
+//   const {
+//     userID,
+//     username,
+//     password,
+//     pincode,
+//     phone_no,
+//     mobile_no,
+//     email,
+//     sortorder,
+//     status,
+//     website,
+//     date_of_birth,
+//     marriage_anniversary,
+//     gstin_no,
+//     country,
+//     state,
+//     city,
+//     udhyog_adhar_no,
+//     licence_no,
+//     technician_assot_no,
+//     gov_licence_no,
+//     aadhar_no,
+//     farm_name,
+//     pancard_no,
+//     bank_name,
+//     bank_user_name,
+//     bank_account_no,
+//     ifsc_code,
+//     role,
+//     userImage,
+//   } = req.body;
+//   const salt = bcrypt.genSaltSync(saltRounds);
+//   const hashpassword = bcrypt.hashSync(password, salt);
+//   const token = generateAccessToken({ username: username });
 
-  const findexist = await User.findOne({ userID: userID });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
-    });
-  } else if (aadhar_no && pancard_no && eb_license == null) {
-    res.status(400).send({
-      message: "fill the block",
-    });
-  } else if (aadhar_no && pancard_no && eb_license == customer) {
-    res.status(200).send({
-      message: "success",
-      data: newUser,
-      usertype: "customer",
-    });
-  } else if (eb_license == null) {
-    res.status(400).send({
-      message: "fill the block",
-    });
-  } else if (eb_license == technician) {
-    res.status(200).send({
-      message: "success",
-      data: newUser,
-      usertype: "technician",
-    });
-  } else if (gstin_no && farm_name && aadhar_no && pancard_no == null) {
-    res.status(400).send({
-      message: "fill the blcok",
-    });
-  } else if (gstin_no && farm_name && aadhar_no && pancard_no == null) {
-    res.status(400).send({
-      message: "fill the block",
-    });
-  } else if (gstin_no && farm_name && aadhar_no && pancard_no == contractor) {
-    res.status(200).send({
-      message: "success",
-      data: newUser,
-      usertype: "Contractor",
-    });
-  } else if (gstin_no && trade_licence == null) {
-    res.status(400).send({
-      message: "fill the block",
-    });
-  } else if (gstin_no && trade_licence == Retailer) {
-    res.status(200).send({
-      message: "success",
-      usertype: "Retailer",
-    });
-  } else if (udhyog_adhar_no == null) {
-    res.status(400).send({
-      message: "fill the block",
-    });
-  } else if (udhyog_adhar_no == Manufacturer) {
-    res.status(200).send({
-      message: "success",
-      usertype: "Manufacturer",
-    });
-  }
-};
+// if (gstin_no !==null){
+
+// }
+
+// if (aadhar_no && pancard_no && eb_license == null) {
+//   res.status(400).send({
+//     message: "fill the block",
+//   });
+// } else (aadhar_no && pancard_no && eb_license == customer) {
+//   res.status(200).send({
+//     message: "success",
+//     data: newUser,
+//     usertype: "customer",
+//   })
+// } else if(eb_license == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (eb_license == technician) {
+//     res.status(200).send({
+//       message: "success",
+//       data: newUser,
+//       usertype: "technician",
+//     });
+// }
+
+//   const newUser = new User({
+//     userID: userID,
+//     username: username,
+//     usertype: usertype,
+//     password: hashpassword,
+//     pincode: pincode,
+//     phone_no: phone_no,
+//     mobile_no: mobile_no,
+//     email: email,
+//     website: website,
+//     date_of_birth: date_of_birth,
+//     marriage_anniversary: marriage_anniversary,
+//     gstin_no: gstin_no,
+//     country: country,
+//     state: state,
+//     city: city,
+//     udhyog_adhar_no: udhyog_adhar_no,
+//     licence_no: licence_no,
+//     technician_assot_no: technician_assot_no,
+//     gov_licence_no: gov_licence_no,
+//     aadhar_no: aadhar_no,
+//     farm_name: farm_name,
+//     pancard_no: pancard_no,
+//     eb_license: eb_license,
+//     bank_name: bank_name,
+//     bank_user_name: bank_user_name,
+//     bank_account_no: bank_account_no,
+//     ifsc_code: ifsc_code,
+//     role: role,
+//     userImage: userImage,
+//     sortorder: sortorder,
+//     status: status,
+//   });
+
+//   const findexist = await User.findOne(
+//     { userID: userID },
+//     { user_type: user_type }
+//   );
+//   if (findexist) {
+//     res.status(400).json({
+//       status: false,
+//       msg: "Already Exists",
+//       data: {},
+//     });
+//   } else if (aadhar_no && pancard_no && eb_license == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (aadhar_no && pancard_no && eb_license == customer) {
+//     res.status(200).send({
+//       message: "success",
+//       data: newUser,
+//       usertype: "customer",
+//     });
+//   } else if (eb_license == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (eb_license == technician) {
+//     res.status(200).send({
+//       message: "success",
+//       data: newUser,
+//       usertype: "technician",
+//     });
+//   } else if (gstin_no && farm_name && aadhar_no && pancard_no == null) {
+//     res.status(400).send({
+//       message: "fill the blcok",
+//     });
+//   } else if (gstin_no && farm_name && aadhar_no && pancard_no == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (gstin_no && farm_name && aadhar_no && pancard_no == contractor) {
+//     res.status(200).send({
+//       message: "success",
+//       data: newUser,
+//       usertype: "Contractor",
+//     });
+//   } else if (gstin_no && trade_licence == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (gstin_no && trade_licence == Retailer) {
+//     res.status(200).send({
+//       message: "success",
+//       usertype: "Retailer",
+//     });
+//   } else if (udhyog_adhar_no == null) {
+//     res.status(400).send({
+//       message: "fill the block",
+//     });
+//   } else if (udhyog_adhar_no == Manufacturer) {
+//     res.status(200).send({
+//       message: "success",
+//       usertype: "Manufacturer",
+//     });
+//   }
+// };
 
 // {aadhar  && PAN && EBlicense == null}=Consumer
 // {EBlicense}=Technician

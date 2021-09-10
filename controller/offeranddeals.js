@@ -12,6 +12,7 @@ cloudinary.config({
 exports.add_offeranddeals = async (req, res) => {
   const {
     offeranddeals_title,
+    product,
     product_price,
     offer_img,
     description,
@@ -21,6 +22,7 @@ exports.add_offeranddeals = async (req, res) => {
 
   const newOfferanddeals = new Offeranddeals({
     offeranddeals_title: offeranddeals_title,
+    product: product,
     product_price: product_price,
     offer_img: offer_img,
     description: description,
