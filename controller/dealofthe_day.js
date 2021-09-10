@@ -13,20 +13,22 @@ cloudinary.config({
 exports.add_dealoftheday = async (req, res) => {
   const {
     dealoftheday_title,
-    //product,
+    product,
     product_price,
     product_img,
     description,
+    expiry_date,
     sortorder,
     status,
   } = req.body;
 
   const newDealoftheday = new Dealoftheday({
     dealoftheday_title: dealoftheday_title,
-    //product: product,
+    product: product,
     product_price: product_price,
     product_img: product_img,
     description: description,
+    expiry_date: expiry_date,
     sortorder: sortorder,
     status: status,
   });

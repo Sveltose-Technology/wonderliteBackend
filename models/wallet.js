@@ -13,24 +13,8 @@ const walletSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    // amount: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    // },
-    amount: {
-      type: String,
-    },
-    username: {
-      type: String,
-    },
-    mobile_no: {
-      type: String,
-    },
-    photo: {
-      type: String,
-    },
 
-    status: {
+    amount: {
       type: String,
     },
   },

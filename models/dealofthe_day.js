@@ -7,11 +7,11 @@ const dealofthedaySchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    // product: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "product",
-    //   require: true,
-    // },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "product",
+      require: true,
+    },
     product_price: {
       type: Number,
     },
@@ -23,6 +23,9 @@ const dealofthedaySchema = new mongoose.Schema(
       type: String,
     },
     description: {
+      type: String,
+    },
+    expiry_date: {
       type: String,
     },
     sortorder: {
