@@ -12,6 +12,7 @@ cloudinary.config({
 exports.add_newlaunch = async (req, res) => {
   const {
     newlaunch_title,
+    product,
     product_price,
     product_img,
     description,
@@ -21,6 +22,7 @@ exports.add_newlaunch = async (req, res) => {
 
   const newNewlaunch = new Newlaunch({
     newlaunch_title: newlaunch_title,
+    product: product,
     product_price: product_price,
     product_img: product_img,
     description: description,
