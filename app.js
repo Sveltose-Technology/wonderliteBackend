@@ -51,6 +51,7 @@ const order_return = require("./routes/order_return");
 const exclusivevalue_deal = require("./routes/exclusivevalue_deal");
 const counter = require("./routes/counter");
 const rewardpoint = require("./routes/rewardpoint");
+const wallet = require("./routes/wallet");
 
 //Use
 app.use("/api", productcategory);
@@ -94,6 +95,7 @@ app.use("/api", order_return);
 app.use("/api", exclusivevalue_deal);
 app.use("/api", counter);
 app.use("/api", rewardpoint);
+app.use("/api", wallet);
 
 //app.use("/api", productsummery);
 

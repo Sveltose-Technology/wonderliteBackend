@@ -28,6 +28,9 @@ const dealofthedaySchema = new mongoose.Schema(
     expiry_date: {
       type: String,
     },
+    current_time: {
+      type: String,
+    },
     sortorder: {
       type: Number,
     },
