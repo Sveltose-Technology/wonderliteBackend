@@ -28,16 +28,16 @@ const {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    //cb(null, "/uploads");
-    let path = `./tempimages`;
-    if (!fs.existsSync("tempimages")) {
-      fs.mkdirSync("tempimages");
+    //console.log(file);
+    let path = `./uploadesimages`;
+    if (!fs.existsSync("uploadesimages")) {
+      fs.mkdirSync("uploadesimages");
     }
     cb(null, path);
   },
-  // filename: function (req, file, cb) {
-  //   cb(null, new Date().toISOString() + "-" + file.originalname);
-  // },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -54,7 +54,7 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 //Paths
-router.post("/user/signup", adduser);
+router.post("/user/signup", uploads.single("userImage"), adduser);
 router.post("/user/login", login);
 
 //router.post("/user/logout", logout);

@@ -11,7 +11,7 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
-    user_type: {
+    usertype: {
       type: String,
       require: true,
     },
@@ -78,6 +78,9 @@ const userSchema = new Schema(
       type: Number,
     },
     gstin_no: {
+      type: String,
+    },
+    address: {
       type: String,
     },
     country: {
