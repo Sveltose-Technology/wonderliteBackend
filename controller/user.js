@@ -576,7 +576,6 @@ exports.adduser = async (req, res) => {
     bank_user_name,
     bank_account_no,
     ifsc_code,
-    role,
     userImage,
   } = req.body;
   const salt = bcrypt.genSaltSync(saltRounds);
@@ -613,7 +612,6 @@ exports.adduser = async (req, res) => {
     bank_user_name: bank_user_name,
     bank_account_no: bank_account_no,
     ifsc_code: ifsc_code,
-    role: role,
     userImage: userImage,
     sortorder: sortorder,
     status: status,

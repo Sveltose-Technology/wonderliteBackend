@@ -134,10 +134,10 @@ const userSchema = new Schema(
     ifsc_code: {
       type: String,
     },
-    role: {
-      type: String,
-      require: true,
-    }, //Dealer: DL ,Distributer:Ds, Customer:CS, Technician:Tc,Retailer: RL
+    //role: {
+    // type: String,
+    // require: true,
+    // }, //Dealer: DL ,Distributer:Ds, Customer:CS, Technician:Tc,Retailer: RL
     userImage: {
       type: String,
       require: true,
