@@ -138,33 +138,33 @@ function generateAccessToken(username) {
 //   }
 // };
 
-exports.add = function (req, res, next) {
-  const { email, product_id, qty } = req.body;
-  const qtyint = Number.parseInt(qty);
-  //console.log("qty: ", qtyint);
-  User.findOneAndUpdate(
-    { email: email },
-    { $push: { cart: product_id } },
-    // { $pop: { cart: product_id } },
-    { safe: true }
-  ).populate("cart");
-  User.findOne({ email: email })
-    .exec()
-    .then((user) => {
-      //console.log(cart);
-      //cartarray.push(product_id);
-      //console.log(newcart);
+// exports.add = function (req, res, next) {
+//   const { email, product_id, qty } = req.body;
+//   const qtyint = Number.parseInt(qty);
+//console.log("qty: ", qtyint);
+// User.findOneAndUpdate(
+//   { email: email },
+//   { $push: { cart: product_id } },
+// { $pop: { cart: product_id } },
+//{ safe: true }
+// ).populate("cart");
+//User.findOne({ email: email })
+// .exec()
+//.then((user) => {
+//console.log(cart);
+//cartarray.push(product_id);
+//console.log(newcart);
 
-      res.status(200).json({
-        status: true,
-        user: user,
-      });
-    })
+// res.status(200).json({
+//  status: true,
+// user: user,
+// });
+// })
 
-    .catch((err) => {
-      res.send(err);
-    });
-};
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// };
 
 exports.login = async (req, res) => {
   const { userID, password } = req.body;

@@ -147,10 +147,10 @@ const userSchema = new Schema(
       default: "",
     },
 
-    cart: [{ type: Schema.Types.ObjectId, ref: "product" }],
-    sortorder: {
-      type: Number,
-    },
+    // cart: [{ type: Schema.Types.ObjectId, ref: "product" }],
+    // sortorder: {
+    //   type: Number,
+    // },
 
     status: {
       type: String,

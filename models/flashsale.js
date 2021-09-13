@@ -21,6 +21,9 @@ const flashsaleSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    currentTime: {
+      type: String,
+    },
     sortorder: {
       type: Number,
     },
