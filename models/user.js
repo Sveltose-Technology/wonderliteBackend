@@ -22,13 +22,13 @@ const userSchema = new Schema(
     expireIn: {
       type: Number,
     },
-    code: {
-      type: String,
-      default: 1234,
-    },
-    pincode: {
-      type: Number,
-    },
+    // code: {
+    //   type: String,
+    //   default: 1234,
+    // },
+    // pincode: {
+    // type: Number,
+    //},
     phone_no: {
       type: Number,
     },
