@@ -16,7 +16,6 @@ const {
   forgotPassword,
   logout,
   resetPassword,
-  add,
   user_img,
   sendotp,
   verifyotp,
