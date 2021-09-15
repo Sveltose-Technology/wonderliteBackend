@@ -42,101 +42,159 @@ function generateAccessToken(username) {
 //     })
 //   }
 
-// exports.adduser = async (req, res) => {
-//   const {
-//     userID,
-//     username,
-//     password,
-//     pincode,
-//     phone_no,
-//     mobile_no,
-//     email,
-//     sortorder,
-//     status,
-//     website,
-//     date_of_birth,
-//     marriage_anniversary,
-//     gstin_no,
-//     country,
-//     state,
-//     city,
-//     udhyog_adhar_no,
-//     licence_no,
-//     technician_assot_no,
-//     gov_licence_no,
-//     aadhar_no,
-//     farm_name,
-//     pancard_no,
-//     bank_name,
-//     bank_user_name,
-//     bank_account_no,
-//     ifsc_code,
-//     role,
-//     userImage,
-//   } = req.body;
+exports.adduserbyadmin = async (req, res) => {
+  const {
+    userID,
+    username,
+    usertype,
+    password,
+    pincode,
+    phone_no,
+    mobile_no,
+    email,
+    sortorder,
+    status,
+    website,
+    date_of_birth,
+    marriage_anniversary,
+    gstin_no,
+    address,
+    country,
+    state,
+    city,
+    udhyog_adhar_no,
+    licence_no,
+    technician_assot_no,
+    gov_licence_no,
+    aadhar_no,
+    farm_name,
+    pancard_no,
+    bank_name,
+    bank_user_name,
+    bank_account_no,
+    ifsc_code,
+    role,
+    userImage,
+  } = req.body;
 
-//   const salt = bcrypt.genSaltSync(saltRounds);
-//   const hashpassword = bcrypt.hashSync(password, salt);
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashpassword = bcrypt.hashSync(password, salt);
 
-//   const token = generateAccessToken({ username: username });
+  const newUser = new User({
+    userID: userID,
+    username: username,
+    usertype: usertype,
+    password: hashpassword,
+    pincode: pincode,
+    phone_no: phone_no,
+    mobile_no: mobile_no,
+    email: email,
+    website: website,
+    date_of_birth: date_of_birth,
+    marriage_anniversary: marriage_anniversary,
+    gstin_no: gstin_no,
+    address: address,
+    country: country,
+    state: state,
+    city: city,
+    udhyog_adhar_no: udhyog_adhar_no,
+    licence_no: licence_no,
+    technician_assot_no: technician_assot_no,
+    gov_licence_no: gov_licence_no,
+    aadhar_no: aadhar_no,
+    pancard_no: pancard_no,
+    bank_name: bank_name,
+    bank_user_name: bank_user_name,
+    bank_account_no: bank_account_no,
+    ifsc_code: ifsc_code,
+    role: role,
+    userImage: userImage,
+    sortorder: sortorder,
+    status: status,
+  });
 
-//   const newUser = new User({
-//     userID: userID,
-//     username: username,
-//     password: hashpassword,
-//     pincode: pincode,
-//     phone_no: phone_no,
-//     mobile_no: mobile_no,
-//     email: email,
-//     website: website,
-//     date_of_birth: date_of_birth,
-//     marriage_anniversary: marriage_anniversary,
-//     gstin_no: gstin_no,
-//     country: country,
-//     state: state,
-//     city: city,
-//     udhyog_adhar_no: udhyog_adhar_no,
-//     licence_no: licence_no,
-//     technician_assot_no: technician_assot_no,
-//     gov_licence_no: gov_licence_no,
-//     aadhar_no: aadhar_no,
-//     pancard_no: pancard_no,
-//     bank_name: bank_name,
-//     bank_user_name: bank_user_name,
-//     bank_account_no: bank_account_no,
-//     ifsc_code: ifsc_code,
-//     role: role,
-//     userImage: userImage,
-//     sortorder: sortorder,
-//     status: status,
-//   });
+  //   const findexist = await User.findOne({ userID: userID });
+  //   if (findexist) {
+  //     res.status(400).json({
+  //       status: false,
+  //       msg: "Already Exists",
+  //       data: {},
+  //     });
+  //   } else {
+  //     newUser
+  //       .save()
+  //       .then((data) => {
+  //         res.status(200).json({
+  //           status: true,
+  //           msg: "success",
+  //           data: data,
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         res.status(400).json({
+  //           status: false,
+  //           msg: "error",
+  //           error: error,
+  //         });
+  //       });
+  //   }
+  // };
 
-//   const findexist = await User.findOne({ userID: userID });
-//   if (findexist) {
-//     res.status(400).json({
-//       status: false,
-//       msg: "Already Exists",
-//       data: {},
-//     });
-//   } else {
-//     newUser
-//       .save()
-//       .then(
-//         res.status(200).json({
-//           status: true,
-//           msg: "success",
-//           data: newUser,
-//         })
-//       )
-//       .catch((error) => {
-//         res.status(400).json({
-//           status: false,
-//           msg: "error",
-//           error: error,
-//         });
-//       });
-//   }
-// };
+  if (req.file) {
+    const findexist = await User.findOne({ userID: userID });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      if (resp) {
+        newUser.userImage = resp.secure_url;
+        fs.unlinkSync(req.file.path);
+        newUser.save().then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newUser,
+          })
+        );
+      } else {
+        res.status(200).json({
+          status: false,
+          msg: "img not uploaded",
+        });
+      }
+    }
+  } else {
+    const findexist = await User.findOne({ userID: userID });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      newUser
+        .save()
+        .then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newUser,
+          })
+        )
+        .catch((error) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
+    }
+  }
+};
 
 // exports.add = function (req, res, next) {
 //   const { email, product_id, qty } = req.body;

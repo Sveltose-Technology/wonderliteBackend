@@ -7,6 +7,7 @@ const crypto = require("crypto");
 //const { auth } = require("./middlewares/auth");
 const {
   adduser,
+  adduserbyadmin,
   edituser,
   viewoneuser,
   alluser,
@@ -54,6 +55,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 //Paths
 router.post("/user/signup", uploads.single("userImage"), adduser);
+router.post(
+  "/user/adduserbyadmin",
+  uploads.single("userImage"),
+  adduserbyadmin
+);
 router.post("/user/login", login);
 
 //router.post("/user/logout", logout);
