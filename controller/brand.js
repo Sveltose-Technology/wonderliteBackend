@@ -103,7 +103,7 @@ exports.addbrand = async (req, res) => {
 exports.editbrand = async (req, res) => {
   const { name, brand_img, desc, sortorder, status } = req.body;
 
-  const response = await cloudinary.uploader.upload(req.file.path);
+  //const response = await cloudinary.uploader.upload(req.file.path);
 
   data = {};
   if (name) {
