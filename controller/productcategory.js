@@ -172,6 +172,7 @@ exports.editproductcategory = async (req, res) => {
 //     });
 //   }
 // }
+
 exports.viewoneproductcategory = async (req, res) => {
   const findone = await Productcategory.findOne({ _id: req.params.id });
   if (findone) {

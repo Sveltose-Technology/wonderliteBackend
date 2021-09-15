@@ -35,7 +35,7 @@ exports.addbundleoffer = async (req, res) => {
   if (req.file) {
     const findexist = await Bundleoffer.findOne({
       bundleoffer_title: bundleoffer_title,
-    });
+    }).populate("product");
     if (findexist) {
       res.status(400).json({
         status: false,
