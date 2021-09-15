@@ -123,7 +123,7 @@ exports.editbrand = async (req, res) => {
     data.brand_img = response.secure_url;
     fs.unlinkSync(req.file.path);
   }
-  //console.log(data);
+  console.log(data);
   if (data) {
     const findandUpdateEntry = await Brand.findOneAndUpdate(
       {
@@ -132,6 +132,7 @@ exports.editbrand = async (req, res) => {
       { $set: data },
       { new: true }
     );
+
     if (findandUpdateEntry) {
       res.status(200).json({
         status: true,

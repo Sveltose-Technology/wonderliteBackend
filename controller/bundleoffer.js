@@ -99,8 +99,7 @@ exports.editbundleoffer = async (req, res) => {
     },
     { $set: req.body },
     { new: true }
-  );
-  //.populate("product");
+  ).populate("product");
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,
@@ -136,8 +135,9 @@ exports.onebundleoffer = async (req, res) => {
 };
 
 exports.allbundleoffer = async (req, res) => {
-  const findall = await Bundleoffer.find().sort({ sortorder: 1 });
-  // .populate("product");
+  const findall = await Bundleoffer.find()
+    .sort({ sortorder: 1 })
+    .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
