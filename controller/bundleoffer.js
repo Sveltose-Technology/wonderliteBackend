@@ -35,7 +35,7 @@ exports.addbundleoffer = async (req, res) => {
   if (req.file) {
     const findexist = await Bundleoffer.findOne({
       bundleoffer_title: bundleoffer_title,
-    }).populate("product");
+    });
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -74,13 +74,13 @@ exports.addbundleoffer = async (req, res) => {
     } else {
       newBundleoffer
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newBundleoffer,
-          })
-        )
+            data: data,
+          });
+        })
         .catch((error) => {
           res.status(400).json({
             status: false,
@@ -99,7 +99,7 @@ exports.editbundleoffer = async (req, res) => {
     },
     { $set: req.body },
     { new: true }
-  ).populate("product");
+  );
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,
@@ -136,8 +136,8 @@ exports.onebundleoffer = async (req, res) => {
 
 exports.allbundleoffer = async (req, res) => {
   const findall = await Bundleoffer.find()
-    .sort({ sortorder: 1 })
-    .populate("product");
+    .populate("product")
+    .sort({ sortorder: 1 });
   if (findall) {
     res.status(200).json({
       status: true,
