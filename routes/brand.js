@@ -43,7 +43,7 @@ let uploads = multer({ storage: storage });
 
 //Paths
 router.post("/admin/addbrand", uploads.single("brand_img"), addbrand);
-router.post("/admin/editbrand/:id", editbrand);
+router.post("/admin/editbrand/:id", uploads.single("brand_img"), editbrand);
 router.get("/admin/viewonebrand/:id", viewonebrand);
 router.get("/admin/allbrand", allbrand);
 router.get("/admin/deletebrand/:id", deletebrand);
