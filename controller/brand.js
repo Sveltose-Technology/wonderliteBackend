@@ -121,6 +121,7 @@ exports.editbrand = async (req, res) => {
   if (req.file) {
     const response = await cloudinary.uploader.upload(req.file.path);
     data.brand_img = response.secure_url;
+    fs.unlinkSync(req.file.path);
   }
   //console.log(data);
   if (data) {
