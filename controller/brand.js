@@ -76,27 +76,87 @@ exports.addbrand = async (req, res) => {
   }
 };
 
+// exports.editbrand = async (req, res) => {
+//   const findandUpdateEntry = await Brand.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     { $set: req.body },
+//     { new: true }
+//   );
+
+//   if (findandUpdateEntry) {
+//     res.status(200).json({
+//       status: true,
+//       msg: "success",
+//       data: findandUpdateEntry,
+//     });
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
+//   }
+// };
+
 exports.editbrand = async (req, res) => {
-  const findandUpdateEntry = await Brand.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    { $set: req.body },
-    { new: true }
-  );
-  if (findandUpdateEntry) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findandUpdateEntry,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+  const { name, brand_img, desc, sortorder, status } = req.body;
+
+  const response = await cloudinary.uploader.upload(req.file.path);
+
+  data = {};
+  if (name) {
+    data.name = name;
   }
+  if (desc) {
+    data.desc = desc;
+  }
+  if (sortorder) {
+    data.sortorder = sortorder;
+  }
+  if (status) {
+    data.status = status;
+  }
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.brand_img = response.secure_url;
+  }
+  //console.log(data);
+  if (data) {
+    const findandUpdateEntry = await Brand.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    );
+    if (findandUpdateEntry) {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: findandUpdateEntry,
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: "error",
+      });
+    }
+  }
+  // } else {
+  //   res.status(400).json({
+  //     status: false,
+  //     msg: "Error in file uploading",
+  //   });
+  // }
+  // } else {
+  //   res.status(400).json({
+  //     status: false,
+  //     msg: "Image Not Found",
+  //   });
+  // }
 };
 
 exports.viewonebrand = async (req, res) => {
