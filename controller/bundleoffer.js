@@ -92,29 +92,90 @@ exports.addbundleoffer = async (req, res) => {
   }
 };
 
+// exports.editbundleoffer = async (req, res) => {
+//   const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
+//     {
+//       _id: req.params.id,
+//     },
+//     { $set: req.body },
+//     { new: true }
+//   );
+//   if (findandUpdateEntry) {
+//     res.status(200).json({
+//       status: true,
+//       msg: "success",
+//       data: findandUpdateEntry,
+//     });
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
+//   }
+// };
+
 exports.editbundleoffer = async (req, res) => {
-  const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    { $set: req.body },
-    { new: true }
-  );
-  if (findandUpdateEntry) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findandUpdateEntry,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+  const {
+    bundleoffer_title,
+    product,
+    product_price,
+    product_img,
+    product_qty,
+    description,
+    sortorder,
+    status,
+  } = req.body;
+
+  data = {};
+  if (bundleoffer_title) {
+    data.bundleoffer_title = bundleoffer_title;
+  }
+  if (product) {
+    data.product = product;
+  }
+  if (product_price) {
+    data.product_price = product_price;
+  }
+  if (product_qty) {
+    data.product_qty = product_qty;
+  }
+  if (description) {
+    data.description = description;
+  }
+  if (sortorder) {
+    data.sortorder = sortorder;
+  }
+  if (status) {
+    data.status = status;
+  }
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.product_img = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  if (data) {
+    const findandUpdateEntry = await Bundleoffer.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: data },
+      { new: true }
+    );
+
+    if (findandUpdateEntry) {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: findandUpdateEntry,
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: "error",
+      });
+    }
   }
 };
-
 exports.onebundleoffer = async (req, res) => {
   const findone = await Bundleoffer.findOne({ _id: req.params.id }).populate(
     "product"

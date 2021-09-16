@@ -14,6 +14,7 @@ const {
   product_img,
   dispense,
   search_product,
+  add_img,
 } = require("../controller/product");
 
 const storage = multer.diskStorage({
@@ -32,7 +33,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   if (
-    file.mimetype.includes("jpeg") ||
+    //file.mimetype.includes("jpeg") ||
     file.mimetype.includes("png") ||
     file.mimetype.includes("jpg")
   ) {
@@ -45,7 +46,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 //Paths
 router.post("/admin/addproduct", uploads.single("product_img"), addproduct);
-router.post("/admin/editproduct/:id", editproduct);
+router.post(
+  "/admin/editproduct/:id",
+  uploads.single("product_img"),
+  editproduct
+);
 router.get("/admin/viewoneproduct/:id", viewoneproduct);
 router.get("/admin/allproduct", allproduct);
 router.get("/admin/productbybrand/:id", productbybrand);
@@ -69,5 +74,6 @@ router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 //     return res.status(500).json({ msg: err.message });
 //   }
 // });
+//router.post("/admin/add_img", uploads.array("productImg"), add_img);
 
 module.exports = router;

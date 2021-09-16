@@ -68,6 +68,12 @@ const productSchema = new Schema(
     inc_duty_tax: {
       type: Number,
     },
+    // product_title: {
+    //   type: String,
+    // },
+    // productImg: {
+    //   type: Array,
+    // },
     sortorder: {
       type: Number,
     },
