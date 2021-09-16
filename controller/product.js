@@ -376,13 +376,41 @@ exports.dispense = async (req, res) => {
   }
 };
 
-exports.search_product = (req, res) => {
-  const inputsearch = req.body.inputsearch;
-  //console.log(inputsearch);
-  //console.log(typeof inputsearch);
-  Product.find({ item_name: { $regex: inputsearch, $options: "i" } }).then(
-    (data) => {
-      res.send(data);
-    }
-  );
+//exports.search_product = (req, res) => {
+//const inputsearch = req.body.inputsearch;
+//console.log(inputsearch);
+//console.log(typeof inputsearch);
+//   Product.find({ item_name: { $regex: inputsearch, $options: "i" } }).then(
+//     (data) => {
+//       res.send(data);
+//     }
+//   );
+// };
+
+exports.search_product = async (req, res) => {
+  const { search } = req.body;
+  var product_name = new RegExp("^" + search, "i");
+  Product.find({ item_name: { $regex: product_name } });
+  try {
+    const productData = await Product.findOne(product_name);
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: productData,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
+    });
+  }
 };
+  // .exec((err, resp) => {
+  //   if (err) {
+  //     res.json({ code: 400, msg: "product not found" });
+  //   } else {
+  //     res.json({ code: 200, msg: resp });
+  //   }
+  // });
+//}

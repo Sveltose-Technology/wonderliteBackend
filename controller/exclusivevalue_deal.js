@@ -91,7 +91,9 @@ exports.add_exclusivevaluedeal = async (req, res) => {
   }
 };
 exports.allexclusive_deal = async (req, res) => {
-  const findall = await Exclusivevalue_deal.find().sort({ sortorder: 1 });
+  const findall = await Exclusivevalue_deal.find()
+    .populate("product")
+    .sort({ sortorder: 1 });
   if (findall) {
     res.status(200).json({
       status: true,
@@ -108,7 +110,9 @@ exports.allexclusive_deal = async (req, res) => {
 };
 
 exports.oneexclusive_deal = async (req, res) => {
-  const findone = await Exclusivevalue_deal.findOne({ _id: req.params.id });
+  const findone = await Exclusivevalue_deal.findOne({
+    _id: req.params.id,
+  }).populate("product");
 
   if (findone) {
     res.status(200).json({
