@@ -8,7 +8,7 @@ const {
   allexclusive_deal,
   oneexclusive_deal,
   del_exclusivedeal,
-  edit_dealoftheday,
+  edit_exclusivedeal,
 } = require("../controller/exclusivevalue_deal");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -45,7 +45,11 @@ router.post(
   add_exclusivevaluedeal
 );
 router.get("/admin/allexclusive_deal", allexclusive_deal);
-//router.post("/admin/edit_dealoftheday/:id", edit_dealoftheday);
+router.post(
+  "/admin/edit_exclusivedeal/:id",
+  uploads.single("product_img"),
+  edit_exclusivedeal
+);
 router.get("/admin/oneexclusive_deal/:id", oneexclusive_deal);
 router.get("/admin/del_exclusivedeal/:id", del_exclusivedeal);
 

@@ -149,24 +149,64 @@ exports.del_exclusivedeal = async (req, res) => {
 };
 
 exports.edit_exclusivedeal = async (req, res) => {
-  const findandUpdateEntry = await Exclusivevalue_deal.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    { $set: req.body },
-    { new: true }
-  );
-  if (findandUpdateEntry) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findandUpdateEntry,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+  const {
+    exclusivedeal_title,
+    product,
+    product_price,
+    product_img,
+    description,
+    sortorder,
+    status,
+  } = req.body;
+
+  data = {};
+  if (exclusivedeal_title) {
+    data.exclusivedeal_title = exclusivedeal_title;
+  }
+  if (product) {
+    data.product = product;
+  }
+  if (product_price) {
+    data.product_price = product_price;
+  }
+  if (description) {
+    data.description = description;
+  }
+
+  if (sortorder) {
+    data.sortorder = sortorder;
+  }
+  if (status) {
+    data.status = status;
+  }
+  //console.log(req.file);
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.product_img = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  //console.log(data);
+  if (data) {
+    const findandUpdateEntry = await Exclusivevalue_deal.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    );
+
+    if (findandUpdateEntry) {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: findandUpdateEntry,
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: "error",
+      });
+    }
   }
 };

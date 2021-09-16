@@ -148,18 +148,6 @@ exports.editbrand = async (req, res) => {
       });
     }
   }
-  // } else {
-  //   res.status(400).json({
-  //     status: false,
-  //     msg: "Error in file uploading",
-  //   });
-  // }
-  // } else {
-  //   res.status(400).json({
-  //     status: false,
-  //     msg: "Image Not Found",
-  //   });
-  // }
 };
 
 exports.viewonebrand = async (req, res) => {
