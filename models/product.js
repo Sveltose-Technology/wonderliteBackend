@@ -7,7 +7,7 @@ const productSchema = new Schema(
       type: String,
       require: true,
     },
-    short_name: {
+    short_desc: {
       type: String,
     },
     desc: {
