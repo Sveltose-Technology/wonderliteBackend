@@ -495,9 +495,9 @@ exports.dispense = async (req, res) => {
     const getqty = await Product.findOne;
     //({ _id: req.params.id }, { $set: req.body }, { new: true });
 
-    console.log(getqty.stock_qty);
+    //console.log(getqty.stock_qty);
     const displayqty = Number(getqty.stock_qty) - Number(qty);
-    console.log(displayqty);
+    // console.log(displayqty);
     [{ $set: req.body }, { $set: req.body }, { new: true }];
 
     res.status(200).json({
