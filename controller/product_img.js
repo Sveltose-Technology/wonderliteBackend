@@ -133,7 +133,7 @@ exports.add_Img = async (req, res) => {
     alluploads.push(resp.secure_url);
   }
   //console.log(alluploads);
-
+  //console.log(req.files)
   if (alluploads.length !== 0) {
     newProductimg.product_img = alluploads;
     newProductimg.save().then((result) => {
