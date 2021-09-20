@@ -514,23 +514,31 @@ exports.dispense = async (req, res) => {
   }
 };
 
-//exports.search_product = (req, res) => {
-//const inputsearch = req.body.inputsearch;
-//console.log(inputsearch);
-//console.log(typeof inputsearch);
-//   Product.find({ item_name: { $regex: inputsearch, $options: "i" } }).then(
+// exports.search_product = async(req, res) => {
+//   const inputsearch = req.body.inputsearch;
+//   //console.log(inputsearch);
+//   //console.log(typeof inputsearch);
+//   await Product.find({ item_name: { $regex: inputsearch, $options: "i" } }).then(
 //     (data) => {
-//       res.send(data);
-//     }
-//   );
-// };
+//       res.status(200).json({
+//         status:true,
+//         msg: "success"
+//       })
+//     })
+// }else{
+//   res.status(400).json({
+//     status: false,
+//     msg:"error"
+
+//   })
+// }
 
 exports.search_product = async (req, res) => {
-  const { search } = req.body;
-  var product_name = new RegExp("^" + search, "i");
-  Product.find({ item_name: { $regex: product_name } });
+  const searchField = req.body.search;
+  //   var product_name = new RegExp("^" + search, "i");
+  Product.find({ item_name: { $regex: searchField, $options: "i" } });
   try {
-    const productData = await Product.findOne(product_name);
+    const productData = await Product.findOne(searchField);
     res.status(200).json({
       status: true,
       msg: "success",
@@ -544,146 +552,3 @@ exports.search_product = async (req, res) => {
     });
   }
 };
-
-// exports.addproduct_img = async (req, res) => {
-//   const { item_name, product_img } = req.body;
-
-//   if (req.files) {
-//     const findexist = await Product.findOne({
-//       item_name: item_name,
-//     });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       // console.log(req.files);
-//       alluploads = [];
-//       for (let i = 0; i < req.files.length; i++) {
-//         const resp = await cloudinary.uploader.upload(req.files[i].path);
-//         alluploads.push(resp.secure_url);
-//       }
-//       console.log(alluploads);
-
-//       if (alluploads.length !== 0) {
-//         newProductimg.product_img = alluploads;
-//         newProductimg.save().then((result) => {
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newProductimg,
-//           });
-//         });
-//       } else {
-//         res.status(200).json({
-//           status: false,
-//           msg: "img not uploaded",
-//         });
-//       }
-//     }
-//   } else {
-//     console.log("changed node");
-//     const findexist = await Product.findOne({
-//       item_name: item_name,
-//     });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       newProductimg
-//         .save()
-//         .then(
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newProductimg,
-//           })
-//         )
-//         .catch((error) => {
-//           res.status(400).json({
-//             status: false,
-//             msg: "error",
-//             error: error,
-//           });
-//         });
-//     }
-//   }
-// };
-
-// exports.add_img = async (req, res) => {
-//   const { product_title, productImg } = req.body;
-
-//   const newImage = new Image({
-//     product_title: product_title,
-//     productImg: productImg,
-//   });
-
-//   if (req.file) {
-//     const findexist = await Image.findOne({ product_title: product_title });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       // console.log(req.files);
-//       alluploads = [];
-//       for (let i = 0; i < req.files.length; i++) {
-//         const resp = await cloudinary.uploader.upload(req.files[i].path);
-//         alluploads.push(resp.secure_url);
-//       }
-//       console.log(alluploads);
-
-//       if (alluploads.length !== 0) {
-//         newImage.productImg = alluploads;
-//         newImage.save().then((result) => {
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newImage,
-//           });
-//         });
-//       } else {
-//         res.status(200).json({
-//           status: false,
-//           msg: "img not uploaded",
-//         });
-//       }
-//     }
-//   } else {
-//     console.log("changed node");
-//     const findexist = await newImage.findOne({
-//       product_title: product_title,
-//     });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       newImage
-//         .save()
-//         .then(
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newImage,
-//           })
-//         )
-//         .catch((error) => {
-//           res.status(400).json({
-//             status: false,
-//             msg: "error",
-//             error: error,
-//           });
-//         });
-//     }
-//   }
-// };

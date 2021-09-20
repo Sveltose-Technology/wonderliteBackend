@@ -42,7 +42,7 @@ let uploads = multer({ storage: storage });
 //Path
 router.post(
   "/admin/addbundleoffer",
-  uploads.single("product_img"),
+  uploads.array("product_img"),
   addbundleoffer
 );
 router.post("/admin/editbundleoffer/:id", editbundleoffer);

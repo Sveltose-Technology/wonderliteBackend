@@ -32,7 +32,7 @@ exports.addbundleoffer = async (req, res) => {
     status: status,
   });
 
-  if (req.file) {
+  if (req.files) {
     const findexist = await Bundleoffer.findOne({
       bundleoffer_title: bundleoffer_title,
     });
@@ -43,17 +43,21 @@ exports.addbundleoffer = async (req, res) => {
         data: {},
       });
     } else {
-      const resp = await cloudinary.uploader.upload(req.file.path);
-      if (resp) {
-        newBundleoffer.product_img = resp.secure_url;
-        fs.unlinkSync(req.file.path);
-        newBundleoffer.save().then(
+      alluploads = [];
+      for (let i = 0; i < req.files.length; i++) {
+        const resp = await cloudinary.uploader.upload(req.files[i].path);
+        alluploads.push(resp.secure_url);
+      }
+      //console.log(alluploads);
+      if (alluploads.length !== 0) {
+        newBundleoffer.product_img = alluploads;
+        newBundleoffer.save().then((result) => {
           res.status(200).json({
             status: true,
             msg: "success",
             data: newBundleoffer,
-          })
-        );
+          });
+        });
       } else {
         res.status(200).json({
           status: false,
@@ -62,9 +66,11 @@ exports.addbundleoffer = async (req, res) => {
       }
     }
   } else {
+    //console.log("changed node");
     const findexist = await Bundleoffer.findOne({
       bundleoffer_title: bundleoffer_title,
     });
+
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -74,13 +80,13 @@ exports.addbundleoffer = async (req, res) => {
     } else {
       newBundleoffer
         .save()
-        .then((data) => {
+        .then(
           res.status(200).json({
             status: true,
             msg: "success",
-            data: data,
-          });
-        })
+            data: newBundleoffer,
+          })
+        )
         .catch((error) => {
           res.status(400).json({
             status: false,
