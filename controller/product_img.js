@@ -174,3 +174,4 @@ exports.add_Img = async (req, res) => {
     });
   }
 };
+//console.log(req.files)
