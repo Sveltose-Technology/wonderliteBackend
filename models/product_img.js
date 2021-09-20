@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const productimgSchema = new mongoose.Schema(
   {
     product_img: {
-      type: Array,
+      type: String,
     },
   },
   { timestamps: true }

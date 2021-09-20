@@ -151,20 +151,26 @@ exports.add_Img = async (req, res) => {
   }
 };
 
-// console.log("changed node");
-
-// newProductimg.save(function (err, data) {
-//   if (err) {
-//     res.status(400).json({
-//       status: false,
-//       msg: "error occured",
-//       error: err,
-//     });
-//   } else {
-//     res.status(200).json({
-//       status: true,
-//       msg: "Amount added to wallet",
-//       data: newWallet,
-//     });
-//   }
-// });
+exports.add_Img = async (req, res) => {
+  const { product_img } = req.body;
+  const newProductimg = new Productimg({
+    product_img: product_img,
+  });
+  if (req.file) resp = await cloudinary.uploader.upload(req.file.path);
+  if (resp) {
+    newProductimg.product_img = resp.secure_url;
+    fs.unlinkSync(req.file.path);
+    newProductimg.save().then(
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: newProductimg,
+      })
+    );
+  } else {
+    res.status(200).json({
+      status: false,
+      msg: "img not uploaded",
+    });
+  }
+};

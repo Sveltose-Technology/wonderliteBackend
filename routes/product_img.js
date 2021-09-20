@@ -59,7 +59,7 @@ const upload = multer({
 });
 
 //Paths
-router.post("/admin/add_Img", upload.array("product_img"), add_Img);
+router.post("/admin/add_Img", upload.single("product_img"), add_Img);
 router.get("/admin/delete_img/:id", delete_img);
 router.get("/admin/getall_img", getall_img);
 

@@ -41,7 +41,6 @@ exports.add_newlaunch = async (req, res) => {
         data: {},
       });
     } else {
-      const resp = await cloudinary.uploader.upload(req.file.path);
       if (resp) {
         newNewlaunch.product_img = resp.secure_url;
         fs.unlinkSync(req.file.path);
