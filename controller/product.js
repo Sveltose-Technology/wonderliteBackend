@@ -516,7 +516,7 @@ exports.dispense = async (req, res) => {
 
 exports.search_product = async (req, res) => {
   const item_name = req.body.item_name;
-  //console.log(inputsearch);
+  //console.log(item_name);
   //console.log(typeof inputsearch);
   await Product.find({
     item_name: { $regex: item_name, $options: "i" },
