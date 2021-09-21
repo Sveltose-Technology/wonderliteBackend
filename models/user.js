@@ -26,9 +26,9 @@ const userSchema = new Schema(
     //   type: String,
     //   default: 1234,
     // },
-    // pincode: {
-    // type: Number,
-    //},
+    pincode: {
+      type: Number,
+    },
     phone_no: {
       type: Number,
     },

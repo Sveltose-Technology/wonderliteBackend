@@ -258,13 +258,13 @@ exports.editproduct = async (req, res) => {
   if (status) {
     data.status = status;
   }
-  console.log(req.file);
+  //console.log(req.file);
   if (req.file) {
     const response = await cloudinary.uploader.upload(req.file.path);
     data.product_img = response.secure_url;
     fs.unlinkSync(req.file.path);
   }
-  console.log(data);
+  //console.log(data);
   if (data) {
     const findandUpdateEntry = await Product.findOneAndUpdate(
       {

@@ -432,25 +432,159 @@ exports.resetPassword = (req, res) => {
 };
 
 exports.edituser = async (req, res) => {
-  const findandUpdateEntry = await User.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    { $set: req.body },
-    { new: true }
-  );
-  if (findandUpdateEntry) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findandUpdateEntry,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+  const {
+    userID,
+    username,
+    usertype,
+    password,
+    pincode,
+    phone_no,
+    mobile_no,
+    email,
+    sortorder,
+    status,
+    website,
+    date_of_birth,
+    marriage_anniversary,
+    gstin_no,
+    address,
+    country,
+    state,
+    city,
+    udhyog_adhar_no,
+    licence_no,
+    technician_assot_no,
+    gov_licence_no,
+    aadhar_no,
+    farm_name,
+    pancard_no,
+    bank_name,
+    bank_user_name,
+    bank_account_no,
+    ifsc_code,
+    role,
+    userImage,
+  } = req.body;
+
+  data = {};
+  if (userID) {
+    data.userID = userID;
+  }
+  if (username) {
+    data.username = username;
+  }
+  if (usertype) {
+    data.usertype = usertype;
+  }
+  if (password) {
+    data.password = password;
+  }
+  if (pincode) {
+    data.pincode = pincode;
+  }
+  if (phone_no) {
+    data.phone_no = phone_no;
+  }
+  if (mobile_no) {
+    data.mobile_no = mobile_no;
+  }
+  if (email) {
+    data.email = email;
+  }
+  if (sortorder) {
+    data.sortorder = sortorder;
+  }
+  if (status) {
+    data.status = status;
+  }
+  if (website) {
+    data.website = website;
+  }
+  if (date_of_birth) {
+    data.date_of_birth = date_of_birth;
+  }
+  if (marriage_anniversary) {
+    data.marriage_anniversary = marriage_anniversary;
+  }
+  if (gstin_no) {
+    data.gstin_no = gstin_no;
+  }
+  if (address) {
+    data.address = address;
+  }
+  if (country) {
+    data.country = country;
+  }
+  if (state) {
+    data.state = state;
+  }
+  if (city) {
+    data.city = city;
+  }
+  if (udhyog_adhar_no) {
+    data.udhyog_adhar_no = udhyog_adhar_no;
+  }
+  if (licence_no) {
+    data.licence_no = licence_no;
+  }
+  if (technician_assot_no) {
+    data.technician_assot_no = technician_assot_no;
+  }
+  if (gov_licence_no) {
+    data.gov_licence_no = gov_licence_no;
+  }
+  if (aadhar_no) {
+    data.aadhar_no = aadhar_no;
+  }
+  if (farm_name) {
+    data.farm_name = farm_name;
+  }
+  if (pancard_no) {
+    data.pancard_no = pancard_no;
+  }
+  if (bank_name) {
+    data.bank_name = bank_name;
+  }
+  if (bank_user_name) {
+    data.bank_user_name = bank_user_name;
+  }
+  if (bank_account_no) {
+    data.bank_account_no = bank_account_no;
+  }
+  if (ifsc_code) {
+    data.ifsc_code = ifsc_code;
+  }
+  if (role) {
+    data.role = role;
+  }
+  //console.log(req.file);
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.userImage = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  //console.log(data)
+  if (data) {
+    const findandUpdateEntry = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    );
+    if (findandUpdateEntry) {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: findandUpdateEntry,
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: "error",
+      });
+    }
   }
 };
 
