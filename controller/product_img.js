@@ -151,27 +151,92 @@ exports.add_Img = async (req, res) => {
   }
 };
 
+// exports.add_Img = async (req, res) => {
+//   const { product_img } = req.body;
+//   const newProductimg = new Productimg({
+//     product_img: product_img,
+//   });
+//   if (req.file) resp = await cloudinary.uploader.upload(req.file.path);
+//   if (resp) {
+//     newProductimg.product_img = resp.secure_url;
+//     fs.unlinkSync(req.file.path);
+//     newProductimg.save().then(
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: newProductimg,
+//       })
+//     );
+//   } else {
+//     res.status(200).json({
+//       status: false,
+//       msg: "img not uploaded",
+//     });
+//   }
+// };
+
 exports.add_Img = async (req, res) => {
-  const { product_img } = req.body;
+  const { product_title, product_img } = req.body;
   const newProductimg = new Productimg({
+    product_title: product_title,
     product_img: product_img,
   });
-  if (req.file) resp = await cloudinary.uploader.upload(req.file.path);
-  if (resp) {
-    newProductimg.product_img = resp.secure_url;
-    fs.unlinkSync(req.file.path);
-    newProductimg.save().then(
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: newProductimg,
-      })
-    );
-  } else {
-    res.status(200).json({
-      status: false,
-      msg: "img not uploaded",
+  if (req.file) {
+    const findexist = await Productimg.findOne({
+      product_title: product_title,
     });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      if (resp) {
+        newProductimg.product_img = resp.secure_url;
+        fs.unlinkSync(req.file.path);
+        newProductimg.save().then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newProductimg,
+          })
+        );
+      } else {
+        res.status(200).json({
+          status: false,
+          msg: "img not uploaded",
+        });
+      }
+    }
+  } else {
+    const findexist = await Productimg.findOne({
+      product_title: product_title,
+    });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      newProductimg
+        .save()
+        .then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newProductimg,
+          })
+        )
+        .catch((error) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
+    }
   }
 };
-//console.log(req.files)

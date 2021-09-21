@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const productimgSchema = new mongoose.Schema(
   {
+    product_title: {},
     product_img: {
       type: String,
     },
