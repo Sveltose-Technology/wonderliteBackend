@@ -76,4 +76,13 @@ router.post("/admin/addimage/:id", uploads.single("product_img"), product_img);
 // });
 //router.post("/admin/add_img", uploads.array("productImg"), add_img);
 
+// router.get('/search',function(req,res,next){
+//   var q = req.query.q
+//   Product.find({
+//     iten_name:{$regex: new RegExp(q)
+//     }
+//   }
+//   )
+// })
+
 module.exports = router;
