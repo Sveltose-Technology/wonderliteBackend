@@ -28,15 +28,18 @@ const userSchema = new Schema(
     // },
     pincode: {
       type: Number,
+      require: true,
     },
     phone_no: {
       type: Number,
     },
     mobile_no: {
       type: Number,
+      require: true,
     },
     email: {
       type: String,
+      require: true,
     },
     address_main: {
       type: String,

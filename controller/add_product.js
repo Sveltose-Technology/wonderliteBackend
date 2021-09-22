@@ -12,6 +12,7 @@ cloudinary.config({
 exports.add_product = async (req, res) => {
   const {
     product_title,
+    product,
     product_img,
     short_desc,
     long_desc,
@@ -23,6 +24,7 @@ exports.add_product = async (req, res) => {
 
   const newAddproduct = new Addproduct({
     product_title: product_title,
+    product: product,
     product_img: product_img,
     short_desc: short_desc,
     long_desc: long_desc,
