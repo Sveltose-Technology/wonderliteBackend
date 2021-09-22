@@ -64,6 +64,7 @@ exports.adduserbyadmin = async (req, res) => {
     city,
     udhyog_adhar_no,
     licence_no,
+    eb_license,
     technician_assot_no,
     gov_licence_no,
     aadhar_no,
@@ -98,6 +99,7 @@ exports.adduserbyadmin = async (req, res) => {
     city: city,
     udhyog_adhar_no: udhyog_adhar_no,
     licence_no: licence_no,
+    eb_license: eb_license,
     technician_assot_no: technician_assot_no,
     gov_licence_no: gov_licence_no,
     aadhar_no: aadhar_no,
@@ -451,6 +453,7 @@ exports.edituser = async (req, res) => {
     city,
     udhyog_adhar_no,
     licence_no,
+    eb_license,
     technician_assot_no,
     gov_licence_no,
     aadhar_no,
@@ -524,6 +527,9 @@ exports.edituser = async (req, res) => {
   }
   if (licence_no) {
     data.licence_no = licence_no;
+  }
+  if (eb_license) {
+    data.eb_license = eb_license;
   }
   if (technician_assot_no) {
     data.technician_assot_no = technician_assot_no;
