@@ -54,6 +54,7 @@ const rewardpoint = require("./routes/rewardpoint");
 const wallet = require("./routes/wallet");
 //const image_slider = require("./routes/image_slider");
 const product_img = require("./routes/product_img");
+const add_product = require("./routes/add_product");
 
 //Use
 app.use("/api", productcategory);
@@ -100,6 +101,7 @@ app.use("/api", rewardpoint);
 app.use("/api", wallet);
 //app.use("/api", image_slider);
 app.use("/api", product_img);
+app.use("/api", add_product);
 
 //app.use("/api", productsummery);
 

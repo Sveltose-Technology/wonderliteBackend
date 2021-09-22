@@ -2,15 +2,15 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
 
 const {
-  addbundleoffer,
-  editbundleoffer,
-  onebundleoffer,
-  allbundleoffer,
-  delbundleoffer,
-  product_img,
-} = require("../controller/bundleoffer");
+  add_product,
+  del_product,
+  get_allproduct,
+  viewone_product,
+} = require("../controller/add_product");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
@@ -39,12 +39,10 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
-//Path
-router.post("/admin/addbundleoffer", addbundleoffer);
-router.post("/admin/editbundleoffer/:id", editbundleoffer);
-router.get("/admin/onebundleoffer/:id", onebundleoffer);
-router.get("/admin/allbundleoffer", allbundleoffer);
-router.get("/admin/delbundleoffer/:id", delbundleoffer);
-router.post("/admin/offer_img/:id", uploads.single("product_img"), product_img);
+//Paths
+router.post("/admin/add_product", uploads.single("product_img"), add_product);
+router.get("/admin/del_product/:id", del_product);
+router.get("/admin/get_allproduct", get_allproduct);
+router.get("/admin/viewone_product/:id", viewone_product);
 
 module.exports = router;
