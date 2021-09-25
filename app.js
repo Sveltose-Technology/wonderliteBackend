@@ -55,6 +55,7 @@ const wallet = require("./routes/wallet");
 //const image_slider = require("./routes/image_slider");
 const product_img = require("./routes/product_img");
 const add_product = require("./routes/add_product");
+const special_offer = require("./routes/special_offer");
 
 //Use
 app.use("/api", productcategory);
@@ -102,6 +103,7 @@ app.use("/api", wallet);
 //app.use("/api", image_slider);
 app.use("/api", product_img);
 app.use("/api", add_product);
+app.use("/api", special_offer);
 
 //app.use("/api", productsummery);
 
