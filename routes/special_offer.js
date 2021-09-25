@@ -3,7 +3,11 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 
-const { add_specialoffer, Getoffer } = require("../controller/special_offer");
+const {
+  add_specialoffer,
+  Getoffer,
+  del_offer,
+} = require("../controller/special_offer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
@@ -39,5 +43,6 @@ router.post(
   add_specialoffer
 );
 router.get("/admin/Getoffer", Getoffer);
+router.get("/admin/del_offer/:id", del_offer);
 
 module.exports = router;
