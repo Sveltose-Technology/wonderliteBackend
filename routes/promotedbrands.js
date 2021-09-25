@@ -6,6 +6,9 @@ const fs = require("fs");
 const {
   addpromotedbrand,
   allpromotedbrand,
+  editpromotion,
+  delpromotedbrand,
+  viewonepromotedbrand,
 } = require("../controller/promotedbrands");
 
 const storage = multer.diskStorage({
@@ -42,9 +45,9 @@ router.post(
   addpromotedbrand
 );
 
-//router.get("/admin/allpromotedbrand", allpromotedbrand);
-// router.post("/admin/editpromotion/:id", editpromotion);
-// router.post("/admin/onepromotedbrand/:id", onepromotedbrand);
-// router.get("/admin/delpromotedbrand/:id", delpromotedbrand);
+router.get("/admin/allpromotedbrand", allpromotedbrand);
+router.post("/admin/editpromotion/:id", editpromotion);
+router.get("/admin/viewonepromotedbrand/:id", viewonepromotedbrand);
+router.get("/admin/delpromotedbrand/:id", delpromotedbrand);
 
 module.exports = router;

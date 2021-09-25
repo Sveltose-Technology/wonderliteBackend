@@ -8,12 +8,12 @@ const promotedbrandSchema = new mongoose.Schema(
       require: true,
     },
     brand: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "brand",
       require: true,
     },
     promotion_img: {
-      trype: String,
+      type: String,
     },
   },
   { timestamps: true }

@@ -125,6 +125,9 @@ const userSchema = new Schema(
     eb_license: {
       type: String,
     },
+    trade_licence: {
+      type: String,
+    },
     bank_name: {
       type: String,
     },
@@ -144,6 +147,9 @@ const userSchema = new Schema(
     userImage: {
       type: String,
       require: true,
+    },
+    business_name: {
+      type: String,
     },
     resetLink: {
       data: String,

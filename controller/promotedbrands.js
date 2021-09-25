@@ -18,6 +18,65 @@ exports.addpromotedbrand = async (req, res) => {
     promotion_img: promotion_img,
   });
 
+  //   if (req.file) {
+  //     const findexist = await Promotedbrand.findOne({
+  //       promotion_title: promotion_title,
+  //     });
+  //     if (findexist) {
+  //       res.status(400).json({
+  //         status: false,
+  //         msg: "Already Exists",
+  //         data: {},
+  //       });
+  //     } else {
+  //       if (res) {
+  //         newPromotedbrand.promotion_img = res.secure_url;
+  //         fs.unlinkSync(req.file.path);
+  //         newPromotedbrand.save().then(
+  //           res.status(200).json({
+  //             status: true,
+  //             msg: "success",
+  //             data: newPromotedbrand,
+  //           })
+  //         );
+  //       } else {
+  //         res.status(200).json({
+  //           status: false,
+  //           msg: "img not uploaded",
+  //         });
+  //       }
+  //     }
+  //   } else {
+  //     const findexist = await Promotedbrand.findOne({
+  //       promotion_title: promotion_title,
+  //     });
+  //     if (findexist) {
+  //       res.status(400).json({
+  //         status: false,
+  //         msg: "Already Exists",
+  //         data: {},
+  //       });
+  //     } else {
+  //       newPromotedbrand
+  //         .save()
+  //         .then(
+  //           res.status(200).json({
+  //             status: true,
+  //             msg: "success",
+  //             data: newPromotedbrand,
+  //           })
+  //         )
+  //         .catch((error) => {
+  //           res.status(400).json({
+  //             status: false,
+  //             msg: "error",
+  //             error: error,
+  //           });
+  //         });
+  //     }
+  //   }
+  // };
+
   if (req.file) {
     const findexist = await Promotedbrand.findOne({
       promotion_title: promotion_title,
@@ -29,6 +88,7 @@ exports.addpromotedbrand = async (req, res) => {
         data: {},
       });
     } else {
+      //console.log(req.file);
       const resp = await cloudinary.uploader.upload(req.file.path);
       if (resp) {
         newPromotedbrand.promotion_img = resp.secure_url;

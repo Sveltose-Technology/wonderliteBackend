@@ -45,7 +45,7 @@ exports.editproductsubcategory = async (req, res) => {
     },
     { $set: req.body },
     { new: true }
-  ).populate("productcategory");
+  );
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,

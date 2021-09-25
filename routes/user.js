@@ -54,7 +54,8 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 //Paths
-router.post("/user/signup", uploads.single("userImage"), adduser);
+//router.post("/user/signup", uploads.single("userImage"), adduser);
+//router.post("/user/signup", adduser);
 router.post(
   "/user/adduserbyadmin",
   uploads.single("userImage"),
