@@ -71,13 +71,13 @@ exports.add_newlaunch = async (req, res) => {
     } else {
       newNewlaunch
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newNewlaunch,
-          })
-        )
+            data: data,
+          });
+        })
         .catch((error) => {
           res.status(400).json({
             status: false,

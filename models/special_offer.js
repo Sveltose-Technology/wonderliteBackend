@@ -7,22 +7,26 @@ const specialofferSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    // product_price: {
-    //   type: Number,
-    // },
-
-    // product_qty: {
-    //   type: Number,
-    // },
+    product_price: {
+      type: Number,
+    },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "product",
+      require: true,
+    },
+    product_qty: {
+      type: Number,
+    },
     offer_img: {
       type: String,
     },
-    // description: {
-    //   type: String,
-    // },
-    // sortorder: {
-    //   type: Number,
-    // },
+    description: {
+      type: String,
+    },
+    sortorder: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

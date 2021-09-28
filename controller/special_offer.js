@@ -12,10 +12,14 @@ cloudinary.config({
 });
 
 exports.add_specialoffer = async (req, res) => {
-  const { specialoffer_title, offer_img } = req.body;
+  const { specialoffer_title, product, product_price, product_qty, offer_img } =
+    req.body;
 
   const newSpecialoffer = new Specialoffer({
     specialoffer_title: specialoffer_title,
+    product: product,
+    product_price: product_price,
+    product_qty: product_qty,
     offer_img: offer_img,
   });
   if (req.file) {
@@ -60,13 +64,14 @@ exports.add_specialoffer = async (req, res) => {
     } else {
       newSpecialoffer
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newSpecialoffer,
-          })
-        )
+            data: data,
+          });
+        })
+
         .catch((error) => {
           res.status(400).json({
             status: false,
