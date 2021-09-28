@@ -132,6 +132,9 @@ const userSchema = new Schema(
     trade_licence: {
       type: String,
     },
+    trade_mark: {
+      type: String,
+    },
     bank_name: {
       type: String,
     },

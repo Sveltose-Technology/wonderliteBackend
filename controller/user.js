@@ -718,36 +718,36 @@ exports.adduser = async (req, res) => {
   const {
     userID,
     username,
-    aadhar_img,
     email,
     mobile_no,
-    usertype,
-    business_name,
-    eb_license,
     pincode,
+    business_name,
+    aadhar_no,
+    aadhar_img,
+    pancard_no,
+    eb_license,
     gstin_no,
     farm_name,
-    aadhar_no,
-    pancard_no,
     trade_licence,
     udhyog_adhar_no,
+    trade_mark,
   } = req.body;
   const newAdduser = new Adduser({
     userID: userID,
     username: username,
-    //aadhar_img: aadhar_img,
     email: email,
     mobile_no: mobile_no,
-    //usertype: usertype,
-    business_name: business_name,
+    pincode: pincode,
+    business_name: business_name, //upto here same for all
+    aadhar_no: aadhar_no,
+    aadhar_img: aadhar_img,
+    pancard_no: pancard_no,
     // eb_license: eb_license,
-    // pincode: pincode,
-    //gstin_no: gstin_no,
-    //farm_name: farm_name,
-    //aadhar_no: aadhar_no,
-    //pancard_no: pancard_no,
-    //trade_licence: trade_licence,
-    //udhyog_adhar_no: udhyog_adhar_no,
+    gstin_no: gstin_no,
+    // farm_name: farm_name,
+    // trade_licence: trade_licence,
+    // udhyog_adhar_no: udhyog_adhar_no,
+    // trade_mark: trade_mark,
   });
 
   const findexist = await Adduser.findOne(
@@ -760,63 +760,86 @@ exports.adduser = async (req, res) => {
       msg: "Already Exist",
       data: {},
     });
-  } else {
+  } else if (eb_license) {
+    newAdduser.eb_license = eb_license;
+    newAdduser.usertype = "TC";
+
     newAdduser
       .save()
-      .then(
+      .then((data) => {
         res.status(200).json({
           status: true,
           msg: "success",
-          data: newAdduser,
-        })
-      )
+          data: data,
+        });
+      })
       .catch((error) => {
-        res.status(400).json({
+        res.status(200).json({
           status: false,
-          msg: "error",
+          msg: "error occured",
+          error: error,
+        });
+      });
+  } else if (farm_name) {
+    newAdduser.farm_name = farm_name;
+    newAdduser.usertype = "CB";
+
+    newAdduser
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(200).json({
+          status: false,
+          msg: "error occured",
+          error: error,
+        });
+      });
+  } else if (trade_licence) {
+    newAdduser.trade_licence = trade_licence;
+    newAdduser.usertype = "RR";
+
+    newAdduser
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(200).json({
+          status: false,
+          msg: "error occured",
+          error: error,
+        });
+      });
+  } else if (udhyog_adhar_no || trade_mark) {
+    newAdduser.udhyog_adhar_no = udhyog_adhar_no;
+    newAdduser.trade_mark = trade_mark;
+    newAdduser.usertype = "MM";
+
+    newAdduser
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(200).json({
+          status: false,
+          msg: "error occured",
           error: error,
         });
       });
   }
 };
-
-//     } else if (aadhar_no && pancard_no == null) {
-//       res.json({ code: 400, msg: "empty" });
-//     } else if (aadhar_no && pancard_no == "consumer") {
-//       //customer
-
-//       res.json({ code: 200, msg: "success", usertype: "consumer" });
-//     } else if (eb_license == null || eb_license == "undefined") {
-//       res.json({ code: 400, msg: "empty" });
-//     } else if (eb_license == "Technician") {
-//       res.json({ code: 200, msg: "success", usertype: "Technician" });
-//     } else if (
-//       (gstin_no && farm_name && aadhar_no && pancard_no == null) ||
-//       (gstin_no && farm_name && aadhar_no && pancard_no == "undefined")
-//     ) {
-//       res.json({ code: 400, msg: "empty" });
-//     } else if (
-//       gstin_no &&
-//       farm_name &&
-//       aadhar_no &&
-//       pancard_no == "contractor"
-//     ) {
-//       res.json({ code: 200, msg: "success", usertype: "contractor" });
-//     } else if (
-//       (gstin_no && trade_licence == null) ||
-//       (gstin_no && trade_licence == "undefined")
-//     ) {
-//       res.json({ code: 400, msg: "empty" });
-//     } else if (gstin_no && trade_licence == "Retailer") {
-//       res.json({ code: 200, msg: "success", usertype: "Retailer" });
-//     } else if (udhyog_adhar_no == null || udhyog_adhar_no == "undefined") {
-//       res.json({ code: 400, msg: "empty" });
-//     } else if (udhyog_adhar_no == "Manufacturer") {
-//       res.json({ code: 200, msg: "success", usertype: "Manufacturer" });
-//     } else {
-//       res.status(400).send({
-//         message: "error",
-//       });
-//     }
-//   }
-// };
