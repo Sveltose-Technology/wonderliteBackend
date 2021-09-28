@@ -86,13 +86,13 @@ exports.addproductcategory = async (req, res) => {
     } else {
       newProductcategory
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newProductcategory,
-          })
-        )
+            data: data,
+          });
+        })
         .catch((error) => {
           res.status(400).json({
             status: false,
