@@ -11,6 +11,7 @@ cloudinary.config({
 
 exports.edit_profile = async (req, res) => {
   const {
+    userID,
     username,
     business_name,
     mobile_no,
@@ -29,6 +30,7 @@ exports.edit_profile = async (req, res) => {
   } = req.body;
 
   const newEditprofile = new Editprofile({
+    userID: userID,
     username: username,
     business_name: business_name,
     mobile_no: mobile_no,

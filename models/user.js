@@ -116,6 +116,10 @@ const userSchema = new Schema(
     aadhar_no: {
       type: Number,
     },
+    aadhar_img: {
+      type: String,
+      require: true,
+    },
     farm_name: {
       type: Number,
     },
