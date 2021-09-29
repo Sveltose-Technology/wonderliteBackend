@@ -12,8 +12,15 @@ cloudinary.config({
 });
 
 exports.add_specialoffer = async (req, res) => {
-  const { specialoffer_title, product, product_price, product_qty, offer_img } =
-    req.body;
+  const {
+    specialoffer_title,
+    product,
+    product_price,
+    product_qty,
+    offer_img,
+    status,
+    sortorder,
+  } = req.body;
 
   const newSpecialoffer = new Specialoffer({
     specialoffer_title: specialoffer_title,
@@ -21,7 +28,8 @@ exports.add_specialoffer = async (req, res) => {
     product_price: product_price,
     product_qty: product_qty,
     offer_img: offer_img,
-    // offer_img :offer_img
+    status: status,
+    sortorder: sortorder,
   });
   if (req.file) {
     const findexist = await Specialoffer.findOne({
