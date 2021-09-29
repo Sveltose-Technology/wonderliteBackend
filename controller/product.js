@@ -123,64 +123,6 @@ exports.addproduct = async (req, res) => {
   }
 };
 
-// exports.add_productbyadmin = async(req,res)=>{
-//   const {item_name,short_desc,desc,product_img,size,colour} = req.body
-//   if (req.file) {
-//     const findexist = await Product.findOne({ item_name: item_name });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       const resp = await cloudinary.uploader.upload(req.file.path);
-//       if (resp) {
-//         newProduct.product_img = resp.secure_url;
-//         fs.unlinkSync(req.file.path);
-//         newProduct.save().then(
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newProduct,
-//           })
-//         );
-//       } else {
-//         res.status(200).json({
-//           status: false,
-//           msg: "img not uploaded",
-//         });
-//       }
-//     }
-//   } else {
-//     const findexist = await Product.findOne({ item_name: item_name });
-//     if (findexist) {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Already Exists",
-//         data: {},
-//       });
-//     } else {
-//       newProduct
-//         .save()
-//         .then(
-//           res.status(200).json({
-//             status: true,
-//             msg: "success",
-//             data: newProduct,
-//           })
-//         )
-//         .catch((error) => {
-//           res.status(400).json({
-//             status: false,
-//             msg: "error",
-//             error: error,
-//           });
-//         });
-//     }
-//   }
-// };
-
 // exports.editproduct = async (req, res) => {
 //   const findandUpdateEntry = await Product.findOneAndUpdate(
 //     {
