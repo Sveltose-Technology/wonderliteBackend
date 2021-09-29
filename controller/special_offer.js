@@ -21,6 +21,7 @@ exports.add_specialoffer = async (req, res) => {
     product_price: product_price,
     product_qty: product_qty,
     offer_img: offer_img,
+    // offer_img :offer_img
   });
   if (req.file) {
     const findexist = await Specialoffer.findOne({
