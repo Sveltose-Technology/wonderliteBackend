@@ -34,12 +34,18 @@ const userSchema = new Schema(
       type: Number,
     },
     mobile_no: {
-      type: Number,
+      type: String,
       require: true,
+    },
+    alt_mobileno: {
+      type: String,
     },
     email: {
       type: String,
       require: true,
+    },
+    gst_no: {
+      type: String,
     },
     address_main: {
       type: String,
@@ -66,6 +72,9 @@ const userSchema = new Schema(
       type: String,
     },
     address_altmobile: {
+      type: String,
+    },
+    account_name: {
       type: String,
     },
     address_dellocatetype: {
@@ -147,6 +156,9 @@ const userSchema = new Schema(
     ifsc_code: {
       type: String,
     },
+    account_no: {
+      type: String,
+    },
     //role: {
     // type: String,
     // require: true,
@@ -161,6 +173,9 @@ const userSchema = new Schema(
     resetLink: {
       data: String,
       default: "",
+    },
+    area: {
+      data: String,
     },
 
     // cart: [{ type: Schema.Types.ObjectId, ref: "product" }],

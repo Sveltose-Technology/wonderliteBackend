@@ -20,6 +20,7 @@ const {
   user_img,
   sendotp,
   verifyotp,
+  edit_userprofile,
 } = require("../controller/user");
 
 // if (!fs.existsSync("uploads")) {
@@ -95,7 +96,11 @@ router.post("/user/edituser/:id", uploads.single("userImage"), edituser);
 router.get("/user/viewoneuser/:id", viewoneuser);
 router.get("/user/alluser", alluser);
 router.get("/user/deleteuser/:id", deleteuser);
-//router.post("/user/add", add);
+router.post(
+  "/user/edituser_profile/:id",
+  uploads.single("userImage"),
+  edit_userprofile
+);
 router.post("/user/emailSend", emailSend);
 router.post("/user/forgotPassword", forgotPassword);
 router.post("/user/resetPassword", resetPassword);

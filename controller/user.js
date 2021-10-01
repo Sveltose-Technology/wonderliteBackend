@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Adduser = require("../models/user");
+const EditUser = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -833,6 +834,125 @@ exports.adduser = async (req, res) => {
         res.status(200).json({
           status: false,
           msg: "error occured",
+          error: error,
+        });
+      });
+  }
+};
+
+exports.edit_userprofile = async (req, res) => {
+  const {
+    username,
+    business_name,
+    mobile_no,
+    alt_mobileno,
+    email,
+    gst_no,
+    address,
+    state,
+    city,
+    pincode,
+    bank_name,
+    account_name,
+    account_no,
+    ifsc_no,
+    userImage,
+    area,
+  } = req.body;
+
+  // const newEditUser = new EditUser({
+  //   userID: userID,
+  //   username: username,
+  //   business_name: business_name,
+  //   mobile_no: mobile_no,
+  //   alt_mobileno: alt_mobileno,
+  //   email: email,
+  //   gst_no: gst_no,
+  //   address: address,
+  //   state: state,
+  //   city: city,
+  //   pincode: pincode,
+  //   bank_name: bank_name,
+  //   account_name: account_name,
+  //   account_no: account_no,
+  //   ifsc_no: ifsc_no,
+  //   userImage: userImage,
+  //   area: area,
+  // });
+
+  data = {};
+
+  if (username) {
+    data.username = username;
+  }
+  if (business_name) {
+    data.business_name = business_name;
+  }
+  if (mobile_no) {
+    data.mobile_no = mobile_no;
+  }
+  if (alt_mobileno) {
+    data.alt_mobileno = alt_mobileno;
+  }
+  if (email) {
+    data.email = email;
+  }
+  if (gst_no) {
+    data.gst_no = gst_no;
+  }
+  if (address) {
+    data.address = address;
+  }
+  if (state) {
+    data.state = state;
+  }
+  if (city) {
+    data.city = city;
+  }
+  if (pincode) {
+    data.pincode = pincode;
+  }
+  if (bank_name) {
+    data.bank_name = bank_name;
+  }
+  if (account_name) {
+    data.account_name = account_name;
+  }
+  if (account_no) {
+    data.account_no = account_no;
+  }
+  if (ifsc_no) {
+    data.ifsc_no = ifsc_no;
+  }
+  if (area) {
+    data.area = area;
+  }
+
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.userImage = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  console.log(data);
+  if (data) {
+    const findandUpdateEntry = await User.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    )
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
           error: error,
         });
       });
