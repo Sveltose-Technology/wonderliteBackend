@@ -738,16 +738,11 @@ exports.adduser = async (req, res) => {
     email: email,
     mobile_no: mobile_no,
     pincode: pincode,
-    business_name: business_name, //upto here same for all
+    business_name: business_name,
     aadhar_no: aadhar_no,
     aadhar_img: aadhar_img,
     pancard_no: pancard_no,
-    // eb_license: eb_license,
     gstin_no: gstin_no,
-    // farm_name: farm_name,
-    // trade_licence: trade_licence,
-    // udhyog_adhar_no: udhyog_adhar_no,
-    // trade_mark: trade_mark,
   });
 
   const findexist = await Adduser.findOne(

@@ -40,7 +40,11 @@ const fileFilter = (req, file, cb) => {
 let uploads = multer({ storage: storage });
 
 //Path
-router.post("/admin/addbundleoffer", addbundleoffer);
+router.post(
+  "/admin/addbundleoffer",
+  uploads.single("product_img"),
+  addbundleoffer
+);
 router.post("/admin/editbundleoffer/:id", editbundleoffer);
 router.get("/admin/onebundleoffer/:id", onebundleoffer);
 router.get("/admin/allbundleoffer", allbundleoffer);

@@ -8,6 +8,7 @@ exports.addbundleoffer = async (req, res) => {
     bundleoffer_title,
     product,
     product_price,
+    product_img,
     product_qty,
     description,
     sortorder,
@@ -18,37 +19,98 @@ exports.addbundleoffer = async (req, res) => {
     bundleoffer_title: bundleoffer_title,
     product: product,
     product_price: product_price,
+    product_img: product_img,
     product_qty: product_qty,
     description: description,
     sortorder: sortorder,
     status: status,
   });
-  const findexist = await Bundleoffer.findOne({
-    bundleoffer_title: bundleoffer_title,
-  });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
+  //   const findexist = await Bundleoffer.findOne({
+  //     bundleoffer_title: bundleoffer_title,
+  //   });
+  //   if (findexist) {
+  //     res.status(400).json({
+  //       status: false,
+  //       msg: "Already Exists",
+  //       data: {},
+  //     });
+  //   } else {
+  //     newBundleoffer
+  //       .save()
+  //       .then(
+  //         res.status(200).json({
+  //           status: true,
+  //           msg: "success",
+  //           data: newBundleoffer,
+  //         })
+  //       )
+  //       .catch((error) => {
+  //         res.status(400).json({
+  //           status: false,
+  //           msg: "error",
+  //           error: error,
+  //         });
+  //       });
+  //   }
+  // };
+
+  if (req.file) {
+    const findexist = await Bundleoffer.findOne({
+      bundleoffer_title: bundleoffer_title,
     });
-  } else {
-    newBundleoffer
-      .save()
-      .then(
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: newBundleoffer,
-        })
-      )
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
       });
+    } else {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      if (resp) {
+        newBundleoffer.product_img = resp.secure_url;
+        fs.unlinkSync(req.file.path);
+        newBundleoffer.save().then(
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: newBundleoffer,
+          })
+        );
+      } else {
+        res.status(200).json({
+          status: false,
+          msg: "image not uploaded",
+        });
+      }
+    }
+  } else {
+    const findexist = await Bundleoffer.findOne({
+      bundleoffer_title: bundleoffer_title,
+    });
+    if (findexist) {
+      res.status(400).json({
+        status: false,
+        msg: "Already Exists",
+        data: {},
+      });
+    } else {
+      newBundleoffer
+        .save()
+        .then((data) => {
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: data,
+          });
+        })
+        .catch((error) => {
+          res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+          });
+        });
+    }
   }
 };
 

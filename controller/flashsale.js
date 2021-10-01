@@ -140,9 +140,10 @@ exports.add_flashsale = async (req, res) => {
 };
 
 exports.oneflashsale = async (req, res) => {
-  const findone = await Flashsale.findOne({ _id: req.params.id }); //.populate(
-  //("product");
-  //);
+  const findone = await Flashsale.findOne({ _id: req.params.id }).populate(
+    "product"
+  );
+
   if (findone) {
     res.status(200).json({
       status: true,

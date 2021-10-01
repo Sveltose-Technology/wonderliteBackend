@@ -19,9 +19,9 @@ const bundleofferSchema = new mongoose.Schema(
     product_qty: {
       type: Number,
     },
-    // product_img: {
-    //   type: Array,
-    // },
+    product_img: {
+      type: String,
+    },
     description: {
       type: String,
     },
