@@ -7,7 +7,7 @@ const {
   alltermsandcondition,
 } = require("../controller/termsandcondition");
 
-router.get("/admin/addtermsandcondition", addtermsandcondition);
+router.post("/admin/addtermsandcondition", addtermsandcondition);
 // router.post("/admin/editunits/:id", editunits);
 // router.get("/admin/viewoneunits/:id", viewoneunits);
 router.get("/admin/get_termsandcondition", alltermsandcondition);
