@@ -153,13 +153,14 @@ exports.adduserbyadmin = async (req, res) => {
     } else {
       newUser
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
-            msg: "success",
+            msg: " success",
             data: newUser,
-          })
-        )
+          });
+        })
+
         .catch((error) => {
           res.status(400).json({
             status: false,
@@ -170,34 +171,6 @@ exports.adduserbyadmin = async (req, res) => {
     }
   }
 };
-
-// exports.add = function (req, res, next) {
-//   const { email, product_id, qty } = req.body;
-//   const qtyint = Number.parseInt(qty);
-//console.log("qty: ", qtyint);
-// User.findOneAndUpdate(
-//   { email: email },
-//   { $push: { cart: product_id } },
-// { $pop: { cart: product_id } },
-//{ safe: true }
-// ).populate("cart");
-//User.findOne({ email: email })
-// .exec()
-//.then((user) => {
-//console.log(cart);
-//cartarray.push(product_id);
-//console.log(newcart);
-
-// res.status(200).json({
-//  status: true,
-// user: user,
-// });
-// })
-
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// };
 
 exports.login = async (req, res) => {
   const { userID, password } = req.body;

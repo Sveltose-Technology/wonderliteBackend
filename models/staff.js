@@ -3,24 +3,30 @@ const Schema = mongoose.Schema;
 
 const staffSchema = new Schema(
   {
-    staffID: {
+    //   staffID: {
+    //     type: String,
+    //     require: true,
+    //   },
+    // first_name: {
+    //   type: String,
+    //   require: true,
+    // },
+    last_name: {
       type: String,
       require: true,
     },
-    staffname: {
+    staff_email: {
       type: String,
       require: true,
     },
+
     password: {
       type: String,
       require: true,
     },
-    desc: {
+    mobile_no: {
       type: String,
       require: true,
-    },
-    staffImage: {
-      type: String,
     },
     sortorder: {
       type: Number,
@@ -34,7 +40,7 @@ const staffSchema = new Schema(
       default: "EM",
     },
     //roles
-  //EM Employee
+    //EM Employee
     //AA Account Manager
     //
   },

@@ -165,7 +165,7 @@ const userSchema = new Schema(
     // }, //Dealer: DL ,Distributer:Ds, Customer:CS, Technician:Tc,Retailer: RL
     userImage: {
       type: String,
-      require: true,
+      //require: true,
     },
     business_name: {
       type: String,
