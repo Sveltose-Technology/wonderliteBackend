@@ -32,64 +32,62 @@ function generateAccessToken(username) {
 //     })
 //   }
 
-// exports.addstaff = async (req, res) => {
-//   const {
-//     first_name,
-//     last_name,
-//     staff_email,
-//     password,
-//     mobile_no,
-//     role,
-//     sortorder,
-//     status,
-//   } = req.body;
+exports.addstaff = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    staff_email,
+    password,
+    mobile_no,
+    role,
+    sortorder,
+    status,
+  } = req.body;
 
-//   const salt = bcrypt.genSaltSync(saltRounds);
-//   const hashpassword = bcrypt.hashSync(password, salt);
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashpassword = bcrypt.hashSync(password, salt);
 
-//   const token = generateAccessToken({ staffname: staffname });
+  const token = generateAccessToken({ staffname: staffname });
 
-//   const newAdmin = new Admin({
-//     first_name: first_name,
-//     last_name: last_name,
-//     staff_email: staff_email,
-//     password: hashpassword,
-//     mobile_no: mobile_no,
-//     role: role,
-//     sortorder: sortorder,
-//     status: status,
-//   });
-// };
+  const newAdmin = new Admin({
+    first_name: first_name,
+    last_name: last_name,
+    staff_email: staff_email,
+    password: hashpassword,
+    mobile_no: mobile_no,
+    role: role,
+    sortorder: sortorder,
+    status: status,
+  });
 
-//   const findexist = await Admin.findOne({
-//     $or: [{ staff_email: staff_email }, { mobile_no: mobile_no }],
-//   });
-//   if (findexist) {
-//     res.status(400).json({
-//       status: false,
-//       msg: "Already Exists",
-//       data: {},
-//     });
-//   } else {
-//     newAdmin
-//       .save()
-//       .then((data) => {
-//         res.status(200).json({
-//           status: true,
-//           msg: "success",
-//           data: data,
-//           user_type: "admin",
-//         });
-//       })
-//       .catch((error) => {
-//         res.status(400).json({
-//           status: false,
-//           msg: "error",
-//           error: error,
-//         });
-//       });
-//   }
-// };
+  const findexist = await Admin.findOne({
+    $or: [{ staff_email: staff_email }, { mobile_no: mobile_no }],
+  });
+  if (findexist) {
+    res.status(400).json({
+      status: false,
+      msg: "Already Exists",
+      data: {},
+    });
+  } else {
+    newAdmin
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: error,
+        });
+      });
+  }
+};
 
 exports.login = async (req, res) => {
   const { staffID, password } = req.body;

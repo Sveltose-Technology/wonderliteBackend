@@ -128,13 +128,22 @@ exports.adduserbyadmin = async (req, res) => {
       if (resp) {
         newUser.userImage = resp.secure_url;
         fs.unlinkSync(req.file.path);
-        newUser.save().then(
-          res.status(200).json({
-            status: true,
-            msg: "success",
-            data: newUser,
+        newUser
+          .save()
+          .then((data) => {
+            res.status(200).json({
+              status: true,
+              msg: "success",
+              data: data,
+            });
           })
-        );
+          .catch((error) => {
+            res.status(400).json({
+              status: false,
+              msg: "error",
+              error: error,
+            });
+          });
       } else {
         res.status(200).json({
           status: false,
@@ -160,7 +169,6 @@ exports.adduserbyadmin = async (req, res) => {
             data: newUser,
           });
         })
-
         .catch((error) => {
           res.status(400).json({
             status: false,
