@@ -166,7 +166,7 @@ exports.adduserbyadmin = async (req, res) => {
           res.status(200).json({
             status: true,
             msg: " success",
-            data: newUser,
+            data: data,
           });
         })
         .catch((error) => {
