@@ -34,7 +34,7 @@ const userSchema = new Schema(
       type: Number,
     },
     mobile_no: {
-      type: String,
+      type: Number,
       require: true,
     },
     alt_mobileno: {
@@ -84,10 +84,10 @@ const userSchema = new Schema(
       type: String,
     },
     date_of_birth: {
-      type: Number,
+      type: String,
     },
     marriage_anniversary: {
-      type: Number,
+      type: String,
     },
     gstin_no: {
       type: String,
@@ -111,7 +111,7 @@ const userSchema = new Schema(
       type: String,
     },
     licence_no: {
-      type: Number,
+      type: String,
     },
     technician_assot_no: {
       type: String,
