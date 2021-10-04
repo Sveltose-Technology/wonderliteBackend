@@ -36,7 +36,7 @@ const staffSchema = new Schema(
       default: "Active",
     },
     role: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       require: true,
       ref: "role",
     },

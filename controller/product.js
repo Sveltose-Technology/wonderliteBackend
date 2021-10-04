@@ -80,13 +80,13 @@ exports.addproduct = async (req, res) => {
       if (resp) {
         newProduct.product_img = resp.secure_url;
         fs.unlinkSync(req.file.path);
-        newProduct.save().then(
+        newProduct.save().then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newProduct,
-          })
-        );
+            data: data,
+          });
+        });
       } else {
         res.status(200).json({
           status: false,
@@ -105,13 +105,13 @@ exports.addproduct = async (req, res) => {
     } else {
       newProduct
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newProduct,
-          })
-        )
+            data: data,
+          });
+        })
         .catch((error) => {
           res.status(400).json({
             status: false,
