@@ -93,29 +93,38 @@ exports.login = async (req, res) => {
   const { mobile_no, staff_email, password } = req.body;
 
   // Find user with requested email
-  Staff.findOne({ staffID: staffID }, function (err, user) {
-    if (user === null) {
-      return res.status(400).send({
-        message: "User not found.",
-      });
-    } else {
-      if (validatePassword(password, user.password)) {
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-          expiresIn: "365d",
-        });
-
-        return res.status(201).send({
-          message: "User Logged In",
-          token: token,
-          user: user,
+  Staff.findOne(
+    {
+      $or: [
+        { mobile_no: mobile_no },
+        { staff_email: staff_email },
+        { password: password },
+      ],
+    },
+    function (err, user) {
+      if (user === null) {
+        return res.status(400).send({
+          message: "User not found.",
         });
       } else {
-        return res.status(400).send({
-          message: "Wrong Password",
-        });
+        if (validatePassword(password, user.password)) {
+          const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+            expiresIn: "365d",
+          });
+
+          return res.status(201).send({
+            message: "User Logged In",
+            token: token,
+            user: user,
+          });
+        } else {
+          return res.status(400).send({
+            message: "Wrong Password",
+          });
+        }
       }
     }
-  });
+  );
 };
 
 exports.editstaff = async (req, res) => {

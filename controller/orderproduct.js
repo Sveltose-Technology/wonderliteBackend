@@ -197,3 +197,23 @@ exports.allorder = async (req, res) => {
     });
   }
 };
+
+exports.viewone_orderproduct = async (req, res) => {
+  const findone = await Orderproduct.findOne({ _id: req.params.id })
+    .populate("user")
+    .populate("product");
+
+  if (findone) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findone,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
