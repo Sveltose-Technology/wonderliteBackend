@@ -67,8 +67,66 @@ exports.addproduct = async (req, res) => {
     status: status,
   });
 
-  if (req.file) {
-    const findexist = await Product.findOne({ item_name: item_name });
+  //   if (req.file) {
+  //     const findexist = await Product.findOne({ item_name: item_name });
+  //     if (findexist) {
+  //       res.status(400).json({
+  //         status: false,
+  //         msg: "Already Exists",
+  //         data: {},
+  //       });
+  //     } else {
+  //       const resp = await cloudinary.uploader.upload(req.file.path);
+  //       if (resp) {
+  //         newProduct.product_img = resp.secure_url;
+  //         fs.unlinkSync(req.file.path);
+  //         newProduct.save().then((data) => {
+  //           res.status(200).json({
+  //             status: true,
+  //             msg: "success",
+  //             data: data,
+  //           });
+  //         });
+  //       } else {
+  //         res.status(200).json({
+  //           status: false,
+  //           msg: "img not uploaded",
+  //         });
+  //       }
+  //     }
+  //   } else {
+  //     const findexist = await Product.findOne({ item_name: item_name });
+  //     if (findexist) {
+  //       res.status(400).json({
+  //         status: false,
+  //         msg: "Already Exists",
+  //         data: {},
+  //       });
+  //     } else {
+  //       newProduct
+  //         .save()
+  //         .then((data) => {
+  //           res.status(200).json({
+  //             status: true,
+  //             msg: "success",
+  //             data: data,
+  //           });
+  //         })
+  //         .catch((error) => {
+  //           res.status(400).json({
+  //             status: false,
+  //             msg: "error",
+  //             error: error,
+  //           });
+  //         });
+  //     }
+  //   }
+  // };
+
+  if (req.files) {
+    const findexist = await Product.findOne({
+      item_name: item_name,
+    });
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -76,15 +134,23 @@ exports.addproduct = async (req, res) => {
         data: {},
       });
     } else {
-      const resp = await cloudinary.uploader.upload(req.file.path);
-      if (resp) {
-        newProduct.product_img = resp.secure_url;
-        fs.unlinkSync(req.file.path);
-        newProduct.save().then((data) => {
+      // console.log(req.files);
+      alluploads = [];
+      for (let i = 0; i < req.files.length; i++) {
+        const resp = await cloudinary.uploader.upload(req.files[i].path);
+        fs.unlinkSync(req.files[i].path);
+
+        alluploads.push(resp.secure_url);
+      }
+      //console.log(alluploads);
+
+      if (alluploads.length !== 0) {
+        newProduct.product_img = alluploads;
+        newProduct.save().then((result) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: data,
+            data: result,
           });
         });
       } else {
@@ -95,7 +161,10 @@ exports.addproduct = async (req, res) => {
       }
     }
   } else {
-    const findexist = await Product.findOne({ item_name: item_name });
+    // console.log("changed node");
+    const findexist = await Product.findOne({
+      item_name: item_name,
+    });
     if (findexist) {
       res.status(400).json({
         status: false,
@@ -112,6 +181,7 @@ exports.addproduct = async (req, res) => {
             data: data,
           });
         })
+
         .catch((error) => {
           res.status(400).json({
             status: false,

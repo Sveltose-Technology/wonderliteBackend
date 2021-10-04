@@ -14,6 +14,33 @@ const rateSchema = new Schema(
     fordealer: {
       type: String,
     },
+    rate_manufacturer: {
+      type: Number,
+    },
+    rate_stocklist: {
+      type: Number,
+    },
+
+    rate_distributer: {
+      type: Number,
+    },
+    rate_dealer: {
+      type: Number,
+    },
+    rate_sp_retailer: {
+      type: Number,
+    },
+
+    rate_retailer: {
+      type: Number,
+    },
+    rate_builder_contractor: {
+      type: Number,
+    },
+    rate_customer: {
+      type: Number,
+    },
+
     //rate_builder_contractor
     // rate_customer
     // rate_dealer

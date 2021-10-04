@@ -45,10 +45,10 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 //Paths
-router.post("/admin/addproduct", uploads.single("product_img"), addproduct);
+router.post("/admin/addproduct", uploads.array("product_img"), addproduct);
 router.post(
   "/admin/editproduct/:id",
-  uploads.single("product_img"),
+  uploads.array("product_img"),
   editproduct
 );
 router.get("/admin/viewoneproduct/:id", viewoneproduct);

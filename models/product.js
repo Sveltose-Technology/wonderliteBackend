@@ -56,7 +56,7 @@ const productSchema = new Schema(
       type: String,
     },
     product_img: {
-      type: String,
+      type: Array,
     },
     barcode: {
       type: Number,
