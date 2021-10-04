@@ -1,4 +1,4 @@
-const Admin = require("../models/staff");
+const Staff = require("../models/staff");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -47,9 +47,9 @@ exports.addstaff = async (req, res) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashpassword = bcrypt.hashSync(password, salt);
 
-  const token = generateAccessToken({ staffname: staffname });
+  const token = generateAccessToken({ mobile_no: mobile_no });
 
-  const newAdmin = new Admin({
+  const newStaff = new Staff({
     first_name: first_name,
     last_name: last_name,
     staff_email: staff_email,
@@ -60,7 +60,7 @@ exports.addstaff = async (req, res) => {
     status: status,
   });
 
-  const findexist = await Admin.findOne({
+  const findexist = await Staff.findOne({
     $or: [{ staff_email: staff_email }, { mobile_no: mobile_no }],
   });
   if (findexist) {
@@ -70,7 +70,7 @@ exports.addstaff = async (req, res) => {
       data: {},
     });
   } else {
-    newAdmin
+    newStaff
       .save()
       .then((data) => {
         res.status(200).json({
@@ -90,7 +90,7 @@ exports.addstaff = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { staffID, password } = req.body;
+  const { mobile_no, staff_email, password } = req.body;
 
   // Find user with requested email
   Staff.findOne({ staffID: staffID }, function (err, user) {
@@ -142,7 +142,7 @@ exports.editstaff = async (req, res) => {
 };
 
 exports.viewonestaff = async (req, res) => {
-  const findone = await Staff.findOne({ _id: req.params.id });
+  const findone = await Staff.findOne({ _id: req.params.id }).populate("role");
   if (findone) {
     res.status(200).json({
       status: true,
@@ -159,7 +159,7 @@ exports.viewonestaff = async (req, res) => {
 };
 
 exports.allstaff = async (req, res) => {
-  const findall = await Staff.find().sort({ sortorder: 1 });
+  const findall = await Staff.find().sort({ sortorder: 1 }).populate("role");
   if (findall) {
     res.status(200).json({
       status: true,

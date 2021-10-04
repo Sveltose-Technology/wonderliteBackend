@@ -7,10 +7,10 @@ const staffSchema = new Schema(
     //     type: String,
     //     require: true,
     //   },
-    // first_name: {
-    //   type: String,
-    //   require: true,
-    // },
+    first_name: {
+      type: String,
+      require: true,
+    },
     last_name: {
       type: String,
       require: true,
@@ -36,8 +36,9 @@ const staffSchema = new Schema(
       default: "Active",
     },
     role: {
-      type: String,
-      default: "EM",
+      type: Schema.Types.ObjectId,
+      require: true,
+      ref: "role",
     },
     //roles
     //EM Employee

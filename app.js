@@ -57,6 +57,7 @@ const product_img = require("./routes/product_img");
 const add_product = require("./routes/add_product");
 const special_offer = require("./routes/special_offer");
 const user_address = require("./routes/user_address");
+const role = require("./routes/role");
 
 //Use
 app.use("/api", productcategory);
@@ -106,6 +107,7 @@ app.use("/api", product_img);
 app.use("/api", add_product);
 app.use("/api", special_offer);
 app.use("/api", user_address);
+app.use("/api", role);
 
 //app.use("/api", productsummery);
 

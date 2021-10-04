@@ -11,7 +11,7 @@ const {
 } = require("../controller/staff");
 
 //Paths
-//router.post("/admin/addstaff", addstaff);
+router.post("/admin/addstaff", addstaff);
 router.post("/admin/login", login);
 
 router.post("/admin/editstaff/:id", editstaff);
