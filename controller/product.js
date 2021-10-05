@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const Image = require("../models/product");
+const Rate = require("../models/rate");
+const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -37,6 +39,14 @@ exports.addproduct = async (req, res) => {
     inc_duty_tax,
     sortorder,
     status,
+    dealer,
+    manufacturer,
+    stocklist,
+    distributer,
+    sretailer,
+    rate_retailer,
+    rate_builder_contractor,
+    customer,
   } = req.body;
 
   const newProduct = new Product({
@@ -65,6 +75,14 @@ exports.addproduct = async (req, res) => {
     inc_duty_tax: inc_duty_tax,
     sortorder: sortorder,
     status: status,
+    dealer: dealer,
+    manufacturer: manufacturer,
+    stocklist: stocklist,
+    distributer: distributer,
+    sretailer: sretailer,
+    rate_retailer: rate_retailer,
+    rate_builder_contractor: rate_builder_contractor,
+    customer: customer,
   });
 
   //   if (req.file) {
@@ -385,6 +403,8 @@ exports.viewoneproduct = async (req, res) => {
 };
 
 exports.allproduct = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
+
   const findall = await Product.find()
     .sort({ sortorder: 1 })
     .populate("productcategory")
@@ -399,6 +419,7 @@ exports.allproduct = async (req, res) => {
       status: true,
       msg: "success",
       data: findall,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const multer = require("multer");
+const { verifytoken } = require("../functions/verifytoken");
+
 const {
   addproduct,
   editproduct,
@@ -52,7 +54,7 @@ router.post(
   editproduct
 );
 router.get("/admin/viewoneproduct/:id", viewoneproduct);
-router.get("/admin/allproduct", allproduct);
+router.get("/admin/allproduct", verifytoken, allproduct);
 router.get("/admin/productbybrand/:id", productbybrand);
 router.get("/admin/productbycategory/:id", productbycategory);
 router.get("/admin/productbysubcategory/:id", productbysubcategory);

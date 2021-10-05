@@ -48,7 +48,10 @@ const productSchema = new Schema(
     stock_clearance_limit: {
       type: Number,
     },
-    rate: [{ type: Schema.Types.ObjectId, ref: "rate" }],
+    //rate: { type: Schema.Types.ObjectId, ref: "rate" },
+    rate: {
+      type: Number,
+    },
     size: {
       type: String,
     },
@@ -63,7 +66,7 @@ const productSchema = new Schema(
     },
     brand: { type: Schema.Types.ObjectId, ref: "brand" },
     std_package: {
-      type: Number,
+      type: String,
     },
     inc_duty_tax: {
       type: Number,
@@ -80,6 +83,32 @@ const productSchema = new Schema(
     status: {
       type: String,
       default: "Active",
+    },
+    dealer: {
+      type: Number, //20
+    },
+    manufacturer: {
+      type: Number,
+    },
+    stocklist: {
+      type: Number,
+    },
+
+    distributer: {
+      type: Number,
+    },
+    sretailer: {
+      type: Number,
+    },
+
+    rate_retailer: {
+      type: Number,
+    },
+    rate_builder_contractor: {
+      type: Number,
+    },
+    customer: {
+      type: Number,
     },
   },
   { timestamps: true }

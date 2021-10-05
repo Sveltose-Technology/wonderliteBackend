@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 const crypto = require("crypto");
+const { verifytoken } = require("../functions/verifytoken");
 
 //const { auth } = require("./middlewares/auth");
 const {
@@ -92,7 +93,12 @@ router.get("/user/logout", auth, function (req, res) {
   });
 });
 
-router.post("/user/edituser/:id", uploads.single("userImage"), edituser);
+router.post(
+  "/user/edituser",
+  verifytoken,
+  uploads.single("userImage"),
+  edituser
+);
 router.get("/user/viewoneuser/:id", viewoneuser);
 router.get("/user/alluser", alluser);
 router.get("/user/deleteuser/:id", deleteuser);
