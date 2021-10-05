@@ -7,6 +7,10 @@ const rateSchema = new Schema(
       type: Number,
       require: true,
     },
+    userID: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
     unit: { type: Schema.Types.ObjectId, ref: "unit" },
     qtypackage: {
       type: Number,

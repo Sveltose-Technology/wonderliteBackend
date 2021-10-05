@@ -37,39 +37,46 @@ exports.addrate = async (req, res) => {
     closing_on: closing_on,
     status: status,
   });
-
-  const findexist = await Rate.findOne({
-    $and: [
-      { rate: rate },
-      { qtypackage: qtypackage },
-      { fordealer: fordealer },
-    ],
-  });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
-    });
-  } else {
-    newRate
-      .save()
-      .then(
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: newRate,
-        })
-      )
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
-      });
-  }
+  //  const {userID} = req.body
+  //  Rate.find({userID :userID}),function(err,user){
+  //    if(user === null){
+  //      return res.status(400).send
+  //    }
+  //  }
 };
+
+//   const findexist = await Rate.findOne({
+//     $and: [
+//       { rate: rate },
+//       { qtypackage: qtypackage },
+//       { fordealer: fordealer },
+//     ],
+//   });
+//   if (findexist) {
+//     res.status(400).json({
+//       status: false,
+//       msg: "Already Exists",
+//       data: {},
+//     });
+//   } else {
+//     newRate
+//       .save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: data,
+//         });
+//       })
+//       .catch((error) => {
+//         res.status(400).json({
+//           status: false,
+//           msg: "error",
+//           error: error,
+//         });
+//       });
+//   }
+// };
 
 exports.editrate = async (req, res) => {
   const findandUpdateEntry = await Rate.findOneAndUpdate(

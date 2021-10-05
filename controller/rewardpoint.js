@@ -40,14 +40,14 @@ exports.add_rewardpoint = async (req, res) => {
       });
     } else {
       Rewardpoint.save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: true,
             msg: "success",
             data: newRewardpoint,
-          })
-        )
+          });
+        })
         .catch((err) => {
           res.status(400).json({
             status: false,
