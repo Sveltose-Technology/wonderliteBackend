@@ -29,7 +29,7 @@ exports.addproduct = async (req, res) => {
     material,
     stock_qty,
     stock_clearance_limit,
-    rate,
+    //rate,
     size,
     colour,
     product_img,
@@ -65,7 +65,7 @@ exports.addproduct = async (req, res) => {
     material: material,
     stock_qty: stock_qty,
     stock_clearance_limit: stock_clearance_limit,
-    rate: rate,
+    //rate: rate,
     size: size,
     colour: colour,
     product_img: product_img,
@@ -392,6 +392,7 @@ exports.viewoneproduct = async (req, res) => {
       status: true,
       msg: "success",
       data: findone,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
