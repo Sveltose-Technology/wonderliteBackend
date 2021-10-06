@@ -91,9 +91,9 @@ exports.add_offeranddeals = async (req, res) => {
 };
 
 exports.viewone_dealoffer = async (req, res) => {
-  const findone = await Offeranddeals.findOne({ _id: req.params.id }); //.populate(
-  //("product");
-  //);
+  const findone = await Offeranddeals.findOne({ _id: req.params.id }).populate(
+    "product"
+  );
   if (findone) {
     res.status(200).json({
       status: true,
@@ -110,7 +110,9 @@ exports.viewone_dealoffer = async (req, res) => {
 };
 
 exports.allofferanddeals = async (req, res) => {
-  const findall = await Offeranddeals.find().sort({ sortorder: 1 });
+  const findall = await Offeranddeals.find()
+    .sort({ sortorder: 1 })
+    .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
