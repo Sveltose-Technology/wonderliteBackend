@@ -5,15 +5,11 @@ const flashsaleSchema = new mongoose.Schema(
   {
     flashsale_title: {
       type: String,
-      //require: true,
     },
     product: {
       type: Schema.Types.ObjectId,
       ref: "product",
       require: true,
-    },
-    product_price: {
-      type: Number,
     },
     flashsale_img: {
       type: Array,
@@ -24,6 +20,31 @@ const flashsaleSchema = new mongoose.Schema(
     currentTime: {
       type: String,
     },
+    dealer: {
+      type: Number,
+    },
+    manufacturer: {
+      type: Number,
+    },
+    stocklist: {
+      type: Number,
+    },
+    distributer: {
+      type: Number,
+    },
+    sretailer: {
+      type: Number,
+    },
+    rate_retailer: {
+      type: Number,
+    },
+    rate_builder_contractor: {
+      type: Number,
+    },
+    customer: {
+      type: Number,
+    },
+
     sortorder: {
       type: Number,
     },

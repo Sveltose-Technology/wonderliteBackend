@@ -12,10 +12,34 @@ const bundleofferSchema = new mongoose.Schema(
       ref: "product",
       require: true,
     },
-    product_price: {
+    // product_price: {
+    //   type: Number,
+    // },
+    dealer: {
+      type: Number,
+    },
+    manufacturer: {
+      type: Number,
+    },
+    stocklist: {
       type: Number,
     },
 
+    distributer: {
+      type: Number,
+    },
+    sretailer: {
+      type: Number,
+    },
+    rate_retailer: {
+      type: Number,
+    },
+    rate_builder_contractor: {
+      type: Number,
+    },
+    customer: {
+      type: Number,
+    },
     product_qty: {
       type: Number,
     },

@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 const Image = require("../models/product");
-const Rate = require("../models/rate");
+//const Rate = require("../models/rate");
 const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
@@ -29,7 +29,6 @@ exports.addproduct = async (req, res) => {
     material,
     stock_qty,
     stock_clearance_limit,
-    //rate,
     size,
     colour,
     product_img,
@@ -65,7 +64,6 @@ exports.addproduct = async (req, res) => {
     material: material,
     stock_qty: stock_qty,
     stock_clearance_limit: stock_clearance_limit,
-    //rate: rate,
     size: size,
     colour: colour,
     product_img: product_img,
@@ -84,62 +82,6 @@ exports.addproduct = async (req, res) => {
     rate_builder_contractor: rate_builder_contractor,
     customer: customer,
   });
-
-  //   if (req.file) {
-  //     const findexist = await Product.findOne({ item_name: item_name });
-  //     if (findexist) {
-  //       res.status(400).json({
-  //         status: false,
-  //         msg: "Already Exists",
-  //         data: {},
-  //       });
-  //     } else {
-  //       const resp = await cloudinary.uploader.upload(req.file.path);
-  //       if (resp) {
-  //         newProduct.product_img = resp.secure_url;
-  //         fs.unlinkSync(req.file.path);
-  //         newProduct.save().then((data) => {
-  //           res.status(200).json({
-  //             status: true,
-  //             msg: "success",
-  //             data: data,
-  //           });
-  //         });
-  //       } else {
-  //         res.status(200).json({
-  //           status: false,
-  //           msg: "img not uploaded",
-  //         });
-  //       }
-  //     }
-  //   } else {
-  //     const findexist = await Product.findOne({ item_name: item_name });
-  //     if (findexist) {
-  //       res.status(400).json({
-  //         status: false,
-  //         msg: "Already Exists",
-  //         data: {},
-  //       });
-  //     } else {
-  //       newProduct
-  //         .save()
-  //         .then((data) => {
-  //           res.status(200).json({
-  //             status: true,
-  //             msg: "success",
-  //             data: data,
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           res.status(400).json({
-  //             status: false,
-  //             msg: "error",
-  //             error: error,
-  //           });
-  //         });
-  //     }
-  //   }
-  // };
 
   if (req.files) {
     const findexist = await Product.findOne({
@@ -199,7 +141,6 @@ exports.addproduct = async (req, res) => {
             data: data,
           });
         })
-
         .catch((error) => {
           res.status(400).json({
             status: false,
@@ -379,6 +320,8 @@ exports.editproduct = async (req, res) => {
 };
 
 exports.viewoneproduct = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
+
   const findone = await Product.findOne({ _id: req.params.id })
     .populate("productcategory")
     .populate("productsubcategory")

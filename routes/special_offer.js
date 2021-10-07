@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const { verifytoken } = require("../functions/verifytoken");
 
 const {
   add_specialoffer,
   Getoffer,
+  viewonespecialoffer,
   del_offer,
 } = require("../controller/special_offer");
 const storage = multer.diskStorage({
@@ -42,7 +44,8 @@ router.post(
   uploads.single("offer_img"),
   add_specialoffer
 );
-router.get("/admin/Getoffer", Getoffer);
+router.get("/admin/Getoffer", verifytoken, Getoffer);
+router.get("/admin/viewonespecialoffer/:id", verifytoken, viewonespecialoffer);
 router.get("/admin/del_offer/:id", del_offer);
 
 module.exports = router;

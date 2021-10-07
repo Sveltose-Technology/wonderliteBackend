@@ -1,4 +1,5 @@
 const Specialoffer = require("../models/special_offer");
+const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -15,7 +16,14 @@ exports.add_specialoffer = async (req, res) => {
   const {
     specialoffer_title,
     product,
-    product_price,
+    dealer,
+    manufacturer,
+    stocklist,
+    distributer,
+    sretailer,
+    rate_retailer,
+    rate_builder_contractor,
+    customer,
     product_qty,
     offer_img,
     status,
@@ -25,7 +33,14 @@ exports.add_specialoffer = async (req, res) => {
   const newSpecialoffer = new Specialoffer({
     specialoffer_title: specialoffer_title,
     product: product,
-    product_price: product_price,
+    dealer: dealer,
+    manufacturer: manufacturer,
+    stocklist: stocklist,
+    distributer: distributer,
+    sretailer: sretailer,
+    rate_retailer: rate_retailer,
+    rate_builder_contractor: rate_builder_contractor,
+    customer: customer,
     product_qty: product_qty,
     offer_img: offer_img,
     status: status,
@@ -93,6 +108,7 @@ exports.add_specialoffer = async (req, res) => {
 };
 
 exports.viewonespecialoffer = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
   const findone = await Specialoffer.findOne({ _id: req.params.id }).populate(
     "product"
   );
@@ -101,6 +117,7 @@ exports.viewonespecialoffer = async (req, res) => {
       status: true,
       msg: "success",
       data: findone,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
@@ -112,6 +129,7 @@ exports.viewonespecialoffer = async (req, res) => {
 };
 
 exports.Getoffer = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
   const findall = await Specialoffer.find()
     .populate("product")
     .sort({ sortorder: 1 });
@@ -120,6 +138,7 @@ exports.Getoffer = async (req, res) => {
       status: true,
       msg: "success",
       data: findall,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({

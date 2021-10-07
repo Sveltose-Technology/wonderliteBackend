@@ -7,9 +7,6 @@ const specialofferSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    product_price: {
-      type: Number,
-    },
     product: {
       type: Schema.Types.ObjectId,
       ref: "product",
@@ -24,6 +21,31 @@ const specialofferSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    dealer: {
+      type: Number,
+    },
+    manufacturer: {
+      type: Number,
+    },
+    stocklist: {
+      type: Number,
+    },
+    distributer: {
+      type: Number,
+    },
+    sretailer: {
+      type: Number,
+    },
+    rate_retailer: {
+      type: Number,
+    },
+    rate_builder_contractor: {
+      type: Number,
+    },
+    customer: {
+      type: Number,
+    },
+
     status: {
       type: String,
     },

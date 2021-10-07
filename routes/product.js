@@ -53,7 +53,8 @@ router.post(
   uploads.array("product_img"),
   editproduct
 );
-router.get("/admin/viewoneproduct/:id", viewoneproduct);
+//router.get("/admin/viewoneproduct/:id", viewoneproduct);
+router.get("/admin/viewoneproduct/:id", verifytoken, viewoneproduct);
 router.get("/admin/allproduct", verifytoken, allproduct);
 router.get("/admin/productbybrand/:id", productbybrand);
 router.get("/admin/productbycategory/:id", productbycategory);

@@ -1,46 +1,5 @@
-// exports.flashsale_img = async (req, res) => {
-//   const findone = await flashsale.findOne({ _id: req.params.id });
-//   if (findone) {
-//     console.log(req.params.id);
-//     console.log(req.file);
-//     const response = await cloudinary.uploader.upload(req.file.path);
-//     if (response) {
-//       const findandUpdateEntry = await flashsale.findOneAndUpdate(
-//         {
-//           _id: req.params.id,
-//         },
-//         { $set: { flashsale_img: response.secure_url } },
-//         { new: true }
-//       );
-
-//       if (findandUpdateEntry) {
-//         res.status(200).json({
-//           status: true,
-//           msg: "success",
-//           data: findandUpdateEntry,
-//         });
-//       } else {
-//         res.status(400).json({
-//           status: false,
-//           msg: "Image not set",
-//         });
-//       }
-//     } else {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Error in file uploading",
-//       });
-//     }
-//   } else {
-//     res.status(400).json({
-//       status: false,
-//       msg: "image Not Found",
-//     });
-//   }
-// };
-
 const Flashsale = require("../models/flashsale");
-
+const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -55,7 +14,14 @@ exports.add_flashsale = async (req, res) => {
   const {
     flashsale_title,
     product,
-    product_price,
+    dealer,
+    manufacturer,
+    stocklist,
+    distributer,
+    sretailer,
+    rate_retailer,
+    rate_builder_contractor,
+    customer,
     flashsale_img,
     description,
     sortorder,
@@ -65,7 +31,14 @@ exports.add_flashsale = async (req, res) => {
   const newFlashsale = new Flashsale({
     flashsale_title: flashsale_title,
     product: product,
-    product_price: product_price,
+    dealer: dealer,
+    manufacturer: manufacturer,
+    stocklist: stocklist,
+    distributer: distributer,
+    sretailer: sretailer,
+    rate_retailer: rate_retailer,
+    rate_builder_contractor: rate_builder_contractor,
+    customer: customer,
     flashsale_img: flashsale_img,
     description: description,
     sortorder: sortorder,
@@ -97,7 +70,7 @@ exports.add_flashsale = async (req, res) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newFlashsale,
+            data: result,
           });
         });
       } else {
@@ -121,13 +94,13 @@ exports.add_flashsale = async (req, res) => {
     } else {
       newFlashsale
         .save()
-        .then(
+        .then((data) => {
           res.status(200).json({
             status: true,
             msg: "success",
-            data: newFlashsale,
-          })
-        )
+            data: data,
+          });
+        })
         .catch((error) => {
           res.status(400).json({
             status: false,
@@ -140,6 +113,7 @@ exports.add_flashsale = async (req, res) => {
 };
 
 exports.oneflashsale = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
   const findone = await Flashsale.findOne({ _id: req.params.id }).populate(
     "product"
   );
@@ -149,6 +123,7 @@ exports.oneflashsale = async (req, res) => {
       status: true,
       msg: "success",
       data: findone,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
@@ -159,12 +134,17 @@ exports.oneflashsale = async (req, res) => {
   }
 };
 exports.allflashsale = async (req, res) => {
-  const findall = await Flashsale.find().sort({ sortorder: 1 });
+  const getuser = await User.findOne({ _id: req.userId });
+
+  const findall = await Flashsale.find()
+    .sort({ sortorder: 1 })
+    .populate("product");
   if (findall) {
     res.status(200).json({
       status: true,
       msg: "success",
       data: findall,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
@@ -199,7 +179,7 @@ exports.editflashsale = async (req, res) => {
     },
     { $set: req.body },
     { new: true }
-  ); //.populate("unit");
+  );
   if (findandUpdateEntry) {
     res.status(200).json({
       status: true,

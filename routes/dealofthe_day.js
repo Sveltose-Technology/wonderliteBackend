@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const { verifytoken } = require("../functions/verifytoken");
 
 const {
   add_dealoftheday,
+  viewonedeal,
   alldealoftheday,
   del_dealoftheday,
   edit_dealoftheday,
@@ -43,7 +45,8 @@ router.post(
   uploads.single("product_img"),
   add_dealoftheday
 );
-router.get("/admin/all_dealoftheday", alldealoftheday);
+router.get("/admin/viewonedeal/:id", verifytoken, viewonedeal);
+router.get("/admin/all_dealoftheday", verifytoken, alldealoftheday);
 router.post("/admin/edit_dealoftheday/:id", edit_dealoftheday);
 //   router.get("/admin/allbrand", allbrand);
 router.get("/admin/del_dealoftheday/:id", del_dealoftheday);

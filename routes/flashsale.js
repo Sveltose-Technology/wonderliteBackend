@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const { verifytoken } = require("../functions/verifytoken");
 
 const {
   add_flashsale,
@@ -47,8 +48,8 @@ router.post(
 );
 
 router.post("/admin/editflashsale/:id", editflashsale);
-router.get("/admin/oneflashsale/:id", oneflashsale);
-router.get("/admin/allflashsale", allflashsale);
+router.get("/admin/oneflashsale/:id", verifytoken, oneflashsale);
+router.get("/admin/allflashsale", verifytoken, allflashsale);
 router.get("/admin/delflashsale/:id", delflashsale);
 // router.post(
 //   "/admin/flashsaleimage/:id",
