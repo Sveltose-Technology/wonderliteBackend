@@ -91,7 +91,7 @@ exports.add_newlaunch = async (req, res) => {
 };
 
 exports.viewonenewlaunch = async (req, res) => {
-  //const getuser = await User.findOne({ _id: req.userId });
+  ////const getuser = await User.findOne({ _id: req.userId });
 
   const findone = await Newlaunch.findOne({ _id: req.params.id }).populate(
     "product"
