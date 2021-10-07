@@ -1,4 +1,5 @@
 const Newlaunch = require("../models/newlaunch");
+const User = require("../models/user");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const dotenv = require("dotenv");
@@ -13,7 +14,14 @@ exports.add_newlaunch = async (req, res) => {
   const {
     newlaunch_title,
     product,
-    product_price,
+    dealer,
+    manufacturer,
+    stocklist,
+    distributer,
+    sretailer,
+    rate_retailer,
+    rate_builder_contractor,
+    customer,
     product_img,
     description,
     sortorder,
@@ -23,7 +31,14 @@ exports.add_newlaunch = async (req, res) => {
   const newNewlaunch = new Newlaunch({
     newlaunch_title: newlaunch_title,
     product: product,
-    product_price: product_price,
+    dealer: dealer,
+    manufacturer: manufacturer,
+    stocklist: stocklist,
+    distributer: distributer,
+    sretailer: sretailer,
+    rate_retailer: rate_retailer,
+    rate_builder_contractor: rate_builder_contractor,
+    customer: customer,
     product_img: product_img,
     description: description,
     sortorder: sortorder,
@@ -91,8 +106,7 @@ exports.add_newlaunch = async (req, res) => {
 };
 
 exports.viewonenewlaunch = async (req, res) => {
-  ////const getuser = await User.findOne({ _id: req.userId });
-
+  const getuser = await User.findOne({ _id: req.userId });
   const findone = await Newlaunch.findOne({ _id: req.params.id }).populate(
     "product"
   );
@@ -102,7 +116,7 @@ exports.viewonenewlaunch = async (req, res) => {
       status: true,
       msg: "success",
       data: findone,
-      //usertype: getuser.usertype,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
@@ -114,6 +128,7 @@ exports.viewonenewlaunch = async (req, res) => {
 };
 
 exports.getnewlaunch = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
   const findall = await Newlaunch.find()
     .populate("product")
     .sort({ sortorder: 1 });
@@ -122,6 +137,7 @@ exports.getnewlaunch = async (req, res) => {
       status: true,
       msg: "success",
       data: findall,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({

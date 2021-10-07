@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const { verifytoken } = require("../functions/verifytoken");
 
 const {
   add_newlaunch,
@@ -43,9 +44,9 @@ router.post(
   uploads.single("product_img"),
   add_newlaunch
 );
-router.get("/admin/getnewlaunch", getnewlaunch);
+router.get("/admin/getnewlaunch", verifytoken, getnewlaunch);
 router.get("/admin/delnewlaunch/:id", delnewlaunch);
 
-router.get("/admin/viewonenewlaunch/:id", viewonenewlaunch);
+router.get("/admin/viewonenewlaunch/:id", verifytoken, viewonenewlaunch);
 
 module.exports = router;

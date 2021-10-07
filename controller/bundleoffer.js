@@ -230,6 +230,8 @@ exports.editbundleoffer = async (req, res) => {
   }
 };
 exports.onebundleoffer = async (req, res) => {
+  const getuser = await User.findOne({ _id: req.userId });
+
   const findone = await Bundleoffer.findOne({ _id: req.params.id }).populate(
     "product"
   );
@@ -238,6 +240,7 @@ exports.onebundleoffer = async (req, res) => {
       status: true,
       msg: "success",
       data: findone,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
