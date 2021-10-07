@@ -7,6 +7,7 @@ const {
   add_newlaunch,
   getnewlaunch,
   delnewlaunch,
+  viewonenewlaunch,
 } = require("../controller/newlaunch");
 
 const storage = multer.diskStorage({
@@ -45,6 +46,6 @@ router.post(
 router.get("/admin/getnewlaunch", getnewlaunch);
 router.get("/admin/delnewlaunch/:id", delnewlaunch);
 
-// router.get("/admin/oneflashsale/:id", oneflashsale);
+router.get("/admin/viewonenewlaunch/:id", viewonenewlaunch);
 
 module.exports = router;
