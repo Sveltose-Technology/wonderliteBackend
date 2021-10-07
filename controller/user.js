@@ -181,10 +181,10 @@ exports.adduserbyadmin = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { userID, password } = req.body;
+  const { mobile_no, password } = req.body;
 
   // Find user with requested email
-  User.findOne({ userID: userID }, function (err, user) {
+  User.findOne({ mobile_no: mobile_no }, function (err, user) {
     if (user === null) {
       return res.status(400).send({
         message: "User not found.",
