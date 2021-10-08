@@ -46,6 +46,7 @@ exports.addproduct = async (req, res) => {
     rate_retailer,
     rate_builder_contractor,
     customer,
+    newlaunch,
   } = req.body;
 
   const newProduct = new Product({
@@ -81,6 +82,7 @@ exports.addproduct = async (req, res) => {
     rate_retailer: rate_retailer,
     rate_builder_contractor: rate_builder_contractor,
     customer: customer,
+    newlaunch: newlaunch,
   });
 
   if (req.files) {

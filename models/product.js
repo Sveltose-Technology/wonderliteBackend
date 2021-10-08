@@ -107,6 +107,9 @@ const productSchema = new Schema(
     rate_builder_contractor: {
       type: Number,
     },
+    newlaunch: {
+      type: Boolean, //true,false
+    },
     customer: {
       type: Number,
     },
