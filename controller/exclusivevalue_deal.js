@@ -125,7 +125,8 @@ exports.allexclusive_deal = async (req, res) => {
   }
 };
 
-//console
+//console.log()
+//console.log()
 exports.oneexclusive_deal = async (req, res) => {
   const getuser = await User.findOne({ _id: req.userId });
   const findone = await Exclusivevalue_deal.findOne({
