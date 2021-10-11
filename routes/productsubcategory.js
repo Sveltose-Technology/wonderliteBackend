@@ -47,7 +47,11 @@ router.post(
   uploads.single("product_img"),
   addproductsubcategory
 );
-router.post("/admin/editproductsubcategory/:id", editproductsubcategory);
+router.post(
+  "/admin/editproductsubcategory/:id",
+  uploads.array("product_img"),
+  editproductsubcategory
+);
 router.get("/admin/viewoneproductsubcategory/:id", viewoneproductsubcategory);
 router.get("/admin/allproductsubcategory", allproductsubcategory);
 router.get("/admin/deleteproductsubcategory/:id", deleteproductsubcategory);
