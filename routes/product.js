@@ -12,6 +12,7 @@ const {
   productbybrand,
   productbycategory,
   productbysubcategory,
+  promotedbrandbycategory,
   deleteProduct,
   product_img,
   dispense,
@@ -59,6 +60,8 @@ router.get("/admin/allproduct", verifytoken, allproduct);
 router.get("/admin/productbybrand/:id", productbybrand);
 router.get("/admin/productbycategory/:id", productbycategory);
 router.get("/admin/productbysubcategory/:id", productbysubcategory);
+
+router.get("/admin/promotedbrandbycategory/:id", promotedbrandbycategory);
 
 router.get("/admin/delproduct/:id", deleteProduct);
 router.post("/admin/dispense/:id", dispense);

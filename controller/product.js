@@ -376,6 +376,32 @@ exports.allproduct = async (req, res) => {
   }
 };
 
+exports.promotedbrandbycategory = async (req, res) => {
+  const findall = await Product.find({ promotedbrand: req.params.id })
+    .sort({ sortorder: 1 })
+    .populate("productcategory")
+    .populate("productsubcategory")
+    .populate("unit")
+    .populate("alt_unit")
+    .populate("gst_rate")
+    .populate("rate")
+    .populate("brand")
+    .populate("promotedbrand");
+  if (findall) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+};
+
 exports.productbybrand = async (req, res) => {
   const findall = await Product.find({ brand: req.params.id })
     .sort({ sortorder: 1 })
