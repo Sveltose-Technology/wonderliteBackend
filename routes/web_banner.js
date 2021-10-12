@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+//var { promisify } = require("util");
 
 const {
   addweb_banner,
   getbanner,
-  //   add_banner,
+  del_webbanner,
   //   allbanner,
   //   editbannerimg,
   //   getbannerbytype,
@@ -52,6 +53,10 @@ const upload = multer({
     cb(null, true);
   },
 });
+// var sizeOf = promisify(require('1350'));
+// sizeOf('someimage.png')
+//   .then(dimensions => { console.log(dimensions.width, dimensions.height); })
+//   .catch(err => console.error(err));
 
 //Paths
 router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
@@ -60,6 +65,6 @@ router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
 router.get("/admin/getbanner", getbanner);
 // router.get("/admin/banners/:id", getbannerbytype);
 // router.post("/admin/editbannerimg/:id", editbannerimg);
-// router.get("/admin/delbanner/:id", delbanner);
+router.get("/admin/delbanner/:id", del_webbanner);
 
 module.exports = router;
