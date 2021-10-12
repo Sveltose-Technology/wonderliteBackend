@@ -5,6 +5,7 @@ const fs = require("fs");
 
 const {
   addweb_banner,
+  getbanner,
   //   add_banner,
   //   allbanner,
   //   editbannerimg,
@@ -56,7 +57,7 @@ const upload = multer({
 router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
 
 // router.post("/admin/add_banner", uploads.single("banner_img"), add_banner);
-// router.get("/admin/list_banner_image", allbanner);
+router.get("/admin/getbanner", getbanner);
 // router.get("/admin/banners/:id", getbannerbytype);
 // router.post("/admin/editbannerimg/:id", editbannerimg);
 // router.get("/admin/delbanner/:id", delbanner);
