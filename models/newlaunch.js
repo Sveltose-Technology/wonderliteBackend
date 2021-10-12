@@ -12,6 +12,9 @@ const newlaunchSchema = new mongoose.Schema(
       ref: "product",
       require: true,
     },
+    product_price: {
+      type: Number,
+    },
     dealer: {
       type: Number,
     },
