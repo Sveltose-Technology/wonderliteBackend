@@ -9,11 +9,6 @@ const webbannerSchema = new Schema(
     banner_img: {
       type: String,
     },
-
-    status: {
-      type: String,
-      default: "Active",
-    },
   },
   { timestamps: true }
 );
