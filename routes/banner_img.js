@@ -5,6 +5,7 @@ const fs = require("fs");
 
 const {
   addbanner,
+  add_banner,
   allbanner,
   editbannerimg,
   getbannerbytype,
@@ -45,6 +46,7 @@ router.post(
   addbanner
 );
 
+router.post("/admin/add_banner", uploads.single("banner_img"), add_banner);
 router.get("/admin/list_banner_image", allbanner);
 router.get("/admin/banners/:id", getbannerbytype);
 router.post("/admin/editbannerimg/:id", editbannerimg);

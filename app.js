@@ -57,6 +57,7 @@ const add_product = require("./routes/add_product");
 const special_offer = require("./routes/special_offer");
 const user_address = require("./routes/user_address");
 const role = require("./routes/role");
+const web_banner = require("./routes/web_banner");
 
 //Use
 app.use("/api", productcategory);
@@ -106,7 +107,7 @@ app.use("/api", add_product);
 app.use("/api", special_offer);
 app.use("/api", user_address);
 app.use("/api", role);
-
+app.use("/api", web_banner);
 //app.use("/api", productsummery);
 
 /*app.use("/upload-images", upload.single(image), async (req, res) => {

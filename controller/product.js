@@ -377,6 +377,8 @@ exports.allproduct = async (req, res) => {
 };
 
 exports.promotedbrandbycategory = async (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
   const findall = await Product.find({ promotedbrand: req.params.id })
     .sort({ sortorder: 1 })
     .populate("productcategory")
@@ -386,20 +388,21 @@ exports.promotedbrandbycategory = async (req, res) => {
     .populate("gst_rate")
     .populate("rate")
     .populate("brand")
-    .populate("promotedbrand");
-  if (findall) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findall,
+    .populate("promotedbrand")
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
     });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
-  }
 };
 
 exports.productbybrand = async (req, res) => {

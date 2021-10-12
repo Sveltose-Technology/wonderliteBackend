@@ -10,6 +10,9 @@ const productSchema = new Schema(
     short_desc: {
       type: String,
     },
+    // promotedbrands:{
+    //   type :
+    // }
     desc: {
       type: String,
       require: true,
