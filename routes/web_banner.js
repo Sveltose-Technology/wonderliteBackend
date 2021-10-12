@@ -65,6 +65,6 @@ router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
 router.get("/admin/getbanner", getbanner);
 // router.get("/admin/banners/:id", getbannerbytype);
 // router.post("/admin/editbannerimg/:id", editbannerimg);
-router.get("/admin/delbanner/:id", del_webbanner);
+router.get("/admin/del_banner/:id", del_webbanner);
 
 module.exports = router;
