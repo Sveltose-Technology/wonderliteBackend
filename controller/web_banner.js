@@ -211,7 +211,7 @@ exports.del_webbanner = async (req, res) => {
     res.status(400).json({
       status: false,
       msg: "error",
-      error: error,
+      error: "error",
     });
   }
 };
