@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
-//var { promisify } = require("util");
+const { promisify } = require("util");
 
 const {
   addweb_banner,
@@ -40,23 +40,32 @@ const storage = multer.diskStorage({
 //   }
 // };
 
-//let upload = multer({ storage: storage });
+let upload = multer({ storage: storage });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1351 * 701 },
-  fileFilter: (req, file, cb) => {
-    if (!file.mimetype.match("png", "jpeg", "jpg")) {
-      cb(new Error("file is not supported"), false);
-      return;
-    }
-    cb(null, true);
-  },
-});
-// var sizeOf = promisify(require('1350'));
-// sizeOf('someimage.png')
-//   .then(dimensions => { console.log(dimensions.width, dimensions.height); })
-//   .catch(err => console.error(err));
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1600 * 800 },
+//   fileFilter: (req, file, cb) => {
+//     console.log(req.body);
+//     if (!file.mimetype.match("png", "jpeg", "jpg")) {
+//       cb(new Error("file is not supported"), false);
+//       return;
+//     }
+//     cb(null, true);
+//   },
+// });
+
+var sizeOf = promisify(require("image-size"));
+//const width = 1350;
+//const height = 700;
+sizeOf("uploadesimages")
+  .then((dimensions) => {
+    // fileSize: 1350 * 700;
+    // console.log(fileSize);
+
+    console.log(dimensions.width, dimensions.height);
+  })
+  .catch((err) => console.error(err));
 
 //Paths
 router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
