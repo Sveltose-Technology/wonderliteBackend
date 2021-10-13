@@ -15,14 +15,15 @@ exports.add_exclusivevaluedeal = async (req, res) => {
   const {
     exclusivedeal_title,
     product,
-    // dealer,
-    // manufacturer,
-    // stocklist,
-    // distributer,
-    // sretailer,
-    // rate_retailer,
-    // rate_builder_contractor,
-    // customer,
+    product_price,
+    dealer,
+    manufacturer,
+    stocklist,
+    distributer,
+    sretailer,
+    rate_retailer,
+    rate_builder_contractor,
+    customer,
     product_img,
     description,
     sortorder,
@@ -32,14 +33,15 @@ exports.add_exclusivevaluedeal = async (req, res) => {
   const newExclusivevalue_deal = new Exclusivevalue_deal({
     exclusivedeal_title: exclusivedeal_title,
     product: product,
+    product_price: product_price,
     dealer: dealer,
     manufacturer: manufacturer,
-    // stocklist: stocklist,
-    // distributer: distributer,
-    // sretailer: sretailer,
-    // rate_retailer: rate_retailer,
-    // rate_builder_contractor: rate_builder_contractor,
-    // customer: customer,
+    stocklist: stocklist,
+    distributer: distributer,
+    sretailer: sretailer,
+    rate_retailer: rate_retailer,
+    rate_builder_contractor: rate_builder_contractor,
+    customer: customer,
     product_img: product_img,
     description: description,
     sortorder: sortorder,
@@ -106,7 +108,7 @@ exports.add_exclusivevaluedeal = async (req, res) => {
   }
 };
 exports.allexclusive_deal = async (req, res) => {
-  //const getuser = await User.findOne({ _id: req.userId });
+  const getuser = await User.findOne({ _id: req.userId });
   const findall = await Exclusivevalue_deal.find()
     .populate("product")
     .sort({ sortorder: 1 });
@@ -115,7 +117,7 @@ exports.allexclusive_deal = async (req, res) => {
       status: true,
       msg: "success",
       data: findall,
-      //usertype: getuser.usertype,
+      usertype: getuser.usertype,
     });
   } else {
     res.status(400).json({
