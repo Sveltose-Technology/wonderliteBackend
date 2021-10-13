@@ -11,6 +11,10 @@ const brandSchema = new Schema(
       type: String,
       require: true,
     },
+    promoted_brand: {
+      type: Boolean,
+      //true,false
+    },
     desc: {
       type: String,
       require: true,

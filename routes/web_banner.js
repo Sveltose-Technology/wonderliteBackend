@@ -41,40 +41,12 @@ const storage = multer.diskStorage({
 // };
 
 let upload = multer({ storage: storage });
-//console
-// const upload = multer({
-//   storage: storage,
-//   //limits: { fileSize: 1024 * 1024 * 1024 },
-//   fileFilter: (req, file, cb) => {
-//     console.log(req.body);
-//     if (!file.mimetype.match("png", "jpeg", "jpg")) {
-//       cb(new Error("file is not supported"), false);
-//       return;
-//     }
-//     cb(null, true);
-//   },
-// });
-
 const multerMid = multer({
   storage: multer.memoryStorage(),
   limits: {
-    // no larger than 5mb.
-    //fileSize: 400 * 1024 * 1024,
-    fileSize: 1352 * 701,
+    fileSize: 1350 * 700,
   },
 });
-
-//var sizeOf = promisify(require("image-size"));
-//const width = 1350;
-//const height = 700;
-//sizeOf("uploadesimages")
-//.then((dimensions) => {
-// fileSize: 1350 * 700;
-// console.log(fileSize);
-
-//console.log(dimensions.width, dimensions.height);
-// })
-// .catch((err) => console.error(err));
 
 //Paths
 router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);

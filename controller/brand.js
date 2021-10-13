@@ -10,11 +10,12 @@ cloudinary.config({
 });
 
 exports.addbrand = async (req, res) => {
-  const { name, brand_img, desc, sortorder, status } = req.body;
+  const { name, brand_img, desc, promoted_brand, sortorder, status } = req.body;
 
   const newBrand = new Brand({
     name: name,
     desc: desc,
+    promoted_brand: promoted_brand,
     brand_img: brand_img,
     sortorder: sortorder,
     status: status,
