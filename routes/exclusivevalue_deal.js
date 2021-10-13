@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
-
+const { verifytoken } = require("../functions/verifytoken");
 const {
   add_exclusivevaluedeal,
   allexclusive_deal,
@@ -44,13 +44,13 @@ router.post(
   uploads.single("product_img"),
   add_exclusivevaluedeal
 );
-router.get("/admin/allexclusive_deal", allexclusive_deal);
+router.get("/admin/allexclusive_deal", verifytoken, allexclusive_deal);
 router.post(
   "/admin/edit_exclusivedeal/:id",
   uploads.single("product_img"),
   edit_exclusivedeal
 );
-router.get("/admin/oneexclusive_deal/:id", oneexclusive_deal);
+router.get("/admin/oneexclusive_deal/:id", verifytoken, oneexclusive_deal);
 router.get("/admin/del_exclusivedeal/:id", del_exclusivedeal);
 
 module.exports = router;

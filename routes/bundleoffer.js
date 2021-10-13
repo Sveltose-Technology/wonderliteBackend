@@ -47,8 +47,8 @@ router.post(
   addbundleoffer
 );
 router.post("/admin/editbundleoffer/:id", editbundleoffer);
-router.get("/admin/onebundleoffer/:id", onebundleoffer);
-router.get("/admin/allbundleoffer", allbundleoffer);
+router.get("/admin/onebundleoffer/:id", verifytoken, onebundleoffer);
+router.get("/admin/allbundleoffer", verifytoken, allbundleoffer);
 router.get("/admin/delbundleoffer/:id", delbundleoffer);
 router.post("/admin/offer_img/:id", uploads.single("product_img"), product_img);
 
