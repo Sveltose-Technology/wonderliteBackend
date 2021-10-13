@@ -55,17 +55,17 @@ let upload = multer({ storage: storage });
 //   },
 // });
 
-var sizeOf = promisify(require("image-size"));
+//var sizeOf = promisify(require("image-size"));
 //const width = 1350;
 //const height = 700;
-sizeOf("uploadesimages")
-  .then((dimensions) => {
-    // fileSize: 1350 * 700;
-    // console.log(fileSize);
+//sizeOf("uploadesimages")
+//.then((dimensions) => {
+// fileSize: 1350 * 700;
+// console.log(fileSize);
 
-    console.log(dimensions.width, dimensions.height);
-  })
-  .catch((err) => console.error(err));
+//console.log(dimensions.width, dimensions.height);
+// })
+// .catch((err) => console.error(err));
 
 //Paths
 router.post("/admin/addweb_banner", upload.single("banner_img"), addweb_banner);
