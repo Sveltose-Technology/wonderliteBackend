@@ -44,7 +44,7 @@ let upload = multer({ storage: storage });
 //console
 // const upload = multer({
 //   storage: storage,
-//   limits: { fileSize: 1600 * 800 },
+//   //limits: { fileSize: 1024 * 1024 * 1024 },
 //   fileFilter: (req, file, cb) => {
 //     console.log(req.body);
 //     if (!file.mimetype.match("png", "jpeg", "jpg")) {
@@ -54,6 +54,15 @@ let upload = multer({ storage: storage });
 //     cb(null, true);
 //   },
 // });
+
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    // no larger than 5mb.
+    //fileSize: 400 * 1024 * 1024,
+    fileSize: 1352 * 701,
+  },
+});
 
 //var sizeOf = promisify(require("image-size"));
 //const width = 1350;
