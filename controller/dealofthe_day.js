@@ -14,6 +14,7 @@ exports.add_dealoftheday = async (req, res) => {
   const {
     dealoftheday_title,
     product,
+    product_price,
     dealer,
     manufacturer,
     stocklist,
@@ -32,6 +33,7 @@ exports.add_dealoftheday = async (req, res) => {
   const newDealoftheday = new Dealoftheday({
     dealoftheday_title: dealoftheday_title,
     product: product,
+    product_price: product_price,
     dealer: dealer,
     manufacturer: manufacturer,
     stocklist: stocklist,

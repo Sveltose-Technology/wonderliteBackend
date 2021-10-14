@@ -14,6 +14,7 @@ exports.add_flashsale = async (req, res) => {
   const {
     flashsale_title,
     product,
+    product_price,
     dealer,
     manufacturer,
     stocklist,
@@ -31,6 +32,7 @@ exports.add_flashsale = async (req, res) => {
   const newFlashsale = new Flashsale({
     flashsale_title: flashsale_title,
     product: product,
+    product_price: product_price,
     dealer: dealer,
     manufacturer: manufacturer,
     stocklist: stocklist,

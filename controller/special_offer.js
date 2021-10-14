@@ -16,6 +16,7 @@ exports.add_specialoffer = async (req, res) => {
   const {
     specialoffer_title,
     product,
+    product_price,
     dealer,
     manufacturer,
     stocklist,
@@ -33,6 +34,7 @@ exports.add_specialoffer = async (req, res) => {
   const newSpecialoffer = new Specialoffer({
     specialoffer_title: specialoffer_title,
     product: product,
+    product_price: product_price,
     dealer: dealer,
     manufacturer: manufacturer,
     stocklist: stocklist,

@@ -12,6 +12,9 @@ const specialofferSchema = new mongoose.Schema(
       ref: "product",
       require: true,
     },
+    product_price: {
+      type: Number,
+    },
     product_qty: {
       type: Number,
     },

@@ -17,6 +17,9 @@ const flashsaleSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    product_price: {
+      type: Number,
+    },
     currentTime: {
       type: String,
     },
