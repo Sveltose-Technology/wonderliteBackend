@@ -33,6 +33,7 @@ exports.add_offeranddeals = async (req, res) => {
 
   if (req.file) {
     const findexist = await Offeranddeals.findOne({
+      //console.log(req.file)
       offeranddeals_title: offeranddeals_title,
     });
     if (findexist) {
