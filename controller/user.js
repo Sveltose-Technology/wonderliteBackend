@@ -912,6 +912,7 @@ exports.edit_userprofile = async (req, res) => {
   }
 
   if (req.file) {
+    console.log(req.file);
     const response = await cloudinary.uploader.upload(req.file.path);
     data.userImage = response.secure_url;
     fs.unlinkSync(req.file.path);
