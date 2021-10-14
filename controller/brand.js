@@ -23,6 +23,7 @@ exports.addbrand = async (req, res) => {
 
   if (req.file) {
     const findexist = await Brand.findOne({ name: name });
+    console.log(req.file);
     if (findexist) {
       res.status(400).json({
         status: false,
