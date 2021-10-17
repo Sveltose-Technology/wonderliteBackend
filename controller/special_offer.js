@@ -49,7 +49,7 @@ exports.add_specialoffer = async (req, res) => {
     sortorder: sortorder,
   });
   if (req.file) {
-    console.log(req.file);
+    // console.log(req.file);
     const findexist = await Specialoffer.findOne({
       specialoffer_title: specialoffer_title,
     });
