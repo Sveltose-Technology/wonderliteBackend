@@ -48,7 +48,6 @@ exports.add_flashsale = async (req, res) => {
   });
 
   if (req.files) {
-    console.log(files);
     const findexist = await Flashsale.findOne({
       flashsale_title: flashsale_title,
     });
