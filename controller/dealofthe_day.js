@@ -50,7 +50,6 @@ exports.add_dealoftheday = async (req, res) => {
   });
 
   if (req.file) {
-    console.log(req.file);
     const findexist = await Dealoftheday.findOne({
       dealoftheday_title: dealoftheday_title,
     });
