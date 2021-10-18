@@ -9,6 +9,7 @@ exports.addbundleoffer = async (req, res) => {
   const {
     bundleoffer_title,
     product,
+    product_price,
     dealer,
     manufacturer,
     stocklist,
@@ -27,6 +28,7 @@ exports.addbundleoffer = async (req, res) => {
   const newBundleoffer = new Bundleoffer({
     bundleoffer_title: bundleoffer_title,
     product: product,
+    product_price: product_price,
     dealer: dealer,
     manufacturer: manufacturer,
     stocklist: stocklist,
