@@ -190,7 +190,7 @@ exports.login = async (req, res) => {
         message: "User not found.",
       });
     } else {
-      console.log(process.env.TOKEN_SECRET);
+      // console.log(process.env.TOKEN_SECRET);
       if (validatePassword(password, user.password)) {
         const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
           expiresIn: "365d",
