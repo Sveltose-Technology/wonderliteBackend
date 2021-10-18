@@ -133,7 +133,7 @@ app.use("/api", web_banner);
 });fgh
 */
 app.get("/api", (req, res) => {
-  res.send("Hello World How are you??");
+  res.send("Hello World!!!, How are you???");
 });
 
 mongoose
