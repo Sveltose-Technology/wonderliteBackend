@@ -45,7 +45,7 @@ exports.addbundleoffer = async (req, res) => {
   });
 
   if (req.file) {
-    // console.log(req.file)
+    console.log(req.file);
     const findexist = await Bundleoffer.findOne({
       bundleoffer_title: bundleoffer_title,
     });
