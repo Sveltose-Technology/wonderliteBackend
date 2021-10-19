@@ -35,7 +35,7 @@ exports.addbuy_xget_y = async (req, res) => {
   });
 
   if (req.file) {
-    //consol.log(req.file)
+    consol.log(req.file);
     const findexist = await Buy_xget_y.findOne({
       product_title: product_title,
     });
