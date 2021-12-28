@@ -2,7 +2,7 @@ const pdfKit = require("pdfkit");
 const fs = require("fs");
 
 let companyLogo = "";
-let fileName = "./files/sample-invoice.pdf";
+let fileName = "./files/invoice.pdf";
 let fontNormal = "Helvetica";
 let fontBold = "Helvetica-Bold";
 

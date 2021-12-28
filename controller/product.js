@@ -201,7 +201,7 @@ exports.editproduct = async (req, res) => {
     material,
     stock_qty,
     stock_clearance_limit,
-    rate,
+    //rate,
     size,
     colour,
     product_img,
@@ -259,9 +259,9 @@ exports.editproduct = async (req, res) => {
   if (stock_clearance_limit) {
     data.stock_clearance_limit = stock_clearance_limit;
   }
-  if (rate) {
-    data.rate = rate;
-  }
+  // if (rate) {
+  //   data.rate = rate;
+  // }
   if (size) {
     data.size = size;
   }
